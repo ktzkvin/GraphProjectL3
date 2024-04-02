@@ -2,10 +2,9 @@
 import os
 
 
-def read_data():
-    data = []
-    for file in os.listdir("data"):
-        if file.endswith(".txt"):
-            with open("data/" + file, "r") as f:
-                data.append(f.read())
-    return data
+def read_data(number):
+    if os.path.exists('data/table ' + str(number) + '.txt'):
+        with open('data/table ' + str(number) + '.txt', 'r') as file:
+            return file.read()
+    else:
+        return None
