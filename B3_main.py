@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from B3_read import *
+from B3_draw import *
+from B3_essentials import *
 
 
 # Création d'un menu de direction
