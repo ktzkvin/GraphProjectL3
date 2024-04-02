@@ -1,39 +1,26 @@
-import networkx as nx
-import matplotlib.pyplot as plt
+from graphviz import Digraph
 
 
-def draw_graph_from_table(table):
-    # Création d'un graphe dirigé
-    G = nx.DiGraph()
+def draw_graph(constraints):
+    dot = Digraph(comment='Graphe de contraintes')
 
-    # Ajout des nœuds avec leurs durées comme attributs
-    for current_state, transition_time, _ in table:
-        G.add_node(current_state, duration=transition_time)
+    # Créer un dictionnaire pour stocker les poids de chaque tâche
+    task_weights = {task[0]: task[1] for task in constraints}
 
-    # Ajout des arcs dirigés en fonction des prédécesseurs
-    for current_state, _, predecessors in table:
-        for pred in predecessors:
-            if pred != 0:  # 0 indique une tâche sans prédécesseur dans votre modèle
-                G.add_edge(pred, current_state)
+    # Ajouter des noeuds pour chaque tâche
+    for task in constraints:
+        task_id = task[0]
+        dot.node(str(task_id), str(task_id))
 
-    # Positionnement des noeuds avec l'algorithme de mise en page
-    pos = nx.spring_layout(G)
+    # Ajouter des arcs en utilisant les prédécesseurs
+    for task in constraints:
+        task_id = task[0]
+        for pred in task[2]:
+            if pred != 0:  # Ignorer la tâche fictive 0
+                # Le poids de l'arc est le poids de la tâche prédécesseur
+                dot.edge(str(pred), str(task_id), label=str(task_weights[pred]))
 
-    # Dessin des noeuds, arêtes et étiquettes de nœuds
-    nx.draw_networkx_nodes(G, pos, node_size=700)
-    nx.draw_networkx_edges(G, pos)
-    nx.draw_networkx_labels(G, pos)
+    # Afficher le graphe
+    dot.render('data/graph.gv', view=True)  # Sauvegarde et ouverture du graphe
 
-    # Ajout des étiquettes de durée sur les nœuds
-    node_labels = {node[0]: f"{node[0]}({node[1]['duration']})" for node in G.nodes(data=True)}
-    nx.draw_networkx_labels(G, pos, labels=node_labels)
-
-    # Si nécessaire, vous pouvez aussi ajouter les poids sur les arcs, mais dans votre cas,
-    # il semble que seules les durées des tâches soient pertinentes.
-
-    plt.show()
-
-
-# Supposons que `constraints_table` contient vos données de contraintes
-constraints_table = memory_table(1)  # Assurez-vous que cette fonction retourne les données correctes
-draw_graph_from_table(constraints_table)
+    return dot

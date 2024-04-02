@@ -1,7 +1,3 @@
-import networkx as nx
-import matplotlib.pyplot as plt
-import numpy as np
-
 from B3_read import *
 from B3_draw import *
 from B3_essentials import *
@@ -23,7 +19,8 @@ def menu():
             print("Entrer 0 pour quitter.")
 
     print('1. Afficher la matrice')
-    print("2. quitter")
+    print('2. Afficher le graphe')
+    print("0. quitter")
     while True:
         choice = int(input())
         if choice in [1, 2]:
@@ -41,3 +38,10 @@ if menu_choice == 1:
     data = memory_table(graph_number)
     print('\n'.join(map(str, constraints_table)))
 
+# Choix 2: Afficher le graphe
+elif menu_choice == 2:
+    constraints_table = memory_table(graph_number)
+    if constraints_table:
+        draw_graph(constraints_table)
+    else:
+        print("Impossible de dessiner le graphe, données non disponibles.")
