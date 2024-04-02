@@ -7,19 +7,27 @@ from B3_read import *
 
 # Création d'un menu de direction
 def menu():
-    print("Choisir un graphe parmi les 12 (entrer un chiffre de 1 à 12)")
+    print("Veuillez entrer un chiffre entre 1 et 12.")
+    print("Entrer 0 pour quitter.")
     while True:
         graph = int(input())
         if 1 <= graph <= 12:
             break
-        print("Veuillez entrer un chiffre entre 1 et 12")
+        elif graph == 0:
+            print("Programme quitté.")
+            return 0, 0  # Retourne 0, 0 pour signaler la volonté de quitter
+        else:
+            print("Veuillez entrer un chiffre entre 1 et 12.")
+            print("Entrer 0 pour quitter.")
+
     print('1. Afficher la matrice')
     print("2. quitter")
     while True:
         choice = int(input())
-        if choice == 1 or choice == 2:
+        if choice in [1, 2]:
             break
-        print("Veuillez entrer un chiffre entre 1 et 2")
+        else:
+            print("Veuillez entrer 1 pour afficher ou 2 pour quitter.")
     return graph, choice
 
 
@@ -28,6 +36,6 @@ graph_number, menu_choice = menu()
 
 # Choix 1: Afficher la matrice
 if menu_choice == 1:
-    data = read_data(graph_number)
-    print(data)
+    data = memory_table(graph_number)
+    print('\n'.join(map(str, constraints_table)))
 
