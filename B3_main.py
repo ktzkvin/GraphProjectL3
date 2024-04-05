@@ -39,16 +39,21 @@ if menu_choice == 1:
 
     # Affichage matricielle
     constraints_table = alpha_omega(graph_number)
+
+    # Affichage par triplet
+    display_graph_as_triplets(constraints_table)
+
     # Réécrire états 0 et N+1 par "0 (alpha)" et "N+1 (omega)"
-    constraints_table[0] = (f"0 ({alpha})", constraints_table[0][1], constraints_table[0][2])
+    constraints_table[0] = (f"0 ({alpha})", constraints_table[0][1], '/')
     constraints_table[-1] = (f"{len(constraints_table) - 1} ({omega})", constraints_table[-1][1],
                              constraints_table[-1][2])
     # Supprimer crochets
     constraints_table = [(x[0], x[1], ', '.join(map(str, x[2]))) for x in constraints_table]
     # Affichage sous forme de tableau avec tabulate
-    headers = ['Etat actuel', 'Durée', 'Etats précédents']
+    headers = ['Etat actuel', 'Durée', 'Etat(s) précédent(s)']
     print(tabulate(constraints_table, headers=headers, tablefmt='github', numalign='center', stralign='center'))
 
+    print()
 
 # Choix 2: Afficher le graphe
 elif menu_choice == 2:

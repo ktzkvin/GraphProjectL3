@@ -37,3 +37,21 @@ def alpha_omega(number):
     constraints_table.append((state_N_plus_1, transition_time_N_plus_1, list(missing_state)))
 
     return constraints_table
+
+
+def display_graph_as_triplets(constraints):
+    print("Création du graphe d’ordonnancement :")
+    print(f"{len(constraints)} sommets")
+    arcs = [(pred, constraint[0], constraint[1]) for constraint in constraints for pred in constraint[2]]
+    print(f"{len(arcs)} arcs")
+
+    # Tri des arcs
+    sorted_arcs = sorted(arcs, key=lambda x: (x[0], x[1]))
+
+    for arc in sorted_arcs:
+        start, end, weight = arc
+        # Réécrire les états spéciaux pour l'affichage
+        start_str = f"{start} (α)" if start == 0 else str(start)
+        end_str = f"{end} (ω)" if end == len(constraints) - 1 else str(end)
+        print(f"{start_str} -> {end_str} = {weight}")
+    print()
