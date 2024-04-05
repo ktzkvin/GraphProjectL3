@@ -1,5 +1,5 @@
 import os
-
+from tabulate import tabulate
 
 #
 def read_data(number):
@@ -31,3 +31,22 @@ def memory_table(number):
         table.append((current_state, transition_time, previous))
 
     return table
+
+
+def display_value_matrix(constraints):
+    # Déterminez la taille de la matrice
+    num_states = max(task[0] for task in constraints) + 2  # +2 pour alpha et omega
+
+    # Créez une matrice de valeurs initialement remplie d'astérisques
+    matrix = [['*' for _ in range(num_states)] for _ in range(num_states)]
+
+    # Remplissez la matrice avec les valeurs appropriées
+    for current_state, duration, predecessors in constraints:
+        for pred in predecessors:
+            matrix[pred][current_state] = str(duration)
+
+    # Affichez la matrice
+    print("Matrice des valeurs")
+    headers = [''] + [str(i) for i in range(num_states)]  # En-têtes de colonne
+    rows = [[str(i)] + row for i, row in enumerate(matrix)]  # Ajoutez les numéros de ligne
+    print(tabulate(rows, headers=headers, tablefmt='plain'))
