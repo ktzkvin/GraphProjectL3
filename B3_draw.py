@@ -1,5 +1,6 @@
 from graphviz import Digraph
-from B3_essentials import alpha_omega
+from B3_essentials import *
+
 
 def draw_graph(constraints):
     dot = Digraph(comment='Graphe de contraintes')
@@ -10,7 +11,7 @@ def draw_graph(constraints):
     # Définir l'orientation du graphe en horizontal
     dot.attr(rankdir='LR')
 
-    # Ajouter des noeuds pour chaque tâche
+    # Ajouter des nœuds pour chaque tâche
     for task in constraints:
         task_id = task[0]
         dot.node(str(task_id), str(task_id), shape='circle')
@@ -24,7 +25,7 @@ def draw_graph(constraints):
                 dot.edge(str(pred), str(task_id), label=str(task_weights[pred]))
 
     # Ajouter Alpha
-    dot.node('Alpha', 'α', shape='circle', color='lightgreen', style='filled')
+    dot.node('Alpha', alpha, shape='circle', color='lightgreen', style='filled')
 
     # Ajouter des arcs d'Alpha
     for task in constraints:
@@ -33,7 +34,7 @@ def draw_graph(constraints):
 
     # Trouver les nœuds sans successeurs et les relier à Oméga
     last_node_id = max(task[0] for task in constraints)
-    dot.node('Omega', 'Ω', shape='circle', color='lightcoral', style='filled')
+    dot.node('Omega', omega, shape='circle', color='lightcoral', style='filled')
     for task in constraints:
         if not any(task[0] == pred for _, _, preds in constraints for pred in preds):
             dot.edge(str(task[0]), 'Omega', label='')

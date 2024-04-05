@@ -1,4 +1,5 @@
-from B3_read import *
+from tabulate import tabulate
+from B3_matrice import *
 from B3_draw import *
 from B3_essentials import *
 
@@ -35,8 +36,19 @@ graph_number, menu_choice = menu()
 
 # Choix 1: Afficher la matrice
 if menu_choice == 1:
+
+    # Affichage matricielle
     constraints_table = alpha_omega(graph_number)
-    print('\n'.join(map(str, constraints_table)))
+    # Réécrire états 0 et N+1 par "0 (alpha)" et "N+1 (omega)"
+    constraints_table[0] = (f"0 ({alpha})", constraints_table[0][1], constraints_table[0][2])
+    constraints_table[-1] = (f"{len(constraints_table) - 1} ({omega})", constraints_table[-1][1],
+                             constraints_table[-1][2])
+    # Supprimer crochets
+    constraints_table = [(x[0], x[1], ', '.join(map(str, x[2]))) for x in constraints_table]
+    # Affichage sous forme de tableau avec tabulate
+    headers = ['Etat actuel', 'Durée', 'Etats précédents']
+    print(tabulate(constraints_table, headers=headers, tablefmt='github', numalign='center', stralign='center'))
+
 
 # Choix 2: Afficher le graphe
 elif menu_choice == 2:

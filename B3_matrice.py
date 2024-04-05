@@ -12,6 +12,7 @@ def read_data(number):
         return None
 
 
+#
 def memory_table(number):
     # Lis et traite les contraintes à partir du contenu du fichier spécifié par le numéro
     table = []
