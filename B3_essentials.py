@@ -40,18 +40,38 @@ def alpha_omega(number):
 
 
 def display_graph_as_triplets(constraints):
-    print("Création du graphe d’ordonnancement :")
-    print(f"{len(constraints)} sommets")
-    arcs = [(pred, constraint[0], constraint[1]) for constraint in constraints for pred in constraint[2]]
-    print(f"{len(arcs)} arcs")
+    print("\nCréation du graphe d’ordonnancement :")
 
-    # Tri des arcs
+    # Créer un dictionnaire pour la durée associée à chaque état actuel
+    durees = {constraint[0]: constraint[1] for constraint in constraints}
+
+    # Collecter les arcs en utilisant les états prédecesseurs et leur durée associée
+    arcs = []
+    for constraint in constraints:
+        etat_actuel, _, predecesseurs = constraint
+        for pred in predecesseurs:
+            arcs.append((pred, etat_actuel, durees[etat_actuel]))  # Utiliser la durée de l'état actuel
+
+    sommets = set(durees.keys()) | {pred for _, _, preds in constraints for pred in preds}
+
+    print()
+    print(f"{len(sommets) + 2} sommets")  # +2 pour alpha et omega
+    print(f"{len(arcs)} arcs")
+    print()
+
+    omega = max(sommets) + 1  # Trouver l'état omega (N+1)
+
+    # Tri des arcs en utilisant la valeur de début d'arc
     sorted_arcs = sorted(arcs, key=lambda x: (x[0], x[1]))
+
+    # Utilisation des variables pour alpha et omega
+    alpha_symbol = chr(945)  # Alpha symbol
+    omega_symbol = chr(969)  # Omega symbol
 
     for arc in sorted_arcs:
         start, end, weight = arc
-        # Réécrire les états spéciaux pour l'affichage
-        start_str = f"{start} (α)" if start == 0 else str(start)
-        end_str = f"{end} (ω)" if end == len(constraints) - 1 else str(end)
+        start_str = f"0 ({alpha_symbol})" if start == 0 else str(start)
+        end_str = f"{omega} ({omega_symbol})" if end == omega else str(end)
         print(f"{start_str} -> {end_str} = {weight}")
     print()
+

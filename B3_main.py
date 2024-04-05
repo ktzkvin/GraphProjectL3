@@ -50,6 +50,7 @@ if menu_choice == 1:
     # Supprimer crochets
     constraints_table = [(x[0], x[1], ', '.join(map(str, x[2]))) for x in constraints_table]
     # Affichage sous forme de tableau avec tabulate
+    print("\nTableau de contraintes :\n")
     headers = ['Etat actuel', 'Durée', 'Etat(s) précédent(s)']
     print(tabulate(constraints_table, headers=headers, tablefmt='github', numalign='center', stralign='center'))
 
