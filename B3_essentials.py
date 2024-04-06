@@ -40,7 +40,6 @@ def alpha_omega(number):
 
 
 def display_graph_as_triplets(constraints):
-    print("\nCréation du graphe d’ordonnancement :")
 
     # Créer un dictionnaire pour la durée associée à chaque état actuel
     durees = {constraint[0]: constraint[1] for constraint in constraints}

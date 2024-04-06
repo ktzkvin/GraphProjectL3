@@ -1,6 +1,7 @@
 import os
 from tabulate import tabulate
 
+
 #
 def read_data(number):
     # Lit le contenu du fichier spécifié par le numéro du tableau de contraintes
@@ -46,7 +47,6 @@ def display_value_matrix(constraints):
             matrix[pred][current_state] = str(duration)
 
     # Affichez la matrice
-    print("Matrice des valeurs")
     headers = [''] + [str(i) for i in range(num_states)]  # En-têtes de colonne
     rows = [[str(i)] + row for i, row in enumerate(matrix)]  # Ajoutez les numéros de ligne
     print(tabulate(rows, headers=headers, tablefmt='plain'))
