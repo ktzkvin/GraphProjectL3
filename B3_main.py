@@ -9,7 +9,7 @@ def main_menu(graph_number):
         print("  2. Afficher le graphe")
         print("  3. Afficher la matrice des valeurs")
         print("  4. Changer la table de contraintes")
-        print("  0. Quitter")
+        print("\n  0. Quitter")
         if graph_number < 10:
             print("\n╚" + "═" * 23 + " Table : " + str(graph_number) + " " + "═" * 24 + "╝")
         else:
@@ -64,12 +64,12 @@ def change_table():
     print("\n✦ ─────────── Changement de la table de contraintes  ─────────── ✦\n")
     while True:
         try:
-            graph_number = int(input("  ✦ Entrez le nouveau numéro de la table de contraintes (1-13) : "))
-            if 1 <= graph_number <= 13:
+            graph_number = int(input("  ✦ Entrez le nouveau numéro de la table de contraintes (1-15) : "))
+            if 1 <= graph_number <= 15:
                 print("\nTable de contraintes changée.\n")
                 return graph_number
             else:
-                print("  ⚠ Veuillez entrer un chiffre entre 1 et 13.\n")
+                print("  ⚠ Veuillez entrer un chiffre entre 1 et 15.\n")
         except ValueError:
             print("  ⚠ Veuillez entrer un chiffre entre 0 et 4.\n")
 
@@ -86,14 +86,14 @@ if __name__ == "__main__":
     while True:
         print("\n╔═══════════════════ Projet Graphe : B3 ═══════════════════╗")
         try:
-            graph_number = int(input("\n  ✦ Entrez le numéro de la table de contraintes (1-13) : "))
-            if 1 <= graph_number <= 13:
+            graph_number = int(input("\n  ✦ Entrez le numéro de la table de contraintes (1-15) : "))
+            if 1 <= graph_number <= 15:
                 main_menu(graph_number)
                 break  # Sortir de la boucle si une entrée valide est fournie
             elif graph_number == 0:
                 print("\n✧ Programme quitté. ✧\n")
                 break  # Sortir de la boucle
             else:
-                print("  ⚠ Veuillez entrer un chiffre entre 1 et 13.\n")
+                print("  ⚠ Veuillez entrer un chiffre entre 1 et 15.\n")
         except ValueError:
             print("  ⚠ Veuillez entrer un chiffre entre 1 et 13.\n")

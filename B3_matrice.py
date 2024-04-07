@@ -38,7 +38,7 @@ def display_value_matrix(constraints):
     # Déterminez la taille de la matrice
     num_states = max(task[0] for task in constraints) + 2  # +2 pour alpha et omega
 
-    # Créez une matrice de valeurs initialement remplie d'astérisques
+    # Créez une matrice de valeurs initialement remplie de "*"
     matrix = [['*' for _ in range(num_states)] for _ in range(num_states)]
 
     # Remplissez la matrice avec les valeurs appropriées
@@ -49,4 +49,4 @@ def display_value_matrix(constraints):
     # Affichez la matrice
     headers = [''] + [str(i) for i in range(num_states)]  # En-têtes de colonne
     rows = [[str(i)] + row for i, row in enumerate(matrix)]  # Ajoutez les numéros de ligne
-    print(tabulate(rows, headers=headers, tablefmt='plain'))
+    print(tabulate(rows, headers=headers, tablefmt='presto', numalign='center', stralign='center'))
