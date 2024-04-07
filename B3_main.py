@@ -38,11 +38,15 @@ def main_menu(graph_number):
 
 def execute_choice(choice, graph_number):
     if choice == 1:
+
+        # Afficher le graphe d'ordonnancement sous forme de triplets
         print("\n\n✦ ─────────── Création du graphe d’ordonnancement  ─────────── ✦")
         constraints_table = alpha_omega(graph_number)
         display_graph_as_triplets(constraints_table)
         constraints_table = adjust_special_states(constraints_table)
-        print("\n✦ ─────────── Tableau de contraintes ─────────── ✦\n")
+
+        # Afficher le tableau de contraintes
+        print("\n✦─────────── Tableau de contraintes ─────────── ✦\n")
         headers = ['Etat actuel', 'Durée', 'Etat(s) précédent(s)']
         print(tabulate(constraints_table, headers=headers, tablefmt='github', numalign='center', stralign='center'))
 
@@ -74,6 +78,7 @@ def change_table():
             print("  ⚠ Veuillez entrer un chiffre entre 0 et 4.\n")
 
 
+# Fonction pour : Ajouter les états alpha et oméga dans les noms
 def adjust_special_states(constraints_table):
     constraints_table[0] = (f"0 ({alpha})", constraints_table[0][1], '/')
     constraints_table[-1] = (

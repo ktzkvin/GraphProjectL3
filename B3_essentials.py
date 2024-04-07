@@ -40,37 +40,35 @@ def alpha_omega(number):
 
 
 def display_graph_as_triplets(constraints):
-
     # Créer un dictionnaire pour la durée associée à chaque état actuel
     durees = {constraint[0]: constraint[1] for constraint in constraints}
 
-    # Collecter les arcs en utilisant les états prédecesseurs et leur durée associée
+    # Collecter les arcs en utilisant les états prédecesseurs et leurs durées associées
     arcs = []
     for constraint in constraints:
         etat_actuel, _, predecesseurs = constraint
         for pred in predecesseurs:
-            arcs.append((pred, etat_actuel, durees[etat_actuel]))  # Utiliser la durée de l'état actuel
+            if pred == '/':  # Si le prédécesseur est l'état Alpha
+                arcs.append(('Alpha', etat_actuel, 0))  # La durée pour Alpha est toujours 0
+            else:
+                arcs.append((pred, etat_actuel, durees[pred]))  # Utiliser la durée de l'état prédecesseur
 
-    sommets = set(durees.keys()) | {pred for _, _, preds in constraints for pred in preds}
+    sommets = set(durees.keys()) | {pred for _, _, preds in constraints for pred in preds if pred != '/'}
+    n_plus1 = max(sommets)  # Trouver l'état oméga
 
+    sorted_arcs = sorted(arcs, key=lambda x: (x[0], x[1]))  # Tri des arcs
+
+    # Préparer les données pour le tabulateur
+    table_data = []
+    for start, end, weight in sorted_arcs:
+        # Formater avec des flèches et des parenthèses pour alpha et omega
+        start_str = f"0 ({alpha})" if start == 0 else str(start)
+        end_str = f"{n_plus1} ({omega})" if end == n_plus1 else str(end)
+        weight_str = "= /" if start == 0 else "= " + str(weight)
+        arrow_str = f"{start_str} -> {end_str}"
+        table_data.append([arrow_str, weight_str])
+
+    # Afficher le tableau
     print()
-    print(f"{len(sommets) + 2} sommets")  # +2 pour alpha et omega
-    print(f"{len(arcs)} arcs")
+    print(tabulate(table_data, tablefmt='plain', numalign='right', stralign='left'))
     print()
-
-    omega = max(sommets) + 1  # Trouver l'état omega (N+1)
-
-    # Tri des arcs en utilisant la valeur de début d'arc
-    sorted_arcs = sorted(arcs, key=lambda x: (x[0], x[1]))
-
-    # Utilisation des variables pour alpha et omega
-    alpha_symbol = chr(945)  # Alpha symbol
-    omega_symbol = chr(969)  # Omega symbol
-
-    for arc in sorted_arcs:
-        start, end, weight = arc
-        start_str = f"0 ({alpha_symbol})" if start == 0 else str(start)
-        end_str = f"{omega} ({omega_symbol})" if end == omega else str(end)
-        print(f"{start_str} -> {end_str} = {weight}")
-    print()
-
