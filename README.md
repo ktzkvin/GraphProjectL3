@@ -14,7 +14,7 @@ Projet de Théorie des Graphes de 3ème année à l'EFREI Paris du groupe B3.
 
 ## 💾 Installation 
 
-Toutes commandes suivantes sont à exécuter dans le terminal de votre IDE.
+Toutes commandes à suivre sont à exécuter dans le terminal de votre IDE.
 
 ### Installation :
 #### Clôner le depôt github :
