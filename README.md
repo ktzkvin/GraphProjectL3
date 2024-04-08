@@ -6,11 +6,11 @@ Projet de Théorie des Graphes de 3ème année à l'EFREI Paris du groupe B3.
 
 ## 🖊️ Auteurs 
 
+- [Amna Boulouha](https://github.com/blhmna)
 - [Kevin Kurtz](https://github.com/ktzkvin)
 - [Romane Segui](https://github.com/Airseg)
 - [Salomé Clavière](https://github.com/salobinks)
-- [Amna Boulouha](https://github.com/blhmna)
-
+	
 
 ## 💾 Installation 
 
