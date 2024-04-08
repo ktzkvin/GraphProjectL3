@@ -40,6 +40,6 @@ Projet de Théorie des Graphes de 3ème année à l'EFREI Paris du groupe B3.
 Ou bien exécuter le fichier B3_main.py à l'aide de votre IDE.
 ## 📹 Démonstration 
 
-Démonstration du projet Frig's
+Démonstration du projet 
 
 [![Démo](https://tenor.com/view/github-cat-kitty-waiting-loading-gif-25774588)](https://www.youtube.com/watch?v=kJQP7kiw5Fk&ab_channel=LuisFonsiVEVO)
