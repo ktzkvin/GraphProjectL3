@@ -1,5 +1,6 @@
 import os
 from tabulate import tabulate
+from colorama import Fore
 
 
 # Lit le contenu du fichier spécifié par le numéro de la table
@@ -47,10 +48,12 @@ def display_value_matrix(graph_data):
     # Remplir la matrice avec les durées appropriées
     for state, data in graph_data.items():
         for successor in data['successors']:
-            matrix[state][successor] = data['duration']
+            duration_str = str(data['duration'])
+            # Colorier la durée si ce n'est pas un '*'
+            color_duration = Fore.LIGHTGREEN_EX + duration_str + Fore.RESET if duration_str != '*' else '*'
+            matrix[state][successor] = color_duration
 
     # Afficher la matrice
     headers = [''] + [str(i) for i in range(num_states)]
     rows = [[str(i)] + row for i, row in enumerate(matrix)]
     print(tabulate(rows, headers=headers, tablefmt='presto', numalign='center', stralign='center'))
-

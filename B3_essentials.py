@@ -94,8 +94,7 @@ def display_graph_as_triplets(graph_data):
 
     # Affichages des données
     print()
-    print(f"{num_states} sommets")
-    print(f"{num_arcs} arcs")
+    print(Fore.BLACK + Back.WHITE + f" {num_states} " + Style.RESET_ALL + " sommets & " + Fore.BLACK + Back.WHITE + f" {num_arcs} " + Style.RESET_ALL + " arcs")
 
     print()
     print(tabulate(table_data, tablefmt="plain", numalign="right", stralign="left"))
@@ -123,6 +122,7 @@ def display_constraints_table(graph_data):
 def check_properties(graph_data):
     has_negative_arc = False
 
+    print(Fore.LIGHTYELLOW_EX + "✦" + Style.RESET_ALL + " Arcs à valeur négative :")
     # Vérifier l'absence d'arcs à valeur négative
     for state, info in graph_data.items():
         if info["duration"] < 0:
@@ -131,9 +131,10 @@ def check_properties(graph_data):
                 has_negative_arc = True
 
     if not has_negative_arc:
-        print("Le graphe ne contient pas d'arcs à valeur négative.")
+        print("Le graphe ne contient pas d'arc à valeur négative.\n")
 
     # Vérifier l'absence de circuits dans le graphe
+    print(Fore.LIGHTYELLOW_EX + "✦" + Style.RESET_ALL + " Circuits dans le graphe :")
     visited = set()  # Pour suivre les nœuds déjà visités
     rec_stack = set()  # Pour suivre les nœuds dans la pile de récursion
     all_cycles = []  # Pour stocker tous les circuits trouvés
@@ -165,7 +166,10 @@ def check_properties(graph_data):
             dfs(state, [])
 
     if all_cycles:
-        print("Le(s) circuit(s) trouvé(s) dans le graphe :")
+        if len(all_cycles) == 1:
+            print("Le circuit trouvé dans le graphe est :")
+        else:
+            print("Les circuits trouvés dans le graphe sont :")
         for cycle in all_cycles:
             print(" -> ".join(map(str, cycle)))
     else:
