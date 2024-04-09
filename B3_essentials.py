@@ -134,6 +134,7 @@ def check_properties(graph_data):
     rec_stack = set()  # Pour suivre les nœuds dans la pile de récursion
     all_cycles = []  # Pour stocker tous les circuits trouvés
 
+    # Fonction de recherche en profondeur pour détecter les circuits (Depth First Search)
     def dfs(current_state, path):
         if current_state in rec_stack:
             # Circuit détecté, retourne le chemin du circuit
