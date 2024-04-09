@@ -6,9 +6,9 @@ def main_menu(graph_number):
     while True:
         print("\n\n╠═════════════════════ Menu Principal ═════════════════════╣\n")
         print("  1. Afficher le tableau de contraintes")
-        print("  2. Afficher le graphe")
+        print("  2. Afficher la matrice des valeurs")
         print("  3. Vérifier les propriétés")
-        print("  4. Afficher la matrice des valeurs")
+        print("  4. BONUS : Afficher le graphe")
         print("  5. Changer la table de contraintes")
         print("\n  0. Quitter")
         if graph_number < 10:
@@ -38,8 +38,10 @@ def main_menu(graph_number):
             execute_choice(choice, graph_data)
 
         elif choice == 5:
-            # à modifier
-            graph_number = change_table()  # Permet de changer la table de contraintes
+            # Changer la table de contraintes
+            graph_number = change_table()  # Récupérer le nouveau numéro de table
+            constraints_table = matrice_table(graph_number)  # Lire la nouvelle table de contraintes
+            graph_data = store_constraints_in_memory(constraints_table)  # Mettre à jour les données en mémoire
 
         else:
             print("  ⚠ Veuillez entrer un chiffre entre 0 et 4.\n")
@@ -60,32 +62,31 @@ def execute_choice(choice, graph_data):
         display_graph_as_triplets(graph_data)
 
     elif choice == 2:
-        print("\n Graphe enregistré sous 'data/graph.gv'.")
-        constraints_table = matrice_table(graph_number)
-        if constraints_table:
-            draw_graph(constraints_table)
-        else:
-            print("\nImpossible de dessiner le graphe, données non disponibles.\n")
+        print("\n✦ ─────────── Matrice des valeurs  ─────────── ✦\n")
+        display_value_matrix(graph_data)
 
     elif choice == 3:
         print("\n✦ ─────────── Vérification des propriétés  ─────────── ✦\n")
+        # A MODIFIER !!!
         constraints_table = alpha_omega(graph_number)
-        check_properties(constraints_table)
+        check_properties(graph_data)
 
     elif choice == 4:
-        print("\n✦ ─────────── Matrice des valeurs  ─────────── ✦\n")
-        constraints_table = alpha_omega(graph_number)
-        display_value_matrix(constraints_table)
+        print("\n Graphe enregistré sous 'data/graph.gv'.")
+        if graph_data:
+            draw_graph(graph_data)
+        else:
+            print("\nImpossible de dessiner le graphe, données non disponibles.\n")
 
 
 def change_table():
     print("\n✦ ─────────── Changement de la table de contraintes  ─────────── ✦\n")
     while True:
         try:
-            graph_number = int(input("  ✦ Entrez le nouveau numéro de la table de contraintes (1-15) : "))
-            if 1 <= graph_number <= 15:
+            new_graph_number = int(input("  ✦ Entrez le nouveau numéro de la table de contraintes (1-15) : "))
+            if 1 <= new_graph_number <= 15:
                 print("\nTable de contraintes changée.\n")
-                return graph_number
+                return new_graph_number
             else:
                 print("  ⚠ Veuillez entrer un chiffre entre 1 et 15.\n")
         except ValueError:

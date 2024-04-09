@@ -2,42 +2,35 @@ from graphviz import Digraph
 from B3_essentials import *
 
 
-def draw_graph(constraints):
+def draw_graph(graph_data):
     dot = Digraph(comment='Graphe de contraintes')
-
-    # Créer un dictionnaire pour stocker les poids de chaque tâche
-    task_weights = {task[0]: task[1] for task in constraints}
 
     # Définir l'orientation du graphe en horizontal
     dot.attr(rankdir='LR')
 
-    # Ajouter des nœuds pour chaque tâche
-    for task in constraints:
-        task_id = task[0]
-        dot.node(str(task_id), str(task_id), shape='circle')
+    # Trouver l'ID max pour Oméga
+    max_id = max(graph_data.keys())
 
-    # Ajouter des arcs en utilisant les prédécesseurs
-    for task in constraints:
-        task_id = task[0]
-        for pred in task[2]:
-            if pred != 0:  # Ignorer Alpha
-                # Le poids de l'arc est le poids de la tâche prédécesseur
-                dot.edge(str(pred), str(task_id), label=str(task_weights[pred]))
+    # Ajouter des nœuds pour chaque état dans graph_data
+    for state, data in graph_data.items():
+        if state == 0:  # Alpha
+            dot.node(str(state), f"{alpha}", shape='circle', color='lightgreen', style='filled')
+        else:  # Autres états
+            dot.node(str(state), str(state), shape='circle')
 
-    # Ajouter Alpha
-    dot.node('Alpha', alpha, shape='circle', color='lightgreen', style='filled')
+    # Ajouter Oméga
+    dot.node(str(max_id + 1), f"{omega}", shape='circle', color='lightcoral', style='filled')
 
-    # Ajouter des arcs d'Alpha
-    for task in constraints:
-        if 0 in task[2]:  # Vérifier si Alpha est un prédécesseur
-            dot.edge('Alpha', str(task[0]), label='')
+    # Ajouter des arcs en utilisant les données de graph_data
+    for state, data in graph_data.items():
+        for successor in data['successors']:
+            # Utiliser la durée de l'arc du prédécesseur au successeur
+            label = str(graph_data[state]['duration']) if graph_data[state]['duration'] is not None else ""
+            dot.edge(str(state), str(successor), label=label)
 
-    # Trouver les nœuds sans successeurs et les relier à Oméga
-    last_node_id = max(task[0] for task in constraints)
-    dot.node('Omega', omega, shape='circle', color='lightcoral', style='filled')
-    for task in constraints:
-        if not any(task[0] == pred for _, _, preds in constraints for pred in preds):
-            dot.edge(str(task[0]), 'Omega', label='')
+        # Si un nœud n'a pas de successeurs, le lier à Oméga
+        if len(data['successors']) == 0 and state != 0:  # Exclure Alpha
+            dot.edge(str(state), str(max_id + 1), label="")
 
     # Afficher le graphe
     dot.render('data/graph.gv', view=True)  # Sauvegarde et ouverture du graphe

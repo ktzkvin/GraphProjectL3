@@ -34,19 +34,23 @@ def matrice_table(number):
     return table
 
 
-def display_value_matrix(constraints):
-    # Déterminez la taille de la matrice
-    num_states = max(task[0] for task in constraints) + 2  # +2 pour alpha et omega
+# Afficher la matrice des valeurs
+def display_value_matrix(graph_data):
+    # Identifier tous les sommets (états) présents
+    all_states = set(graph_data.keys())
+    # Déterminer la taille de la matrice
+    num_states = max(all_states) + 1  # Assure qu'alpha (0) et omega (N+1) sont inclus
 
-    # Créez une matrice de valeurs initialement remplie de "*"
+    # Initialiser la matrice avec des valeurs '*' partout
     matrix = [['*' for _ in range(num_states)] for _ in range(num_states)]
 
-    # Remplissez la matrice avec les valeurs appropriées
-    for current_state, duration, predecessors in constraints:
-        for pred in predecessors:
-            matrix[pred][current_state] = str(duration)
+    # Remplir la matrice avec les durées appropriées
+    for state, data in graph_data.items():
+        for successor in data['successors']:
+            matrix[state][successor] = data['duration']
 
-    # Affichez la matrice
-    headers = [''] + [str(i) for i in range(num_states)]  # En-têtes de colonne
-    rows = [[str(i)] + row for i, row in enumerate(matrix)]  # Ajoutez les numéros de ligne
+    # Afficher la matrice
+    headers = [''] + [str(i) for i in range(num_states)]
+    rows = [[str(i)] + row for i, row in enumerate(matrix)]
     print(tabulate(rows, headers=headers, tablefmt='presto', numalign='center', stralign='center'))
+
