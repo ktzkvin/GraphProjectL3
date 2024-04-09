@@ -2,7 +2,7 @@ import os
 from tabulate import tabulate
 
 
-#
+# Lit le contenu du fichier spécifié par le numéro de la table
 def read_data(number):
     # Lit le contenu du fichier spécifié par le numéro du tableau de contraintes
     file_path = f'data/table {number}.txt'
@@ -13,9 +13,8 @@ def read_data(number):
         return None
 
 
-#
-def memory_table(number):
-    # Lis et traite les contraintes à partir du contenu du fichier spécifié par le numéro
+# Lit + enregistre les données de la table de contraintes sous forme de matrice
+def matrice_table(number):
     table = []
     data_table = read_data(number)
 
@@ -23,6 +22,7 @@ def memory_table(number):
         print(f"Le fichier pour le tableau de contraintes numéro {number} est introuvable.")
         return []
 
+    # Traitez les données de la table
     lines = data_table.strip().split('\n')
     for line in lines:
         columns = line.strip().split()

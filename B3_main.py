@@ -28,7 +28,14 @@ def main_menu(graph_number):
             break
 
         elif choice in [1, 2, 3, 4]:
-            execute_choice(choice, graph_number)
+            # Lire + enregistrer les données de la table de contraintes sous forme de matrice
+            constraints_table = matrice_table(graph_number)
+
+            # Stockage du tableau de contraintes dans la mémoire
+            graph_data = store_constraints_in_memory(constraints_table)
+
+            # Exécuter le choix de l'utilisateur
+            execute_choice(choice, graph_data)
 
         elif choice == 5:
             graph_number = change_table()  # Permet de changer la table de contraintes
@@ -37,23 +44,23 @@ def main_menu(graph_number):
             print("  ⚠ Veuillez entrer un chiffre entre 0 et 4.\n")
 
 
-def execute_choice(choice, graph_number):
+def execute_choice(choice, graph_data):
     if choice == 1:
 
         # Afficher le graphe d'ordonnancement sous forme de triplets
         print("\n\n✦ ─────────── Création du graphe d’ordonnancement  ─────────── ✦")
-        constraints_table = alpha_omega(graph_number)
-        display_graph_as_triplets(constraints_table)
-        constraints_table = adjust_special_states(constraints_table)
 
-        # Afficher le tableau de contraintes
-        print("\n✦─────────── Tableau de contraintes ─────────── ✦\n")
-        headers = ['Etat actuel', 'Durée', 'Etat(s) précédent(s)']
-        print(tabulate(constraints_table, headers=headers, tablefmt='github', numalign='center', stralign='center'))
+        # Affichage du tableau de contraintes
+        print("\n✦ Tableau de contraintes :\n")
+        display_constraints_table(graph_data)
+
+        # Affichage sous forme de triplets
+        print("\n\n ✦ Affichage du graphe sous forme de triplets :")
+        display_graph_as_triplets(graph_data)
 
     elif choice == 2:
         print("\n Graphe enregistré sous 'data/graph.gv'.")
-        constraints_table = memory_table(graph_number)
+        constraints_table = matrice_table(graph_number)
         if constraints_table:
             draw_graph(constraints_table)
         else:
@@ -86,7 +93,7 @@ def change_table():
 
 # Fonction pour : Ajouter les états alpha et oméga dans les noms
 def adjust_special_states(constraints_table):
-    constraints_table[0] = (f"0 ({alpha})", constraints_table[0][1], '/')
+    constraints_table[0] = (f"0 ({alpha})", constraints_table[0][1], '0')
     constraints_table[-1] = (
         f"{len(constraints_table) - 1} ({omega})", constraints_table[-1][1], constraints_table[-1][2])
     constraints_table = [(x[0], x[1], ', '.join(map(str, x[2]))) for x in constraints_table]
@@ -107,4 +114,4 @@ if __name__ == "__main__":
             else:
                 print("  ⚠ Veuillez entrer un chiffre entre 1 et 15.\n")
         except ValueError:
-            print("  ⚠ Veuillez entrer un chiffre entre 1 et 13.\n")
+            print("  ⚠ Veuillez entrer un chiffre entre 1 et 15.\n")

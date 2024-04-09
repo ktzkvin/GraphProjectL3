@@ -5,10 +5,31 @@ alpha = chr(945)
 omega = chr(969)
 
 
+def store_constraints_in_memory(constraints_table):
+    graph_data = {}
+    # Initialisez d'abord tous les états dans graph_data
+    for state, _, predecessors in constraints_table:
+        if state not in graph_data:
+            graph_data[state] = {"duration": None, "predecessors": [], "successors": []}
+        for pred in predecessors:
+            if pred not in graph_data:
+                graph_data[pred] = {"duration": None, "predecessors": [], "successors": []}
+
+    # Maintenant, parcourez à nouveau pour remplir les données
+    for state, duration, predecessors in constraints_table:
+        graph_data[state]["duration"] = duration
+        for pred in predecessors:
+            if pred != '/':  # Ignorez l'état alpha si représenté par '/'
+                graph_data[pred]["successors"].append(state)
+                graph_data[state]["predecessors"].append(pred)
+
+    return graph_data
+
+
 # Fonction pour ajouter les états alpha et oméga
 def alpha_omega(number):
     # Exemple d'utilisation
-    constraints_table = memory_table(number)
+    constraints_table = matrice_table(number)
 
     # Extraire les états actuels et les prédécesseurs de la liste des contraintes
     current_states = set()
@@ -39,39 +60,56 @@ def alpha_omega(number):
     return constraints_table
 
 
-def display_graph_as_triplets(constraints):
-    # Créer un dictionnaire pour la durée associée à chaque état actuel
-    durees = {constraint[0]: constraint[1] for constraint in constraints}
-
-    # Collecter les arcs en utilisant les états prédecesseurs et leurs durées associées
-    arcs = []
-    for constraint in constraints:
-        etat_actuel, _, predecesseurs = constraint
-        for pred in predecesseurs:
-            if pred == '/':  # Si le prédécesseur est l'état Alpha
-                arcs.append(('Alpha', etat_actuel, 0))  # La durée pour Alpha est toujours 0
-            else:
-                arcs.append((pred, etat_actuel, durees[pred]))  # Utiliser la durée de l'état prédecesseur
-
-    sommets = set(durees.keys()) | {pred for _, _, preds in constraints for pred in preds if pred != '/'}
-    n_plus1 = max(sommets)  # Trouver l'état oméga
-
-    sorted_arcs = sorted(arcs, key=lambda x: (x[0], x[1]))  # Tri des arcs
-
-    # Préparer les données pour le tabulateur
+# Fonction pour afficher le graphe sous forme de triplets
+def display_graph_as_triplets(graph_data):
+    # Initialisation de la liste pour les données du tableau
     table_data = []
-    for start, end, weight in sorted_arcs:
-        # Formater avec des flèches et des parenthèses pour alpha et omega
-        start_str = f"0 ({alpha})" if start == 0 else str(start)
-        end_str = f"{n_plus1} ({omega})" if end == n_plus1 else str(end)
-        weight_str = "= /" if start == 0 else "= " + str(weight)
-        arrow_str = f"{start_str} -> {end_str}"
-        table_data.append([arrow_str, weight_str])
 
-    # Afficher le tableau
+    # Pour chaque état dans graph_data
+    for state, data in graph_data.items():
+        # Pour chaque successeur de cet état
+        for successor in data['successors']:
+            start_str = f"0 ({alpha})" if state == 0 else str(state)
+            weight = data['duration'] if data['duration'] is not None else "0"
+            # Vérifier si le successeur est omega
+            if len(graph_data[successor]['successors']) == 0:
+                end_str = f"{successor} ({omega})"
+            else:
+                end_str = str(successor)
+            # Ajouter les données à la liste
+            table_data.append([f"{start_str} -> {end_str}", f"= {weight}"])
+
+    # Tri des données pour un affichage ordonné
+    table_data.sort(key=lambda x: x[0])
+
+    # Calcul du nombre de sommets
+    num_states = len(graph_data)
+
+    # Calcul du nombre d'arcs
+    num_arcs = sum(len(data['successors']) for data in graph_data.values())
+
+    # Affichages des données
+    print()
+    print(f"{num_states} sommets")
+    print(f"{num_arcs} arcs")
+
     print()
     print(tabulate(table_data, tablefmt='plain', numalign='right', stralign='left'))
     print()
+
+
+def display_constraints_table(graph_data):
+    table_data = []
+    for state, data in graph_data.items():
+        # Remarque : 'state' représente l'état actuel, 'data' contient les données pour cet état
+        row = [state, data['duration'], ", ".join(map(str, data['predecessors']))]
+        table_data.append(row)
+
+    # Tri des données pour un affichage ordonné par l'état actuel
+    table_data.sort(key=lambda x: x[0])
+
+    headers = ['Etat actuel', 'Durée', 'Etat(s) précédent(s)']
+    print(tabulate(table_data, headers=headers, tablefmt='github', numalign='center', stralign='center'))
 
 
 def dfs_find_cycle(node, visited, rec_stack, adjacency_list, path):
