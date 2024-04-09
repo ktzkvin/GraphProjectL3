@@ -14,7 +14,7 @@ def main_menu(graph_number):
         print("  " + Back.WHITE + Fore.BLACK + Style.BRIGHT + "3." + Back.RESET + Fore.RESET + Style.RESET_ALL + "  Vérifier les propriétés")
         print("  " + Back.WHITE + Fore.BLACK + Style.BRIGHT + "4." + Back.RESET + Fore.RESET + Style.RESET_ALL + "  " + Back.WHITE + Fore.BLACK + Style.BRIGHT + "BONUS" + Back.RESET + Fore.RESET + Style.RESET_ALL + " Afficher le graphe")
         print("  " + Back.WHITE + Fore.BLACK + Style.BRIGHT + "5." + Back.RESET + Fore.RESET + Style.RESET_ALL + "  Changer la table de contraintes")
-        print("\n  " + Back.WHITE + Fore.BLACK + Style.BRIGHT + "0." + Back.RESET + Fore.RESET + Style.RESET_ALL + "  Quitter")
+        print("\n  " + Back.WHITE + Fore.RED + Style.BRIGHT + "0." + Back.RESET + Style.RESET_ALL + Fore.RED + "  Quitter")
 
         if graph_number < 10:
             print("\n╚" + "═" * 23 + Fore.LIGHTWHITE_EX + " Table : " + str(graph_number) + Fore.RESET + " " + "═" * 24 + "╝")
@@ -29,7 +29,7 @@ def main_menu(graph_number):
             continue
 
         if choice == 0:
-            print("\n✧ Programme quitté. ✧\n")
+            print(Fore.RED + "\n✧ Programme quitté. ✧\n")
             break
 
         elif choice in [1, 2, 3, 4]:
@@ -67,15 +67,15 @@ def execute_choice(choice, graph_data):
         display_graph_as_triplets(graph_data)
 
     elif choice == 2:
-        print("\n✦ ─────────── " + Fore.LIGHTWHITE_EX + "Matrice des valeurs" + Fore.RESET + " ─────────── ✦\n")
+        print(Fore.RESET + "\n✦ ─────────── " + Fore.LIGHTWHITE_EX + "Matrice des valeurs" + Fore.RESET + " ─────────── ✦\n")
         display_value_matrix(graph_data)
 
     elif choice == 3:
-        print("\n✦ ─────────── " + Fore.LIGHTWHITE_EX + "Vérification des propriétés" + Fore.RESET + " ─────────── ✦\n")
+        print(Fore.RESET + "\n✦ ─────────── " + Fore.LIGHTWHITE_EX + "Vérification des propriétés" + Fore.RESET + " ─────────── ✦\n")
         check_properties(graph_data)
 
     elif choice == 4:
-        print("\n Graphe enregistré sous 'data/graph.gv'.")
+        print(Fore.GREEN + "\n Graphe enregistré sous 'data/graph.gv'.")
         if graph_data:
             draw_graph(graph_data)
         else:
@@ -114,7 +114,7 @@ if __name__ == "__main__":
                 main_menu(graph_number)
                 break  # Sortir de la boucle si une entrée valide est fournie
             elif graph_number == 0:
-                print("\n✧ Programme quitté. ✧\n")
+                print(Fore.RED + "\n✧ Programme quitté. ✧\n")
                 break  # Sortir de la boucle
             else:
                 print("  ⚠ Veuillez entrer un chiffre entre 1 et 15.\n")
