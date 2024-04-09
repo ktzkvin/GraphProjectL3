@@ -38,6 +38,7 @@ def main_menu(graph_number):
             execute_choice(choice, graph_data)
 
         elif choice == 5:
+            # à modifier
             graph_number = change_table()  # Permet de changer la table de contraintes
 
         else:
