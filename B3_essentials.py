@@ -1,5 +1,9 @@
 # Fonctions utiles pour le projet
 from B3_matrice import *
+from colorama import Fore, Back, Style, init
+
+# Initialiser les couleurs pour le terminal
+init(autoreset=True)
 
 alpha = chr(945)
 omega = chr(969)
@@ -86,7 +90,7 @@ def display_graph_as_triplets(graph_data):
     num_states = len(graph_data)
 
     # Calcul du nombre d'arcs
-    num_arcs = sum(len(data['successors']) for data in graph_data.values())
+    num_arcs = sum(len(data["successors"]) for data in graph_data.values())
 
     # Affichages des données
     print()
@@ -94,7 +98,7 @@ def display_graph_as_triplets(graph_data):
     print(f"{num_arcs} arcs")
 
     print()
-    print(tabulate(table_data, tablefmt='plain', numalign='right', stralign='left'))
+    print(tabulate(table_data, tablefmt="plain", numalign="right", stralign="left"))
     print()
 
 
@@ -102,7 +106,7 @@ def display_graph_as_triplets(graph_data):
 def display_constraints_table(graph_data):
     table_data = []
     for state, data in graph_data.items():
-        row = [state, data['duration'], ", ".join(map(str, data['predecessors']))]
+        row = [state, data["duration"], ", ".join(map(str, data["predecessors"]))]
         table_data.append(row)
 
     # Tri des données pour un affichage ordonné par l'état actuel
@@ -111,8 +115,8 @@ def display_constraints_table(graph_data):
     # État précédent de l'état 0 = /
     table_data[0][2] = '/'
 
-    headers = ['Etat actuel', 'Durée', 'Etat(s) précédent(s)']
-    print(tabulate(table_data, headers=headers, tablefmt='github', numalign='center', stralign='center'))
+    headers = [Fore.BLACK + Back.WHITE + " État actuel " + Fore.LIGHTWHITE_EX + Back.RESET, Fore.BLACK + Back.WHITE + " Durée " + Fore.LIGHTWHITE_EX + Back.RESET, Fore.BLACK + Back.WHITE + " État(s) précédent(s) " + Fore.LIGHTWHITE_EX + Back.RESET]
+    print(tabulate(table_data, headers=headers, tablefmt="github", numalign="center", stralign="center"))
 
 
 #
@@ -121,8 +125,8 @@ def check_properties(graph_data):
 
     # Vérifier l'absence d'arcs à valeur négative
     for state, info in graph_data.items():
-        if info['duration'] < 0:
-            for successor in info['successors']:
+        if info["duration"] < 0:
+            for successor in info["successors"]:
                 print(f"Le graphe contient un arc à valeur négative ({state} -> {successor} = {info['duration']}).")
                 has_negative_arc = True
 
@@ -147,7 +151,7 @@ def check_properties(graph_data):
         rec_stack.add(current_state)
         path.append(current_state)
 
-        for successor in graph_data[current_state]['successors']:
+        for successor in graph_data[current_state]["successors"]:
             cycle_found, cycle_path = dfs(successor, list(path))  # Utilise une copie du chemin pour chaque successeur
             if cycle_found:
                 all_cycles.append(cycle_path)  # Ajoute le circuit trouvé à la liste des circuits

@@ -1,24 +1,29 @@
 from B3_draw import *
 from B3_essentials import *
+from colorama import Fore, Back, Style, init
+
+# Initialiser les couleurs pour le terminal
+init(autoreset=True)
 
 
 def main_menu(graph_number):
     while True:
-        print("\n\n╠═════════════════════ Menu Principal ═════════════════════╣\n")
-        print("  1. Afficher le tableau de contraintes")
-        print("  2. Afficher la matrice des valeurs")
-        print("  3. Vérifier les propriétés")
-        print("  4. BONUS : Afficher le graphe")
-        print("  5. Changer la table de contraintes")
-        print("\n  0. Quitter")
+        print("\n\n╠═════════════════════ " + Fore.LIGHTWHITE_EX + "Menu Principal" + Fore.RESET + " ═════════════════════╣\n")
+        print("  " + Back.WHITE + Fore.BLACK + Style.BRIGHT + "1." + Back.RESET + Fore.RESET + Style.RESET_ALL + "  Afficher le tableau de contraintes")
+        print("  " + Back.WHITE + Fore.BLACK + Style.BRIGHT + "2." + Back.RESET + Fore.RESET + Style.RESET_ALL + "  Afficher la matrice des valeurs")
+        print("  " + Back.WHITE + Fore.BLACK + Style.BRIGHT + "3." + Back.RESET + Fore.RESET + Style.RESET_ALL + "  Vérifier les propriétés")
+        print("  " + Back.WHITE + Fore.BLACK + Style.BRIGHT + "4." + Back.RESET + Fore.RESET + Style.RESET_ALL + "  " + Back.WHITE + Fore.BLACK + Style.BRIGHT + "BONUS" + Back.RESET + Fore.RESET + Style.RESET_ALL + " Afficher le graphe")
+        print("  " + Back.WHITE + Fore.BLACK + Style.BRIGHT + "5." + Back.RESET + Fore.RESET + Style.RESET_ALL + "  Changer la table de contraintes")
+        print("\n  " + Back.WHITE + Fore.BLACK + Style.BRIGHT + "0." + Back.RESET + Fore.RESET + Style.RESET_ALL + "  Quitter")
+
         if graph_number < 10:
-            print("\n╚" + "═" * 23 + " Table : " + str(graph_number) + " " + "═" * 24 + "╝")
+            print("\n╚" + "═" * 23 + Fore.LIGHTWHITE_EX + " Table : " + str(graph_number) + Fore.RESET + " " + "═" * 24 + "╝")
         else:
-            print("\n╚" + "═" * 23 + " Table : " + str(graph_number) + " " + "═" * 23 + "╝")
+            print("\n╚" + "═" * 23 + Fore.LIGHTWHITE_EX + " Table : " + str(graph_number) + Fore.RESET + " " + "═" * 23 + "╝")
 
         try:
-            print("\n┌─────────────────────")
-            choice = int(input("█ Entrez votre choix : "))
+            print(Fore.LIGHTYELLOW_EX + "\n┌─────────────────────")
+            choice = int(input(Fore.LIGHTYELLOW_EX + "█ Entrez votre choix : "))
         except ValueError:
             print("  ⚠ Veuillez entrer un chiffre entre 0 et 4.\n")
             continue
@@ -51,7 +56,7 @@ def execute_choice(choice, graph_data):
     if choice == 1:
 
         # Afficher le graphe d'ordonnancement sous forme de triplets
-        print("\n\n✦ ─────────── Création du graphe d’ordonnancement  ─────────── ✦")
+        print("\n\n✦ ─────────── " + Fore.LIGHTWHITE_EX + "Création du graphe d’ordonnancement" + Fore.RESET + " ─────────── ✦")
 
         # Affichage du tableau de contraintes
         print("\n✦ Tableau de contraintes :\n")
@@ -62,11 +67,11 @@ def execute_choice(choice, graph_data):
         display_graph_as_triplets(graph_data)
 
     elif choice == 2:
-        print("\n✦ ─────────── Matrice des valeurs  ─────────── ✦\n")
+        print("\n✦ ─────────── " + Fore.LIGHTWHITE_EX + "Matrice des valeurs" + Fore.RESET + " ─────────── ✦\n")
         display_value_matrix(graph_data)
 
     elif choice == 3:
-        print("\n✦ ─────────── Vérification des propriétés  ─────────── ✦\n")
+        print("\n✦ ─────────── " + Fore.LIGHTWHITE_EX + "Vérification des propriétés" + Fore.RESET + " ─────────── ✦\n")
         check_properties(graph_data)
 
     elif choice == 4:
@@ -78,10 +83,10 @@ def execute_choice(choice, graph_data):
 
 
 def change_table():
-    print("\n✦ ─────────── Changement de la table de contraintes  ─────────── ✦\n")
+    print("\n✦ ─────────── " + Fore.LIGHTWHITE_EX + "Changement de la table de contraintes" + Fore.RESET + " ─────────── ✦\n")
     while True:
         try:
-            new_graph_number = int(input("  ✦ Entrez le nouveau numéro de la table de contraintes (1-15) : "))
+            new_graph_number = int(input("  ✦ Entrez le nouveau numéro de la table de contraintes " + Fore.YELLOW + "" + Fore.LIGHTYELLOW_EX + "(1-15)" + Fore.RESET + " : "))
             if 1 <= new_graph_number <= 15:
                 print("\nTable de contraintes changée.\n")
                 return new_graph_number
@@ -102,9 +107,9 @@ def adjust_special_states(constraints_table):
 
 if __name__ == "__main__":
     while True:
-        print("\n╔═══════════════════ Projet Graphe : B3 ═══════════════════╗")
+        print("\n╔═══════════════════ " + Fore.LIGHTWHITE_EX + "Projet Graphe : B3" + Fore.RESET + " ═══════════════════╗")
         try:
-            graph_number = int(input("\n  ✦ Entrez le numéro de la table de contraintes (1-15) : "))
+            graph_number = int(input("\n  ✦ Entrez le numéro de la table de contraintes " + Fore.YELLOW + "" + Fore.LIGHTYELLOW_EX + "(1-15)" + Fore.RESET + " : "))
             if 1 <= graph_number <= 15:
                 main_menu(graph_number)
                 break  # Sortir de la boucle si une entrée valide est fournie
