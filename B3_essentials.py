@@ -166,4 +166,3 @@ def check_properties(graph_data):
             print(" -> ".join(map(str, cycle)))
     else:
         print("Le graphe ne contient pas de circuit.")
-
