@@ -116,63 +116,53 @@ def display_constraints_table(graph_data):
 
 
 #
-def dfs_find_cycle(node, visited, rec_stack, adjacency_list, path):
-    visited[node] = True
-    rec_stack[node] = True
-    path.append(node)
+def check_properties(graph_data):
+    has_negative_arc = False
 
-    for neighbour in adjacency_list.get(node, []):
-        if not visited[neighbour]:
-            cycle_found, cycle_path = dfs_find_cycle(neighbour, visited, rec_stack, adjacency_list, path)
-            if cycle_found:
-                return True, cycle_path
-        elif rec_stack[neighbour]:
-            # Retourne vrai et le chemin du cycle
-            cycle_start_index = path.index(neighbour)
-            return True, path[cycle_start_index:]
-
-    rec_stack[node] = False
-    path.pop()
-    return False, []
-
-
-#
-def check_for_cycles(constraints_table):
-    visited = {}
-    rec_stack = {}
-    adjacency_list = {}
-    path = []
-
-    for task in constraints_table:
-        task_id = task[0]
-        visited[task_id] = False
-        rec_stack[task_id] = False
-        for pred in task[2]:
-            if pred != '/':  # Ignore alpha
-                adjacency_list.setdefault(pred, []).append(task_id)
-
-    for node in visited.keys():
-        if not visited[node]:
-            cycle_found, cycle_path = dfs_find_cycle(node, visited, rec_stack, adjacency_list, path)
-            if cycle_found:
-                return True, cycle_path
-    return False, []
-
-
-#
-def check_properties(constraints_table):
     # Vérifier l'absence d'arcs à valeur négative
-    negative_arcs = ()
-    for task in constraints_table:
-        if task[1] < 0:
-            negative_arcs = (task[0], task[2])
-            print(f"La tâche {negative_arcs[0]} a un arc à valeur négative avec {negative_arcs[1]}.")
+    for state, info in graph_data.items():
+        if info['duration'] < 0:
+            for successor in info['successors']:
+                print(f"Le graphe contient un arc à valeur négative ({state} -> {successor} = {info['duration']}).")
+                has_negative_arc = True
 
-    # Vérifier l'absence de circuits et afficher le circuit s'il est trouvé
-    cycle_found, cycle_path = check_for_cycles(constraints_table)
-    if cycle_found:
-        print("Le graphe contient un circuit : " + " -> ".join(str(node) for node in cycle_path))
-        return False
+    if not has_negative_arc:
+        print("Le graphe ne contient pas d'arcs à valeur négative.")
 
-    print("Le graphe ne contient ni circuits ni arcs à valeur négative.")
-    return True
+    # Vérifier l'absence de circuits dans le graphe
+    visited = set()  # Pour suivre les nœuds déjà visités
+    rec_stack = set()  # Pour suivre les nœuds dans la pile de récursion
+    all_cycles = []  # Pour stocker tous les circuits trouvés
+
+    def dfs(current_state, path):
+        if current_state in rec_stack:
+            # Circuit détecté, retourne le chemin du circuit
+            cycle_start_index = path.index(current_state)
+            return True, path[cycle_start_index:]
+        if current_state in visited:
+            return False, []  # Aucun circuit trouvé à partir de ce nœud
+
+        visited.add(current_state)
+        rec_stack.add(current_state)
+        path.append(current_state)
+
+        for successor in graph_data[current_state]['successors']:
+            cycle_found, cycle_path = dfs(successor, list(path))  # Utilise une copie du chemin pour chaque successeur
+            if cycle_found:
+                all_cycles.append(cycle_path)  # Ajoute le circuit trouvé à la liste des circuits
+
+        rec_stack.remove(current_state)
+        path.pop()  # Retire le nœud actuel du chemin
+        return False, []
+
+    for state in graph_data:
+        if state not in visited:
+            dfs(state, [])
+
+    if all_cycles:
+        print("Le(s) circuit(s) trouvé(s) dans le graphe :")
+        for cycle in all_cycles:
+            print(" -> ".join(map(str, cycle)))
+    else:
+        print("Le graphe ne contient pas de circuit.")
+

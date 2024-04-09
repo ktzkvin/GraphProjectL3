@@ -67,8 +67,6 @@ def execute_choice(choice, graph_data):
 
     elif choice == 3:
         print("\n✦ ─────────── Vérification des propriétés  ─────────── ✦\n")
-        # A MODIFIER !!!
-        constraints_table = alpha_omega(graph_number)
         check_properties(graph_data)
 
     elif choice == 4:
