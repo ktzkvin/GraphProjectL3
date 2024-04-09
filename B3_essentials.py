@@ -72,3 +72,63 @@ def display_graph_as_triplets(constraints):
     print()
     print(tabulate(table_data, tablefmt='plain', numalign='right', stralign='left'))
     print()
+
+
+def dfs_find_cycle(node, visited, rec_stack, adjacency_list, path):
+    visited[node] = True
+    rec_stack[node] = True
+    path.append(node)
+
+    for neighbour in adjacency_list.get(node, []):
+        if not visited[neighbour]:
+            cycle_found, cycle_path = dfs_find_cycle(neighbour, visited, rec_stack, adjacency_list, path)
+            if cycle_found:
+                return True, cycle_path
+        elif rec_stack[neighbour]:
+            # Retourne vrai et le chemin du cycle
+            cycle_start_index = path.index(neighbour)
+            return True, path[cycle_start_index:]
+
+    rec_stack[node] = False
+    path.pop()
+    return False, []
+
+
+def check_for_cycles(constraints_table):
+    visited = {}
+    rec_stack = {}
+    adjacency_list = {}
+    path = []
+
+    for task in constraints_table:
+        task_id = task[0]
+        visited[task_id] = False
+        rec_stack[task_id] = False
+        for pred in task[2]:
+            if pred != '/':  # Ignore alpha
+                adjacency_list.setdefault(pred, []).append(task_id)
+
+    for node in visited.keys():
+        if not visited[node]:
+            cycle_found, cycle_path = dfs_find_cycle(node, visited, rec_stack, adjacency_list, path)
+            if cycle_found:
+                return True, cycle_path
+    return False, []
+
+
+def check_properties(constraints_table):
+    # Vérifier l'absence d'arcs à valeur négative
+    negative_arcs = ()
+    for task in constraints_table:
+        if task[1] < 0:
+            negative_arcs = (task[0], task[2])
+            print(f"La tâche {negative_arcs[0]} a un arc à valeur négative avec {negative_arcs[1]}.")
+
+    # Vérifier l'absence de circuits et afficher le circuit s'il est trouvé
+    cycle_found, cycle_path = check_for_cycles(constraints_table)
+    if cycle_found:
+        print("Le graphe contient un circuit : " + " -> ".join(str(node) for node in cycle_path))
+        return False
+
+    print("Le graphe ne contient ni circuits ni arcs à valeur négative.")
+    return True

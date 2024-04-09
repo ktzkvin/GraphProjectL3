@@ -7,8 +7,9 @@ def main_menu(graph_number):
         print("\n\n╠═════════════════════ Menu Principal ═════════════════════╣\n")
         print("  1. Afficher le tableau de contraintes")
         print("  2. Afficher le graphe")
-        print("  3. Afficher la matrice des valeurs")
-        print("  4. Changer la table de contraintes")
+        print("  3. Vérifier les propriétés")
+        print("  4. Afficher la matrice des valeurs")
+        print("  5. Changer la table de contraintes")
         print("\n  0. Quitter")
         if graph_number < 10:
             print("\n╚" + "═" * 23 + " Table : " + str(graph_number) + " " + "═" * 24 + "╝")
@@ -26,10 +27,10 @@ def main_menu(graph_number):
             print("\n✧ Programme quitté. ✧\n")
             break
 
-        elif choice in [1, 2, 3]:
+        elif choice in [1, 2, 3, 4]:
             execute_choice(choice, graph_number)
 
-        elif choice == 4:
+        elif choice == 5:
             graph_number = change_table()  # Permet de changer la table de contraintes
 
         else:
@@ -59,6 +60,11 @@ def execute_choice(choice, graph_number):
             print("\nImpossible de dessiner le graphe, données non disponibles.\n")
 
     elif choice == 3:
+        print("\n✦ ─────────── Vérification des propriétés  ─────────── ✦\n")
+        constraints_table = alpha_omega(graph_number)
+        check_properties(constraints_table)
+
+    elif choice == 4:
         print("\n✦ ─────────── Matrice des valeurs  ─────────── ✦\n")
         constraints_table = alpha_omega(graph_number)
         display_value_matrix(constraints_table)
