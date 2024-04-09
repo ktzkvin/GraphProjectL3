@@ -1,0 +1,20 @@
+// Graphe de contraintes
+digraph {
+	rankdir=LR
+	1 [label=1 shape=circle]
+	2 [label=2 shape=circle]
+	3 [label=3 shape=circle]
+	4 [label=4 shape=circle]
+	5 [label=5 shape=circle]
+	1 -> 3 [label=1]
+	1 -> 4 [label=1]
+	2 -> 4 [label=-2]
+	2 -> 5 [label=-2]
+	4 -> 5 [label=4]
+	Alpha [label="α" color=lightgreen shape=circle style=filled]
+	Alpha -> 1 [label=""]
+	Alpha -> 2 [label=""]
+	Omega [label="ω" color=lightcoral shape=circle style=filled]
+	3 -> Omega [label=""]
+	5 -> Omega [label=""]
+}
