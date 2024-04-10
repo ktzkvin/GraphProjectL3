@@ -1,5 +1,5 @@
 # Fonctions utiles pour le projet
-from B3_matrice import *
+from B3_matrix import *
 from colorama import Fore, Back, Style, init
 
 # Initialiser les couleurs pour le terminal
@@ -120,10 +120,11 @@ def display_constraints_table(graph_data):
 
 #
 def check_properties(graph_data):
+    
+    # -------- Vérifier l'absence d'arcs à valeur négative -------- # 
     has_negative_arc = False
 
     print(Fore.LIGHTYELLOW_EX + "✦" + Style.RESET_ALL + " Arcs à valeur négative :")
-    # Vérifier l'absence d'arcs à valeur négative
     for state, info in graph_data.items():
         if info["duration"] < 0:
             for successor in info["successors"]:
@@ -133,7 +134,9 @@ def check_properties(graph_data):
     if not has_negative_arc:
         print("Le graphe ne contient pas d'arc à valeur négative.\n")
 
-    # Vérifier l'absence de circuits dans le graphe
+    # -------- Vérifier l'absence de circuits dans le graphe -------- #
+    has_cycles = False
+
     print(Fore.LIGHTYELLOW_EX + "✦" + Style.RESET_ALL + " Circuits dans le graphe :")
     visited = set()  # Pour suivre les nœuds déjà visités
     rec_stack = set()  # Pour suivre les nœuds dans la pile de récursion
@@ -166,11 +169,15 @@ def check_properties(graph_data):
             dfs(state, [])
 
     if all_cycles:
+        has_cycles = True
+
         if len(all_cycles) == 1:
             print("Le circuit trouvé dans le graphe est :")
         else:
             print("Les circuits trouvés dans le graphe sont :")
-        for cycle in all_cycles:
+        for cycle in    all_cycles:
             print(" -> ".join(map(str, cycle)))
     else:
         print("Le graphe ne contient pas de circuit.")
+        
+    return has_negative_arc, has_cycles

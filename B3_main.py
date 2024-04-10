@@ -20,10 +20,10 @@ def main_menu(graph_number):
         print("\n\n╠═════════════════════ " + Fore.LIGHTWHITE_EX + "Menu Principal" + Fore.RESET + " ═════════════════════╣\n")
         print("  " + Back.WHITE + Fore.BLACK + Style.BRIGHT + "1." + Back.RESET + Fore.RESET + Style.RESET_ALL + "  Afficher le tableau de contraintes")
         print("  " + Back.WHITE + Fore.BLACK + Style.BRIGHT + "2." + Back.RESET + Fore.RESET + Style.RESET_ALL + "  Afficher la matrice des valeurs")
-        print("  " + Back.WHITE + Fore.BLACK + Style.BRIGHT + "3." + Back.RESET + Fore.RESET + Style.RESET_ALL + "  Vérifier les propriétés")
+        print("  " + Back.WHITE + Fore.BLACK + Style.BRIGHT + "3." + Back.RESET + Fore.RESET + Style.RESET_ALL + "  Vérifier les propriétés -> calcul des calendriers")
         print("  " + Back.WHITE + Fore.BLACK + Style.BRIGHT + "4." + Back.RESET + Fore.RESET + Style.RESET_ALL + "  " + Back.WHITE + Fore.BLACK + Style.BRIGHT + "BONUS" + Back.RESET + Fore.RESET + Style.RESET_ALL + " Afficher le graphe")
-        print("  " + Back.WHITE + Fore.BLACK + Style.BRIGHT + "5." + Back.RESET + Fore.RESET + Style.RESET_ALL + "  Changer la table de contraintes")
-        print("\n  " + Back.WHITE + Fore.BLACK + Style.BRIGHT + "0." + Back.RESET + Style.RESET_ALL + Fore.RED + "  Quitter")
+        print("\n  " + Back.WHITE + Fore.BLACK + Style.BRIGHT + "5." + Back.RESET + Fore.RESET + Style.RESET_ALL + "  Changer la table de contraintes")
+        print("  " + Back.WHITE + Fore.BLACK + Style.BRIGHT + "0." + Back.RESET + Style.RESET_ALL + Fore.RED + "  Quitter")
 
         if graph_number < 10:
             print("\n╚" + "═" * 23 + Fore.LIGHTWHITE_EX + " Table : " + str(graph_number) + Fore.RESET + " " + "═" * 24 + "╝")
@@ -38,7 +38,7 @@ def main_menu(graph_number):
             continue
 
         if choice == 0:
-            print(Fore.RED + "\n✧ Programme quitté. ✧\n")
+            print(Fore.RED + "\n✧" + Fore.RESET + " Programme quitté. " + Fore.RED + "✧\n" + Fore.RESET)
             break
 
         elif choice in [1, 2, 3, 4]:
@@ -84,7 +84,10 @@ def execute_choice(choice, graph_data):
 
     elif choice == 3:
         print(Fore.RESET + "\n✦ ─────────── " + Fore.LIGHTWHITE_EX + "Vérification des propriétés" + Fore.RESET + " ─────────── ✦\n")
-        check_properties(graph_data)
+        has_negative_arcs, has_cycles = check_properties(graph_data)
+        if not has_negative_arcs and not has_cycles:
+            print(Fore.GREEN + "\n✦" + Fore.RESET + " Le graphe ne contient ni arc à valeur négative ni cycle.")
+            prompt_for_calendars(graph_data)
 
     elif choice == 4:
         print(Fore.GREEN + "\n Graphe enregistré sous 'data/graph.gv'.")
@@ -94,6 +97,7 @@ def execute_choice(choice, graph_data):
             print("\nImpossible de dessiner le graphe, données non disponibles.\n")
 
 
+# Fonction pour changer la table de contraintes
 def change_table():
     print("\n✦ ─────────── " + Fore.LIGHTWHITE_EX + "Changement de la table de contraintes" + Fore.RESET + " ─────────── ✦\n")
     while True:
@@ -108,15 +112,26 @@ def change_table():
             print(Fore.RED + "\n  ⚠" + Fore.RESET + " Veuillez entrer un chiffre entre 1 et 4.")
 
 
-# Fonction pour : Ajouter les états alpha et oméga dans les noms
-def adjust_special_states(constraints_table):
-    constraints_table[0] = (f"0 ({alpha})", constraints_table[0][1], '0')
-    constraints_table[-1] = (
-        f"{len(constraints_table) - 1} ({omega})", constraints_table[-1][1], constraints_table[-1][2])
-    constraints_table = [(x[0], x[1], ', '.join(map(str, x[2]))) for x in constraints_table]
-    return constraints_table
+def prompt_for_calendars(graph_data):
+    choice = input(Fore.LIGHTBLUE_EX + "Souhaitez-vous calculer les calendriers ? [" + Fore.GREEN + "y" + Fore.LIGHTBLUE_EX + "/" + Fore.RED + "n" + Fore.LIGHTBLUE_EX + "] ").lower()
+    if choice == 'y':
+        calculate_calendars(graph_data)
+    elif choice == 'n':
+        print(Fore.YELLOW + "Calcul des calendriers annulé." + Fore.RESET)
+    else:
+        print(Fore.RED + "Choix invalide, veuillez entrer 'y' pour oui ou 'n' pour non." + Fore.RESET)
+        prompt_for_calendars(graph_data)  # Demande à nouveau
 
 
+def calculate_calendars(graph_data):
+    # Ici, vous mettriez la logique pour calculer et afficher les calendriers au plus tôt et au plus tard, ainsi que les chemins critiques.
+    print(Fore.GREEN + "Calcul des calendriers en cours..." + Fore.RESET)
+    # ... (Votre code de calcul ici)
+    print(Fore.GREEN + "Calcul terminé." + Fore.RESET)
+    # ... (Afficher les résultats ici)
+
+
+# Lancer le programme
 if __name__ == "__main__":
     while True:
         print("\n╔═══════════════════ " + Fore.LIGHTWHITE_EX + "Projet Graphe : B3" + Fore.RESET + " ═══════════════════╗")
