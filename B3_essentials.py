@@ -1,6 +1,7 @@
 # Fonctions utiles pour le projet
 from B3_matrix import *
 from colorama import Fore, Back, Style, init
+from collections import deque
 
 # Initialiser les couleurs pour le terminal
 init(autoreset=True)
@@ -181,3 +182,23 @@ def check_properties(graph_data):
         print("Le graphe ne contient pas de circuit.")
         
     return has_negative_arc, has_cycles
+
+def calculate_ranks(graph_data):
+    # Initialiser le dictionnaire pour stocker les rangs
+    ranks = {state: None for state in graph_data.keys()}
+    k = 0  # Rang initial
+    queue = deque([state for state, data in graph_data.items() if not data['predecessors']])  # Sommets sans prédécesseurs
+
+    while queue:
+        next_queue = deque()  # Pour stocker les sommets du prochain niveau
+        while queue:
+            current_state = queue.popleft()
+            ranks[current_state] = k
+            for successor in graph_data[current_state]['successors']:
+                # Vérifier si tous les prédécesseurs ont été assignés un rang
+                if all(ranks[pred] is not None for pred in graph_data[successor]['predecessors']):
+                    next_queue.append(successor)
+        queue = next_queue
+        k += 1
+
+    return ranks

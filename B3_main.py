@@ -79,20 +79,34 @@ def execute_choice(choice, graph_data):
         display_graph_as_triplets(graph_data)
 
     elif choice == 2:
+
+        # Afficher la matrice des valeurs
         print(Fore.RESET + "\n✦ ─────────── " + Fore.LIGHTWHITE_EX + "Matrice des valeurs" + Fore.RESET + " ─────────── ✦\n")
         display_value_matrix(graph_data)
 
     elif choice == 3:
-        print(Fore.RESET + "\n✦ ─────────── " + Fore.LIGHTWHITE_EX + "Vérification des propriétés" + Fore.RESET + " ─────────── ✦\n")
+
+        # Vérifier les propriétés du graphe
+        print("\n✦ ─────────── Vérification des propriétés ─────────── ✦\n")
+
         has_negative_arcs, has_cycles = check_properties(graph_data)
+
         if not has_negative_arcs and not has_cycles:
-            print(Fore.GREEN + "\n✦" + Fore.RESET + " Le graphe ne contient ni arc à valeur négative ni cycle.")
+            print(Fore.GREEN + "\n✦ Le graphe ne contient ni arc à valeur négative ni cycle." + Fore.RESET)
+
+            ranks = calculate_ranks(graph_data)
+
+            print(Fore.LIGHTBLUE_EX + "Rangs calculés pour chaque sommet : " + str(ranks))  # Affichage des rangs
+
             prompt_for_calendars(graph_data)
 
     elif choice == 4:
-        print(Fore.GREEN + "\n Graphe enregistré sous 'data/graph.gv'.")
+
+        # Afficher le graphe
         if graph_data:
             draw_graph(graph_data)
+            print(Fore.GREEN + "\n Graphe enregistré sous 'data/graph.gv'.")
+
         else:
             print("\nImpossible de dessiner le graphe, données non disponibles.\n")
 
