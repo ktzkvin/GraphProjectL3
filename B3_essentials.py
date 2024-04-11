@@ -124,21 +124,36 @@ def check_properties(graph_data):
     
     # -------- Vérifier l'absence d'arcs à valeur négative -------- # 
     has_negative_arc = False
+    arc_infos = ""
 
-    print(Fore.LIGHTYELLOW_EX + "✦" + Style.RESET_ALL + " Arcs à valeur négative :")
+    print(Fore.LIGHTYELLOW_EX + "✦" + Style.RESET_ALL + " Détail des arcs :\n")
     for state, info in graph_data.items():
-        if info["duration"] < 0:
-            for successor in info["successors"]:
-                print(f"Le graphe contient un arc à valeur négative ({state} -> {successor} = {info['duration']}).")
-                has_negative_arc = True
+        for successor in info["successors"]:
+            duration = graph_data[state]["duration"]
+            if duration < 0:
+                # Ajouter l'arc négatif avec mise en forme spéciale
+                arc_infos += Back.RED + Fore.LIGHTWHITE_EX + f" {duration} < 0 " + Style.RESET_ALL + "|"
+            else:
+                # Ajouter l'arc positif ou nul
+                arc_infos += f" {duration} > 0 |"
 
-    if not has_negative_arc:
-        print("Le graphe ne contient pas d'arc à valeur négative.\n")
+    # Afficher les informations sur tous les arcs sur une seule ligne
+    print(arc_infos)
+
+    # Vérifier l'existence d'au moins un arc négatif
+    if "< 0" in arc_infos:
+        if arc_infos.count("< 0") == 1:
+            print("\nLe graphe contient un arc à valeur négative :")
+
+        else:
+            print("\nLe graphe contient des arcs à valeur négative :")
+    else:
+        print("\nLe graphe " + Fore.BLACK + Back.WHITE + "ne contient pas" + Style.RESET_ALL + " d'arc à valeur négative.")
 
     # -------- Vérifier l'absence de circuits dans le graphe -------- #
     has_cycles = False
 
-    print(Fore.LIGHTYELLOW_EX + "✦" + Style.RESET_ALL + " Circuits dans le graphe :")
+    print(Fore.LIGHTYELLOW_EX + "\n✦" + Style.RESET_ALL + " Circuits dans le graphe :\n")
     visited = set()  # Pour suivre les nœuds déjà visités
     rec_stack = set()  # Pour suivre les nœuds dans la pile de récursion
     all_cycles = []  # Pour stocker tous les circuits trouvés
@@ -161,8 +176,9 @@ def check_properties(graph_data):
             if cycle_found:
                 all_cycles.append(cycle_path)  # Ajoute le circuit trouvé à la liste des circuits
 
-        rec_stack.remove(current_state)
+        rec_stack.remove(current_state)  # Retire le nœud actuel de la pile de récursion
         path.pop()  # Retire le nœud actuel du chemin
+
         return False, []
 
     for state in graph_data:
@@ -176,17 +192,19 @@ def check_properties(graph_data):
             print("Le circuit trouvé dans le graphe est :")
         else:
             print("Les circuits trouvés dans le graphe sont :")
-        for cycle in    all_cycles:
+        for cycle in all_cycles:
             print(" -> ".join(map(str, cycle)))
     else:
-        print("Le graphe ne contient pas de circuit.")
+        print("Le graphe " + Fore.BLACK + Back.WHITE + "ne contient pas" + Style.RESET_ALL + " de circuit.")
         
     return has_negative_arc, has_cycles
+
 
 def calculate_ranks(graph_data):
     # Initialiser le dictionnaire pour stocker les rangs
     ranks = {state: None for state in graph_data.keys()}
     k = 0  # Rang initial
+    # Utiliser une file pour parcourir les sommets du graphe (dequeue)
     queue = deque([state for state, data in graph_data.items() if not data['predecessors']])  # Sommets sans prédécesseurs
 
     while queue:
@@ -200,5 +218,14 @@ def calculate_ranks(graph_data):
                     next_queue.append(successor)
         queue = next_queue
         k += 1
+
+    # Partie d'affichage des rangs
+    print(Fore.LIGHTYELLOW_EX + "✦" + Style.RESET_ALL + " Calcul des rangs :\n")
+    ranks_table = [[Back.WHITE + Fore.BLACK + " État " + Style.RESET_ALL + Fore.LIGHTWHITE_EX,
+                    Back.WHITE + Fore.BLACK + " Rang " + Style.RESET_ALL + Fore.LIGHTWHITE_EX]]
+    sorted_ranks = sorted(ranks.items(), key=lambda item: item[0])
+    ranks_table.extend([[str(state), str(rank)] for state, rank in sorted_ranks])
+    print(tabulate(ranks_table, headers="firstrow", tablefmt="github", numalign="center", stralign="center"))
+    print()
 
     return ranks

@@ -92,13 +92,19 @@ def execute_choice(choice, graph_data):
         has_negative_arcs, has_cycles = check_properties(graph_data)
 
         if not has_negative_arcs and not has_cycles:
-            print(Fore.GREEN + "\n✦ Le graphe ne contient ni arc à valeur négative ni cycle." + Fore.RESET)
 
-            ranks = calculate_ranks(graph_data)
+            print(Fore.GREEN + "\n✦ Le graphe ne contient ni arc à valeur négative ni cycle.\n✦ C'est un graphe d'ordonnancement." + Fore.RESET)
 
-            print(Fore.LIGHTBLUE_EX + "Rangs calculés pour chaque sommet : " + str(ranks))  # Affichage des rangs
+            # Demander si l'utilisateur souhaite calculer les calendriers
+            if prompt_for_calendars(graph_data):
 
-            prompt_for_calendars(graph_data)
+                print("\n✦ ─────────── Calcul des Calendriers ─────────── ✦\n")
+
+                # La fonction calculate_ranks va gérer le calcul et l'affichage des calendriers
+                calculate_ranks(graph_data)
+
+            else:
+                print(Fore.YELLOW + "Calcul des calendriers annulé." + Fore.RESET)
 
     elif choice == 4:
 
@@ -126,23 +132,21 @@ def change_table():
             print(Fore.RED + "\n  ⚠" + Fore.RESET + " Veuillez entrer un chiffre entre 1 et 4.")
 
 
+# Fonction pour demander si l'utilisateur souhaite calculer les calendriers
 def prompt_for_calendars(graph_data):
     choice = input(Fore.LIGHTBLUE_EX + "Souhaitez-vous calculer les calendriers ? [" + Fore.GREEN + "y" + Fore.LIGHTBLUE_EX + "/" + Fore.RED + "n" + Fore.LIGHTBLUE_EX + "] ").lower()
     if choice == 'y':
-        calculate_calendars(graph_data)
+        return True
     elif choice == 'n':
-        print(Fore.YELLOW + "Calcul des calendriers annulé." + Fore.RESET)
+        return False
     else:
         print(Fore.RED + "Choix invalide, veuillez entrer 'y' pour oui ou 'n' pour non." + Fore.RESET)
         prompt_for_calendars(graph_data)  # Demande à nouveau
 
 
+# Fonction pour calculer les calendriers
 def calculate_calendars(graph_data):
-    # Ici, vous mettriez la logique pour calculer et afficher les calendriers au plus tôt et au plus tard, ainsi que les chemins critiques.
     print(Fore.GREEN + "Calcul des calendriers en cours..." + Fore.RESET)
-    # ... (Votre code de calcul ici)
-    print(Fore.GREEN + "Calcul terminé." + Fore.RESET)
-    # ... (Afficher les résultats ici)
 
 
 # Lancer le programme
