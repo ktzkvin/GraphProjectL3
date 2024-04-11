@@ -8,15 +8,14 @@ init(autoreset=True)
 
 # Fonction pour mettre une pause
 def continue_prompt():
-    print("\n" + Fore.LIGHTBLUE_EX + "Souhaitez-vous continuer ? [" + Fore.GREEN + "y" + Fore.LIGHTBLUE_EX + "/" + Fore.RED + "n" + Fore.LIGHTBLUE_EX + "] ", end="")
-    choice = input().lower()
-    if choice == 'y':
-        return True
-    elif choice == 'n':
-        return False
-    else:
-        print(Fore.RED + "Choix invalide, veuillez entrer 'y' pour oui ou 'n' pour non." + Fore.RESET)
-        continue_prompt()  # Demande à nouveau
+    while True:  # Boucle jusqu'à ce que l'utilisateur donne une réponse valide
+        user_input = input("\n" + Fore.LIGHTBLUE_EX + "Souhaitez-vous continuer ? [" + Fore.GREEN + "y" + Fore.LIGHTBLUE_EX + "/" + Fore.RED + "n" + Fore.LIGHTBLUE_EX + "] ").lower()
+        if user_input == 'y':
+            return True
+        elif user_input == 'n':
+            return False
+        else:
+            print(Fore.RED + "Choix invalide, veuillez entrer 'y' pour oui ou 'n' pour non." + Fore.RESET)
 
 
 # Menu principal
@@ -140,16 +139,15 @@ def change_table():
             print(Fore.RED + "\n  ⚠" + Fore.RESET + " Veuillez entrer un chiffre entre 1 et 4.")
 
 
-# Fonction pour demander si l'utilisateur souhaite calculer les calendriers
 def prompt_for_calendars(graph_data):
-    choice = input(Fore.LIGHTBLUE_EX + "Souhaitez-vous calculer les calendriers ? [" + Fore.GREEN + "y" + Fore.LIGHTBLUE_EX + "/" + Fore.RED + "n" + Fore.LIGHTBLUE_EX + "] ").lower()
-    if choice == 'y':
-        return True
-    elif choice == 'n':
-        return False
-    else:
-        print(Fore.RED + "Choix invalide, veuillez entrer 'y' pour oui ou 'n' pour non." + Fore.RESET)
-        prompt_for_calendars(graph_data)  # Demande à nouveau
+    while True:  # Boucle jusqu'à ce que l'utilisateur donne une réponse valide
+        user_input = input(Fore.LIGHTBLUE_EX + "Souhaitez-vous calculer les calendriers ? [" + Fore.GREEN + "y" + Fore.LIGHTBLUE_EX + "/" + Fore.RED + "n" + Fore.LIGHTBLUE_EX + "] ").lower()
+        if user_input == 'y':
+            return True
+        elif user_input == 'n':
+            return False
+        else:
+            print(Fore.RED + "Choix invalide, veuillez entrer 'y' pour oui ou 'n' pour non." + Fore.RESET)
 
 
 # Fonction pour calculer les calendriers
