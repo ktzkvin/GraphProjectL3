@@ -67,25 +67,18 @@ def alpha_omega(number):
 
 # Fonction pour afficher le graphe sous forme de triplets
 def display_graph_as_triplets(graph_data):
-    # Initialisation de la liste pour les données du tableau
+    max_state = max(graph_data.keys())  # Déterminer le plus grand état
+    n_plus_one = max_state + 1  # L'état oméga est n+1
     table_data = []
 
-    # Pour chaque état dans graph_data
     for state, data in graph_data.items():
-        # Pour chaque successeur de cet état
-        for successor in data['successors']:
-            start_str = f"0 ({alpha})" if state == 0 else str(state)
-            weight = data['duration'] if data['duration'] is not None else "0"
-            # Vérifier si le successeur est omega
-            if len(graph_data[successor]['successors']) == 0:
-                end_str = f"{successor} ({omega})"
-            else:
-                end_str = str(successor)
-            # Ajouter les données à la liste
-            table_data.append([f"{start_str} -> {end_str}", f"= {weight}"])
+        if not data['successors']:  # Si un état n'a pas de successeurs
+            table_data.append([f"{state} -> {n_plus_one} ({omega})", f"= {data['duration']}"])
+        else:
+            for successor in data['successors']:
+                table_data.append([f"{state} ({alpha}) -> {successor}" if state == 0 else f"{state} -> {successor}", f"= {data['duration']}"])
 
-    # Tri des données pour un affichage ordonné
-    table_data.sort(key=lambda x: x[0])
+    table_data.sort(key=lambda x: x[0])  # Trier les triplets
 
     # Calcul du nombre de sommets
     num_states = len(graph_data)
@@ -142,11 +135,7 @@ def check_properties(graph_data):
 
     # Vérifier l'existence d'au moins un arc négatif
     if "< 0" in arc_infos:
-        if arc_infos.count("< 0") == 1:
-            print("\nLe graphe contient un arc à valeur négative :")
-
-        else:
-            print("\nLe graphe contient des arcs à valeur négative :")
+        print(f"Le graphe contient {len(arc_infos.split('< 0')) - 1} arc(s) à valeur négative.")
     else:
         print("\nLe graphe " + Fore.BLACK + Back.WHITE + "ne contient pas" + Style.RESET_ALL + " d'arc à valeur négative.")
 

@@ -10,7 +10,13 @@ init(autoreset=True)
 def continue_prompt():
     print("\n" + Fore.LIGHTBLUE_EX + "Souhaitez-vous continuer ? [" + Fore.GREEN + "y" + Fore.LIGHTBLUE_EX + "/" + Fore.RED + "n" + Fore.LIGHTBLUE_EX + "] ", end="")
     choice = input().lower()
-    return choice == 'y'
+    if choice == 'y':
+        return True
+    elif choice == 'n':
+        return False
+    else:
+        print(Fore.RED + "Choix invalide, veuillez entrer 'y' pour oui ou 'n' pour non." + Fore.RESET)
+        continue_prompt()  # Demande à nouveau
 
 
 # Menu principal
@@ -52,7 +58,9 @@ def main_menu(graph_number):
             execute_choice(choice, graph_data)
 
             # Ajout de la demande pour continuer ou quitter
-            continue_running = continue_prompt()
+            if not continue_prompt():
+                continue_running = False
+                print(Fore.RED + "\n✧" + Fore.RESET + " Programme quitté. " + Fore.RED + "✧\n" + Fore.RESET)
 
         elif choice == 5:
             # Changer la table de contraintes
@@ -110,7 +118,7 @@ def execute_choice(choice, graph_data):
 
         # Afficher le graphe
         if graph_data:
-            draw_graph(graph_data)
+            draw_graph(graph_data, graph_number)
             print(Fore.GREEN + "\n Graphe enregistré sous 'data/graph.gv'.")
 
         else:
