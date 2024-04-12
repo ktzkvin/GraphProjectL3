@@ -170,4 +170,4 @@ if __name__ == "__main__":
             else:
                 print(Fore.RED + "\n  ⚠" + Fore.RESET + " Veuillez entrer un chiffre entre 1 et 15.\n")
         except ValueError:
-            print(Fore.RED + "\n  ⚠" + Fore.RESET + " Veuillez entrer un chiffre entre 1 et 15.\n")
+            print(Fore.RED + "\n  ⚠" + Fore.RESET + " [ERROR] Veuillez entrer un chiffre entre 1 et 15.\n")

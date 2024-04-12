@@ -112,10 +112,9 @@ def display_constraints_table(graph_data):
     print(tabulate(table_data, headers=headers, tablefmt="github", numalign="center", stralign="center"))
 
 
-#
+# Fonction pour vérifier les propriétés d'un graphe
 def check_properties(graph_data):
-    
-    # -------- Vérifier l'absence d'arcs à valeur négative -------- # 
+    # -------- Vérifier l'absence d'arcs à valeur négative -------- #
     has_negative_arc = False
     arc_infos = ""
 
@@ -124,68 +123,66 @@ def check_properties(graph_data):
         for successor in info["successors"]:
             duration = graph_data[state]["duration"]
             if duration < 0:
-                # Ajouter l'arc négatif avec mise en forme spéciale
+                has_negative_arc = True
                 arc_infos += Back.RED + Fore.LIGHTWHITE_EX + f" {duration} < 0 " + Style.RESET_ALL + "|"
             else:
-                # Ajouter l'arc positif ou nul
                 arc_infos += f" {duration} > 0 |"
-
-    # Afficher les informations sur tous les arcs sur une seule ligne
     print(arc_infos)
 
-    # Vérifier l'existence d'au moins un arc négatif
-    if "< 0" in arc_infos:
-        print(f"Le graphe contient {len(arc_infos.split('< 0')) - 1} arc(s) à valeur négative.")
+    if has_negative_arc:
+        print(Fore.RED + "\nLe graphe contient des arcs à valeur négative." + Style.RESET_ALL)
     else:
-        print("\nLe graphe " + Fore.BLACK + Back.WHITE + "ne contient pas" + Style.RESET_ALL + " d'arc à valeur négative.")
+        print(Fore.GREEN + "\nLe graphe ne contient pas d'arc à valeur négative." + Style.RESET_ALL)
 
     # -------- Vérifier l'absence de circuits dans le graphe -------- #
     has_cycles = False
+    visited = set()  # Pour stocker les états visités
+    rec_stack = set()  # Pour stocker les états visités dans la pile de récursion
+    all_cycles = []  # Pour stocker tous les cycles détectés
 
-    print(Fore.LIGHTYELLOW_EX + "\n✦" + Style.RESET_ALL + " Circuits dans le graphe :\n")
-    visited = set()  # Pour suivre les nœuds déjà visités
-    rec_stack = set()  # Pour suivre les nœuds dans la pile de récursion
-    all_cycles = []  # Pour stocker tous les circuits trouvés
+    print(Fore.LIGHTYELLOW_EX + "\n✦ Démarrage de la vérification de cycle avec DFS\n" + Style.RESET_ALL)
 
-    # Fonction de recherche en profondeur pour détecter les circuits (Depth First Search)
-    def dfs(current_state, path):
+    def dfs(current_state, path, has_cycles):
+        print(Fore.YELLOW + f"Noeud visité : {current_state}" + Style.RESET_ALL)
         if current_state in rec_stack:
-            # Circuit détecté, retourne le chemin du circuit
             cycle_start_index = path.index(current_state)
-            return True, path[cycle_start_index:]
+            cycle_path = path[cycle_start_index:]
+            print(Fore.RED + "Cycle détecté ! Le noeud " + str(current_state) + " a déjà été visité dans le chemin: " + " -> ".join(map(str, cycle_path)) + "\n" + Style.RESET_ALL)
+            all_cycles.append(cycle_path)
+            has_cycles = True
+
+            # Signale la détection d'un cycle
+            return True, has_cycles
+
         if current_state in visited:
-            return False, []  # Aucun circuit trouvé à partir de ce nœud
+            return False, has_cycles
 
         visited.add(current_state)
         rec_stack.add(current_state)
         path.append(current_state)
 
         for successor in graph_data[current_state]["successors"]:
-            cycle_found, cycle_path = dfs(successor, list(path))  # Utilise une copie du chemin pour chaque successeur
-            if cycle_found:
-                all_cycles.append(cycle_path)  # Ajoute le circuit trouvé à la liste des circuits
+            print(Fore.CYAN + f"  Visite récursive du voisin : {successor}" + Style.RESET_ALL)
+            var_dfs, has_cycles = dfs(successor, list(path), has_cycles)
+            if var_dfs:
+                rec_stack.remove(current_state)
+                path.pop()
+                return True, has_cycles
 
-        rec_stack.remove(current_state)  # Retire le nœud actuel de la pile de récursion
-        path.pop()  # Retire le nœud actuel du chemin
-
-        return False, []
+        rec_stack.remove(current_state)
+        path.pop()
+        return False, has_cycles
 
     for state in graph_data:
         if state not in visited:
-            dfs(state, [])
+            print(Fore.CYAN + "Exploration du noeud : " + str(state) + Style.RESET_ALL)
+            var_dfs, has_cycles = dfs(state, [], has_cycles)
 
-    if all_cycles:
-        has_cycles = True
-
-        if len(all_cycles) == 1:
-            print("Le circuit trouvé dans le graphe est :")
-        else:
-            print("Les circuits trouvés dans le graphe sont :")
-        for cycle in all_cycles:
-            print(" -> ".join(map(str, cycle)))
+    if has_cycles:
+        print(Fore.RED + "✦ Fin de la vérification de cycle. Résultat : Cycle détecté dans le graphe." + Style.RESET_ALL)
     else:
-        print("Le graphe " + Fore.BLACK + Back.WHITE + "ne contient pas" + Style.RESET_ALL + " de circuit.")
-        
+        print(Fore.GREEN + "✦Fin de la vérification de cycle. Résultat : Aucun cycle détecté dans le graphe." + Style.RESET_ALL)
+
     return has_negative_arc, has_cycles
 
 
