@@ -140,48 +140,43 @@ def check_properties(graph_data):
     rec_stack = set()  # Pour stocker les états visités dans la pile de récursion
     all_cycles = []  # Pour stocker tous les cycles détectés
 
-    print(Fore.LIGHTYELLOW_EX + "\n✦ Démarrage de la vérification de cycle avec DFS\n" + Style.RESET_ALL)
+    print(Fore.LIGHTYELLOW_EX + "\n✦ " + Style.RESET_ALL + "Démarrage de la vérification de cycle avec DFS\n")
 
-    def dfs(current_state, path, has_cycles):
-        print(Fore.YELLOW + f"Noeud visité : {current_state}" + Style.RESET_ALL)
+    def dfs(current_state, path):
+        print(Fore.YELLOW + f"Nœud visité : {current_state}" + Style.RESET_ALL)
+        nonlocal has_cycles  # Permet d'accéder à la variable has_cycles définie dans la portée englobante
         if current_state in rec_stack:
             cycle_start_index = path.index(current_state)
             cycle_path = path[cycle_start_index:]
-            print(Fore.RED + "Cycle détecté ! Le noeud " + str(current_state) + " a déjà été visité dans le chemin: " + " -> ".join(map(str, cycle_path)) + "\n" + Style.RESET_ALL)
+            print(Fore.RED + "Cycle détecté ! Le nœud " + str(current_state) + " a déjà été visité dans le chemin : " + Back.RED + Fore.BLACK + Style.BRIGHT + " " + " -> ".join(map(str, cycle_path)) + " " + Style.RESET_ALL + "\n" + Style.RESET_ALL)
             all_cycles.append(cycle_path)
-            has_cycles = True
+            has_cycles = True  # Met à jour la variable has_cycles
+        elif current_state not in visited:
+            visited.add(current_state)
+            rec_stack.add(current_state)
+            path.append(current_state)
 
-            # Signale la détection d'un cycle
-            return True, has_cycles
+            for successor in graph_data[current_state]["successors"]:
+                if len(graph_data[current_state]["successors"]) == 1:
+                    print(Fore.CYAN + "  Successeur : ", end="")
+                else:
+                    print(Fore.CYAN + "  Successeurs : ", end="")
+                print(graph_data[current_state]["successors"])
+                print(Fore.CYAN + f"  Visite récursive du successeur : {successor}" + Style.RESET_ALL)
+                dfs(successor, list(path))  # Appel récursif de dfs sans condition d'arrêt
 
-        if current_state in visited:
-            return False, has_cycles
-
-        visited.add(current_state)
-        rec_stack.add(current_state)
-        path.append(current_state)
-
-        for successor in graph_data[current_state]["successors"]:
-            print(Fore.CYAN + f"  Visite récursive du voisin : {successor}" + Style.RESET_ALL)
-            var_dfs, has_cycles = dfs(successor, list(path), has_cycles)
-            if var_dfs:
-                rec_stack.remove(current_state)
-                path.pop()
-                return True, has_cycles
-
-        rec_stack.remove(current_state)
-        path.pop()
-        return False, has_cycles
+            rec_stack.remove(current_state)  # Retire le nœud actuel de la pile de récursion après avoir exploré tous les successeurs
+            path.pop()
 
     for state in graph_data:
         if state not in visited:
-            print(Fore.CYAN + "Exploration du noeud : " + str(state) + Style.RESET_ALL)
-            var_dfs, has_cycles = dfs(state, [], has_cycles)
+            print(Fore.CYAN + "✦ Exploration du nœud : " + str(state) + Style.RESET_ALL)
+            dfs(state, [])
 
     if has_cycles:
-        print(Fore.RED + "✦ Fin de la vérification de cycle. Résultat : Cycle détecté dans le graphe." + Style.RESET_ALL)
+        print(Fore.RED + "\nFin de la vérification de cycle. Résultat : Cycle détecté dans le graphe." + Style.RESET_ALL)
     else:
-        print(Fore.GREEN + "✦Fin de la vérification de cycle. Résultat : Aucun cycle détecté dans le graphe." + Style.RESET_ALL)
+        print(Fore.GREEN + "\nFin de la vérification de cycle. Résultat : Aucun cycle détecté dans le graphe." + Style.RESET_ALL)
 
     return has_negative_arc, has_cycles
 

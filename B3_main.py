@@ -100,7 +100,7 @@ def execute_choice(choice, graph_data):
 
         if not has_negative_arcs and not has_cycles:
 
-            print(Fore.GREEN + "\n✦ Le graphe ne contient ni arc à valeur négative ni cycle.\n✦ C'est un graphe d'ordonnancement." + Fore.RESET)
+            print(Fore.GREEN + "\n✦ Le graphe ne contient ni arc à valeur négative ni cycle.\n✦ " + Back.GREEN + Fore.BLACK + "C'est un graphe d'ordonnancement." + Style.RESET_ALL)
 
             # Demander si l'utilisateur souhaite calculer les calendriers
             if prompt_for_calendars(graph_data):
