@@ -6,13 +6,16 @@ from collections import deque
 # Initialiser les couleurs pour le terminal
 init(autoreset=True)
 
+# Initialiser Alpha et Oméga
 alpha = chr(945)
 omega = chr(969)
 
 
+#
 def store_constraints_in_memory(constraints_table):
     graph_data = {}
-    # Initialisez d'abord tous les états dans graph_data
+
+    # Initialisation
     for state, _, predecessors in constraints_table:
         if state not in graph_data:
             graph_data[state] = {"duration": 0, "predecessors": [], "successors": []}
@@ -20,11 +23,11 @@ def store_constraints_in_memory(constraints_table):
             if pred not in graph_data:
                 graph_data[pred] = {"duration": 0, "predecessors": [], "successors": []}
 
-    # Maintenant, parcourez à nouveau pour remplir les données
+    # Remplir avec les données
     for state, duration, predecessors in constraints_table:
         graph_data[state]["duration"] = duration
         for pred in predecessors:
-            if pred != '/':  # Ignorez l'état alpha si représenté par '/'
+            if pred != '/':  # Ignorer l'état alpha
                 graph_data[pred]["successors"].append(state)
                 graph_data[state]["predecessors"].append(pred)
 
@@ -105,7 +108,14 @@ def check_properties(graph_data):
     rec_stack = set()  # Pour stocker les états visités dans la pile de récursion
     all_cycles = []  # Pour stocker tous les cycles détectés
 
-    print(Fore.LIGHTYELLOW_EX + "\n✦ " + Style.RESET_ALL + "Démarrage de la vérification de cycle par parcours en profondeur (DFS)")
+    alpha_successors = graph_data[0]["successors"] if 0 in graph_data else []
+    starters = ', '.join(map(str, alpha_successors))
+    print(Fore.LIGHTYELLOW_EX + "\n✦ " + Style.RESET_ALL + f"Démarrage de la vérification de cycle par parcours en profondeur (DFS) à partir ", end="")
+    if len(starters) > 1:
+        print("des nœuds : ", end="")
+    else:
+        print("du nœud : ", end="")
+    print(Fore.LIGHTYELLOW_EX + starters + Style.RESET_ALL)
 
     # Fonction de Parcours en Profondeur (Depth First Search)
     def dfs(current_state, path):

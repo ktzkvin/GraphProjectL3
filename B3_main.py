@@ -53,6 +53,7 @@ def main_menu(graph_number):
 
             # Stockage du tableau de contraintes dans la mémoire
             graph_data = store_constraints_in_memory(constraints_table)
+            graph_data = {key: graph_data[key] for key in sorted(graph_data)}
 
             # Exécuter le choix de l'utilisateur
             execute_choice(choice, graph_data)
@@ -67,6 +68,7 @@ def main_menu(graph_number):
             graph_number = change_table()  # Récupérer le nouveau numéro de table
             constraints_table = matrice_table(graph_number)  # Lire la nouvelle table de contraintes
             graph_data = store_constraints_in_memory(constraints_table)  # Mettre à jour les données en mémoire
+            graph_data = {key: graph_data[key] for key in sorted(graph_data)}
 
         else:
             print(Fore.RED + "\n  ⚠" + Fore.RESET + " Veuillez entrer un chiffre entre 1 et 4.")
@@ -109,28 +111,19 @@ def execute_choice(choice, graph_data):
                 print("\n✦ ─────────── Calcul des Calendriers ─────────── ✦\n")
 
                 # Afficher les rangs
-                calculate_ranks(graph_data)
+                ranks = calculate_ranks(graph_data)
 
-                earliest_schedule = calculate_earliest_schedule(graph_data)
-                project_duration = max(
-                    earliest_schedule.values())  # La durée totale du projet est la valeur la plus élevée
-                latest_schedule = calculate_latest_schedule(graph_data, project_duration)
-                margins = calculate_margins(earliest_schedule, latest_schedule)
+                # Calcul du calendrier au plus tôt en utilisant les rangs
+                earliest_schedule = calculate_earliest_schedule(graph_data, ranks)
+                print("Débuts au plus tôt :", earliest_schedule)
 
-                print("\n✦ Calendrier au plus tôt des tâches :")
-                for state in sorted(earliest_schedule):
-                    print(f"Tâche {state}: Début au plus tôt {earliest_schedule[state]}")
+                # Détermination de la date de fin de projet au plus tôt
+                projet_fin = max(earliest_schedule.values())  # Utilisez ceci pour la date de fin au plus tard
 
-                print("\n✦ Calendrier au plus tard des tâches :")
-                for state in sorted(latest_schedule):
-                    print(f"Tâche {state}: Début au plus tard {latest_schedule[state]}")
+                # Calcul du calendrier au plus tard
+                latest_schedule = calculate_latest_schedule(graph_data, ranks, projet_fin)
+                print("Débuts au plus tard :", latest_schedule)
 
-                print("\n✦ Marges des tâches :")
-                for state in sorted(margins):
-                    print(f"Tâche {state}: Marge totale {margins[state]}")
-
-            else:
-                print(Fore.YELLOW + "Calcul des calendriers annulé." + Fore.RESET)
 
     elif choice == 4:
 
