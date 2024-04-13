@@ -31,40 +31,6 @@ def store_constraints_in_memory(constraints_table):
     return graph_data
 
 
-# Fonction pour ajouter les états alpha et oméga
-def alpha_omega(number):
-    # Exemple d'utilisation
-    constraints_table = matrice_table(number)
-
-    # Extraire les états actuels et les prédécesseurs de la liste des contraintes
-    current_states = set()
-    previous = set()
-
-    for current_state, _, pred in constraints_table:
-        current_states.add(current_state)
-        previous.update(pred)
-
-    # Calculer les états qui ne sont pas dans les prédécesseurs
-    missing_state = current_states - previous
-
-    # Créer l'état 0 (alpha) avec un temps de transition de 0 et sans prédécesseur
-    state_0 = 0
-    transition_time = 0
-    previous_0 = 0
-
-    # Ajouter l'état 0 à la liste des contraintes
-    constraints_table.insert(0, (state_0, transition_time, [previous_0]))
-
-    # Créer l'état N+1 (oméga) avec un temps de transition de 0 et les prédécesseurs étant les états manquants
-    state_N_plus_1 = max(current_states) + 1
-    transition_time_N_plus_1 = 0
-
-    # Ajouter l'état N+1 à la liste des contraintes
-    constraints_table.append((state_N_plus_1, transition_time_N_plus_1, list(missing_state)))
-
-    return constraints_table
-
-
 # Fonction pour afficher le graphe sous forme de triplets
 def display_graph_as_triplets(graph_data):
     max_state = max(graph_data.keys())  # Déterminer le plus grand état
@@ -120,13 +86,12 @@ def check_properties(graph_data):
 
     print(Fore.LIGHTYELLOW_EX + "✦" + Style.RESET_ALL + " Détail des arcs :\n")
     for state, info in graph_data.items():
-        for successor in info["successors"]:
-            duration = graph_data[state]["duration"]
-            if duration < 0:
-                has_negative_arc = True
-                arc_infos += Back.RED + Fore.LIGHTWHITE_EX + f" {duration} < 0 " + Style.RESET_ALL + "|"
-            else:
-                arc_infos += f" {duration} > 0 |"
+        duration = graph_data[state]["duration"]
+        if duration < 0:
+            has_negative_arc = True
+            arc_infos += Back.RED + Fore.LIGHTWHITE_EX + f" {duration} < 0 " + Style.RESET_ALL + "|"
+        else:
+            arc_infos += f" {duration} > 0 |"
     print(arc_infos)
 
     if has_negative_arc:
@@ -140,38 +105,52 @@ def check_properties(graph_data):
     rec_stack = set()  # Pour stocker les états visités dans la pile de récursion
     all_cycles = []  # Pour stocker tous les cycles détectés
 
-    print(Fore.LIGHTYELLOW_EX + "\n✦ " + Style.RESET_ALL + "Démarrage de la vérification de cycle avec DFS\n")
+    print(Fore.LIGHTYELLOW_EX + "\n✦ " + Style.RESET_ALL + "Démarrage de la vérification de cycle par parcours en profondeur (DFS)")
 
+    # Fonction de Parcours en Profondeur (Depth First Search)
     def dfs(current_state, path):
-        print(Fore.YELLOW + f"Nœud visité : {current_state}" + Style.RESET_ALL)
-        nonlocal has_cycles  # Permet d'accéder à la variable has_cycles définie dans la portée englobante
+
+        print(Fore.YELLOW + len(path) * "  " + f"Nœud visité : {current_state}" + Style.RESET_ALL)
+        nonlocal has_cycles
+
         if current_state in rec_stack:
             cycle_start_index = path.index(current_state)
             cycle_path = path[cycle_start_index:]
-            print(Fore.RED + "Cycle détecté ! Le nœud " + str(current_state) + " a déjà été visité dans le chemin : " + Back.RED + Fore.BLACK + Style.BRIGHT + " " + " -> ".join(map(str, cycle_path)) + " " + Style.RESET_ALL + "\n" + Style.RESET_ALL)
+
+            print(Fore.RED + "Cycle détecté ! Le nœud " + str(current_state) + " a déjà été visité dans le chemin : " + Back.RED + Fore.BLACK + Style.BRIGHT + " " + " -> ".join(
+                map(str, cycle_path)) + " " + Style.RESET_ALL + Style.RESET_ALL)
             all_cycles.append(cycle_path)
-            has_cycles = True  # Met à jour la variable has_cycles
+            has_cycles = True
+
         elif current_state not in visited:
             visited.add(current_state)
             rec_stack.add(current_state)
             path.append(current_state)
 
-            for successor in graph_data[current_state]["successors"]:
-                if len(graph_data[current_state]["successors"]) == 1:
-                    print(Fore.CYAN + "  Successeur : ", end="")
-                else:
-                    print(Fore.CYAN + "  Successeurs : ", end="")
-                print(graph_data[current_state]["successors"])
-                print(Fore.CYAN + f"  Visite récursive du successeur : {successor}" + Style.RESET_ALL)
-                dfs(successor, list(path))  # Appel récursif de dfs sans condition d'arrêt
+            # Affichage des successeurs
+            mot_successeur = "Successeur" if len(graph_data[current_state]["successors"]) == 1 else "Successeurs"
+            print(Fore.CYAN + ((len(path) - 1)  * "  ") + f"{mot_successeur} : " + ("[" + ", ".join(map(str, graph_data[current_state]["successors"])) + "]" if graph_data[current_state]["successors"] else "∅") + Style.RESET_ALL)
 
-            rec_stack.remove(current_state)  # Retire le nœud actuel de la pile de récursion après avoir exploré tous les successeurs
+            # Appel récursif pour chaque successeur
+            for successor in graph_data[current_state]["successors"]:
+                dfs(successor, list(path))
+
+            rec_stack.remove(current_state)
             path.pop()
 
+            # Gérer l'affichage du "Retour en arrière"
+            if path:
+                prev_node = path[-1]
+                successeurs_prev = ", ".join(Fore.GREEN + str(succ) + Style.RESET_ALL if succ not in visited else Fore.RED + str(succ) + Style.RESET_ALL for succ in graph_data[prev_node]["successors"])
+                print(Fore.MAGENTA + (len(path) * "  ") + f"Retour en arrière : {prev_node} -> [{successeurs_prev}" + Fore.MAGENTA + "]" + Style.RESET_ALL)
+
     for state in graph_data:
-        if state not in visited:
-            print(Fore.CYAN + "✦ Exploration du nœud : " + str(state) + Style.RESET_ALL)
+        # Ne pas prendre en compte le nœud Alpha
+        if state not in visited and state != 0:
+            print(Fore.CYAN + "\n✦ Exploration par le nœud : " + str(state) + Style.RESET_ALL)
             dfs(state, [])
+
+    print(Fore.CYAN + "Tout le graphe a été exploré." + Style.RESET_ALL)
 
     if has_cycles:
         print(Fore.RED + "\nFin de la vérification de cycle. Résultat : Cycle détecté dans le graphe." + Style.RESET_ALL)

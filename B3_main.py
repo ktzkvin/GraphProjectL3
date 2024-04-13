@@ -1,5 +1,6 @@
 from B3_draw import *
 from B3_essentials import *
+from B3_calendar import *
 from colorama import Fore, Back, Style, init
 
 # Initialiser les couleurs pour le terminal
@@ -103,12 +104,30 @@ def execute_choice(choice, graph_data):
             print(Fore.GREEN + "\n✦ Le graphe ne contient ni arc à valeur négative ni cycle.\n✦ " + Back.GREEN + Fore.BLACK + "C'est un graphe d'ordonnancement." + Style.RESET_ALL)
 
             # Demander si l'utilisateur souhaite calculer les calendriers
-            if prompt_for_calendars(graph_data):
+            if prompt_for_calendars():
 
                 print("\n✦ ─────────── Calcul des Calendriers ─────────── ✦\n")
 
-                # La fonction calculate_ranks va gérer le calcul et l'affichage des calendriers
+                # Afficher les rangs
                 calculate_ranks(graph_data)
+
+                earliest_schedule = calculate_earliest_schedule(graph_data)
+                project_duration = max(
+                    earliest_schedule.values())  # La durée totale du projet est la valeur la plus élevée
+                latest_schedule = calculate_latest_schedule(graph_data, project_duration)
+                margins = calculate_margins(earliest_schedule, latest_schedule)
+
+                print("\n✦ Calendrier au plus tôt des tâches :")
+                for state in sorted(earliest_schedule):
+                    print(f"Tâche {state}: Début au plus tôt {earliest_schedule[state]}")
+
+                print("\n✦ Calendrier au plus tard des tâches :")
+                for state in sorted(latest_schedule):
+                    print(f"Tâche {state}: Début au plus tard {latest_schedule[state]}")
+
+                print("\n✦ Marges des tâches :")
+                for state in sorted(margins):
+                    print(f"Tâche {state}: Marge totale {margins[state]}")
 
             else:
                 print(Fore.YELLOW + "Calcul des calendriers annulé." + Fore.RESET)
@@ -139,20 +158,15 @@ def change_table():
             print(Fore.RED + "\n  ⚠" + Fore.RESET + " Veuillez entrer un chiffre entre 1 et 4.")
 
 
-def prompt_for_calendars(graph_data):
+def prompt_for_calendars():
     while True:  # Boucle jusqu'à ce que l'utilisateur donne une réponse valide
-        user_input = input(Fore.LIGHTBLUE_EX + "Souhaitez-vous calculer les calendriers ? [" + Fore.GREEN + "y" + Fore.LIGHTBLUE_EX + "/" + Fore.RED + "n" + Fore.LIGHTBLUE_EX + "] ").lower()
+        user_input = input(Fore.LIGHTBLUE_EX + "\nSouhaitez-vous calculer les calendriers ? [" + Fore.GREEN + "y" + Fore.LIGHTBLUE_EX + "/" + Fore.RED + "n" + Fore.LIGHTBLUE_EX + "] ").lower()
         if user_input == 'y':
             return True
         elif user_input == 'n':
             return False
         else:
             print(Fore.RED + "Choix invalide, veuillez entrer 'y' pour oui ou 'n' pour non." + Fore.RESET)
-
-
-# Fonction pour calculer les calendriers
-def calculate_calendars(graph_data):
-    print(Fore.GREEN + "Calcul des calendriers en cours..." + Fore.RESET)
 
 
 # Lancer le programme
