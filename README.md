@@ -38,7 +38,7 @@ Toutes commandes à suivre sont à exécuter dans le terminal de votre IDE.
 ```
 
 Ou bien exécuter le fichier B3_main.py à l'aide de votre IDE.
-## 🎥 Démonstration
+## 🛠️ Fonctionnalités
 
 Chaque étape du processus d'ordonnancement est illustrée ci-dessous avec un GIF démonstratif :
 
