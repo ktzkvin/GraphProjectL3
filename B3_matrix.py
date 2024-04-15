@@ -1,6 +1,10 @@
 import os
 from tabulate import tabulate
-from colorama import Fore
+from colorama import Fore, Style
+
+# Initialiser Alpha et Oméga
+alpha = chr(945)
+omega = chr(969)
 
 
 # Lit le contenu du fichier spécifié par le numéro de la table
@@ -40,7 +44,7 @@ def display_value_matrix(graph_data):
     # Identifier tous les sommets (états) présents
     all_states = set(graph_data.keys())
     # Déterminer la taille de la matrice
-    num_states = max(all_states) + 1  # Assure qu'alpha (0) et omega (N+1) sont inclus
+    num_states = max(all_states) + 1
 
     # Initialiser la matrice avec des valeurs '*' partout
     matrix = [['*' for _ in range(num_states)] for _ in range(num_states)]
@@ -50,10 +54,16 @@ def display_value_matrix(graph_data):
         for successor in data['successors']:
             duration_str = str(data['duration'])
             # Colorier la durée si ce n'est pas un '*'
-            color_duration = Fore.LIGHTGREEN_EX + duration_str + Fore.RESET if duration_str != '*' else '*'
+            color_duration = Fore.LIGHTGREEN_EX + Style.BRIGHT + duration_str + Style.RESET_ALL if duration_str != '*' else '*'
             matrix[state][successor] = color_duration
 
     # Afficher la matrice
-    headers = [''] + [str(i) for i in range(num_states)]
-    rows = [[str(i)] + row for i, row in enumerate(matrix)]
+    headers = [''] + [f"{i} ({alpha})" if i == 0 else f"{i} ({omega})" if i == num_states - 1 else str(i) for i in range(num_states)]
+
+    # Modifier la première colonne de chaque rangée pour inclure alpha et oméga
+    rows = []
+    for i, row in enumerate(matrix):
+        first_column = f"{i} ({alpha})" if i == 0 else f"{i} ({omega})" if i == num_states - 1 else str(i)
+        rows.append([first_column] + row)
+
     print(tabulate(rows, headers=headers, tablefmt='presto', numalign='center', stralign='center'))
