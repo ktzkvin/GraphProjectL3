@@ -14,17 +14,27 @@ omega = chr(969)
 #
 def store_constraints_in_memory(constraints_table):
     graph_data = {}
-    n_plus_one = max(state for state, _, _ in constraints_table) + 1
 
+    # Ajoutez Alpha avec la durée 0 et pas de prédécesseurs
+    graph_data[0] = {"duration": 0, "predecessors": [], "successors": []}
+
+    # Initialisez chaque état mentionné dans le tableau de contraintes
     for state, duration, predecessors in constraints_table:
         if state not in graph_data:
             graph_data[state] = {"duration": duration, "predecessors": [], "successors": []}
         for pred in predecessors:
             if pred not in graph_data:
                 graph_data[pred] = {"duration": 0, "predecessors": [], "successors": []}
+
+    # Maintenant, ajoutez les prédécesseurs et les successeurs
+    for state, duration, predecessors in constraints_table:
+        graph_data[state]['duration'] = duration
+        for pred in predecessors:
             graph_data[pred]["successors"].append(state)
             graph_data[state]["predecessors"].append(pred)
 
+    # Identifier le dernier état comme Oméga et ajuster ses prédécesseurs
+    n_plus_one = max(state for state, _, _ in constraints_table) + 1
     graph_data[n_plus_one] = {"duration": 0, "predecessors": [], "successors": []}
     for state, data in graph_data.items():
         if not data["successors"] and state != n_plus_one:
@@ -34,34 +44,24 @@ def store_constraints_in_memory(constraints_table):
     return graph_data
 
 
+
 # Fonction pour afficher le graphe sous forme de triplets
 def display_graph_as_triplets(graph_data):
     max_state = max(graph_data.keys())  # Déterminer le plus grand état
-    n_plus_one = max_state + 1  # L'état oméga est n+1
     table_data = []
 
     for state, data in graph_data.items():
-        if not data['successors']:  # Si un état n'a pas de successeurs
-            table_data.append([f"{state} -> {n_plus_one} ({omega})", f"= {data['duration']}"])
-        else:
-            for successor in data['successors']:
-                table_data.append([f"{state} ({alpha}) -> {successor}" if state == 0 else f"{state} -> {successor}", f"= {data['duration']}"])
+        if state == max_state:
+            continue  # Oméga ne doit pas apparaître en tant que nœud de départ
+        for successor in data['successors']:
+            if successor == max_state:
+                table_data.append([f"{state} -> {successor} ({omega})", f"= {data['duration']}"])
+            else:
+                table_data.append([f"{state} -> {successor}", f"= {data['duration']}"])
 
-    table_data.sort(key=lambda x: x[0])  # Trier les triplets
-
-    # Calcul du nombre de sommets
-    num_states = len(graph_data)
-
-    # Calcul du nombre d'arcs
-    num_arcs = sum(len(data["successors"]) for data in graph_data.values())
-
-    # Affichages des données
-    print()
-    print(Fore.BLACK + Back.WHITE + f" {num_states} " + Style.RESET_ALL + " sommets & " + Fore.BLACK + Back.WHITE + f" {num_arcs} " + Style.RESET_ALL + " arcs")
-
-    print()
+    # Tri et affichage des triplets
+    table_data.sort(key=lambda x: x[0])
     print(tabulate(table_data, tablefmt="plain", numalign="right", stralign="left"))
-    print()
 
 
 # Fonction pour afficher le tableau de contraintes
