@@ -36,8 +36,8 @@ def calculate_ranks(graph_data):
     # Afficher le tableau des rangs avec les états et leur rang correspondant
     print(Fore.LIGHTYELLOW_EX + "✦" + Style.RESET_ALL + " Calcul des rangs :\n")
 
-    ranks_table = [[Back.WHITE + Fore.BLACK + " État " + Style.RESET_ALL + Fore.LIGHTWHITE_EX,
-                    Back.WHITE + Fore.BLACK + " Rang " + Style.RESET_ALL + Fore.LIGHTWHITE_EX]]
+    ranks_table = [[Back.WHITE + Fore.BLACK + " État " + Style.RESET_ALL,
+                    Back.WHITE + Fore.BLACK + " Rang " + Style.RESET_ALL]]
     sorted_ranks = sorted(ranks.items(), key=lambda item: item[0])
     ranks_table.extend([[str(state), str(rank)] for state, rank in sorted_ranks])
 
