@@ -1,5 +1,5 @@
 from collections import deque
-from colorama import Fore, Back, Style, init
+from colorama import Fore, Back, Style
 from tabulate import tabulate
 
 
