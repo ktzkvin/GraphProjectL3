@@ -91,19 +91,26 @@ def display_constraints_table(graph_data):
 
 # Fonction pour vérifier les propriétés d'un graphe
 def check_properties(graph_data):
+
     # -------- Vérifier l'absence d'arcs à valeur négative -------- #
     has_negative_arc = False
-    arc_infos = ""
+    arc_details = []
 
-    print(Fore.LIGHTYELLOW_EX + "✦" + Style.RESET_ALL + " Détail des arcs :\n")
-    for state, info in graph_data.items():
-        duration = graph_data[state]["duration"]
-        if duration < 0:
-            has_negative_arc = True
-            arc_infos += Back.RED + Fore.LIGHTWHITE_EX + f" {duration} < 0 " + Style.RESET_ALL + "|"
-        else:
-            arc_infos += f" {duration} > 0 |"
-    print(arc_infos)
+    for state, data in graph_data.items():
+        for successor in data['successors']:
+            duration = graph_data[state]['duration']
+            if duration < 0:
+                has_negative_arc = True
+                arc_status = Fore.RED + 'NEGATIVE' + Fore.RESET
+            else:
+                arc_status = Fore.GREEN + 'POSITIVE' + Fore.RESET
+
+            # Ajouter la durée et le statut à la liste des détails des arcs
+            arc_details.append([f"{state} -> {successor}", duration, arc_status])
+
+    # Afficher les détails des arcs avec tabulate
+    headers = ['Arc', 'Durée', 'Statut']
+    print(tabulate(arc_details, headers=headers, tablefmt='simple', numalign="center", stralign="center"))
 
     if has_negative_arc:
         print(Fore.RED + "\nLe graphe contient des arcs à valeur négative." + Style.RESET_ALL)
