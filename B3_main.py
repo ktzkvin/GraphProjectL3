@@ -56,7 +56,7 @@ def main_menu(graph_number):
             graph_data = {key: graph_data[key] for key in sorted(graph_data)}  # Trier par ordre de nœud
 
             # Exécuter le choix de l'utilisateur
-            execute_choice(choice, graph_data)
+            execute_choice(choice, graph_data, graph_number)
 
             # Ajout de la demande pour continuer ou quitter
             if not continue_prompt():
@@ -68,13 +68,13 @@ def main_menu(graph_number):
             graph_number = change_table()  # Récupérer le nouveau numéro de table
             constraints_table = matrice_table(graph_number)  # Lire la nouvelle table de contraintes
             graph_data = store_constraints_in_memory(constraints_table)  # Mettre à jour les données en mémoire
-            graph_data = {key: graph_data[key] for key in sorted(graph_data)}
+            graph_data = {key: graph_data[key] for key in sorted(graph_data)}  # Trier
 
         else:
             print(Fore.RED + "\n  ⚠" + Fore.RESET + " Veuillez entrer un chiffre entre 1 et 4.")
 
 
-def execute_choice(choice, graph_data):
+def execute_choice(choice, graph_data, graph_number):
     if choice == 1:
 
         # Afficher le graphe d'ordonnancement sous forme de triplets
