@@ -102,6 +102,11 @@ def calculate_margins_and_critical_paths(earliest_start, latest_start):
 def print_schedule_tables(earliest_schedule, latest_schedule):
     # Préparation des données pour l'affichage
     headers = ["Tâche", "Début au plus tôt", "Début au plus tard", "Marge", "Chemin critique"]
+    headers = [Fore.BLACK + Back.WHITE + " Tâche " + Style.RESET_ALL,
+               Fore.BLACK + Back.WHITE + " Début au plus tôt " + Style.RESET_ALL,
+               Fore.BLACK + Back.WHITE + " Début au plus tard " + Style.RESET_ALL,
+               Fore.BLACK + Back.WHITE + " Marge " + Style.RESET_ALL,
+               Fore.BLACK + Back.WHITE + " Chemin critique " + Style.RESET_ALL]
     table_data = []
     critical_path = []
 
@@ -116,7 +121,7 @@ def print_schedule_tables(earliest_schedule, latest_schedule):
             row = [task, es, ls, marge, "-"]
         table_data.append(row)
 
-    print(tabulate(table_data, headers=headers, tablefmt="pretty", numalign="center", stralign="center"))
+    print(tabulate(table_data, headers=headers, tablefmt="github", numalign="center", stralign="center"))
 
     # Affichage du chemin critique
     print(Fore.LIGHTYELLOW_EX + "\nChemin critique : " + ", ".join(map(str, critical_path)) + Style.RESET_ALL + "\n")

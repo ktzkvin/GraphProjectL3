@@ -83,9 +83,9 @@ def display_constraints_table(graph_data):
     # État précédent de l'état 0 = /
     table_data[0][2] = "/"
 
-    headers = [Fore.BLACK + Back.WHITE + " État actuel " + Fore.LIGHTWHITE_EX + Back.RESET,
-               Fore.BLACK + Back.WHITE + " Durée " + Fore.LIGHTWHITE_EX + Back.RESET,
-               Fore.BLACK + Back.WHITE + " État(s) précédent(s) " + Fore.LIGHTWHITE_EX + Back.RESET]
+    headers = [Fore.BLACK + Back.WHITE + " État actuel " + Style.RESET_ALL,
+               Fore.BLACK + Back.WHITE + " Durée " + Style.RESET_ALL,
+               Fore.BLACK + Back.WHITE + " État(s) précédent(s) " + Style.RESET_ALL]
     print(tabulate(table_data, headers=headers, tablefmt="github", numalign="center", stralign="center"))
 
 
@@ -95,6 +95,9 @@ def check_properties(graph_data):
     # -------- Vérifier l'absence d'arcs à valeur négative -------- #
     has_negative_arc = False
     arc_details = []
+
+    print(
+        Fore.LIGHTYELLOW_EX + "\n✦ " + Style.RESET_ALL + f"Démarrage de la vérification d'arcs négatifs\n")
 
     for state, data in graph_data.items():
         for successor in data['successors']:
@@ -108,9 +111,9 @@ def check_properties(graph_data):
             # Ajouter la durée et le statut à la liste des détails des arcs
             arc_details.append([f"{state} -> {successor}", duration, arc_status])
 
-    headers = [Fore.BLACK + Back.WHITE + " Arc " + Fore.LIGHTWHITE_EX + Back.RESET,
-               Fore.BLACK + Back.WHITE + " Durée " + Fore.LIGHTWHITE_EX + Back.RESET,
-               Fore.BLACK + Back.WHITE + " Statut " + Fore.LIGHTWHITE_EX + Back.RESET]
+    headers = [Fore.BLACK + Back.WHITE + " Arc " + Style.RESET_ALL,
+               Fore.BLACK + Back.WHITE + " Durée " + Style.RESET_ALL,
+               Fore.BLACK + Back.WHITE + " Statut " + Style.RESET_ALL]
 
     print(tabulate(arc_details, headers=headers, tablefmt='github', numalign="center", stralign="center"))
 
@@ -127,9 +130,7 @@ def check_properties(graph_data):
 
     alpha_successors = graph_data[0]["successors"] if 0 in graph_data else []
     starters = ', '.join(map(str, alpha_successors))
-    print(
-        Fore.LIGHTYELLOW_EX + "\n✦ " + Style.RESET_ALL + f"Démarrage de la vérification de cycle par parcours en profondeur (DFS) à partir ",
-        end="")
+    print(Fore.LIGHTYELLOW_EX + "\n✦ " + Style.RESET_ALL + f"Démarrage de la vérification de cycle par parcours en profondeur (DFS) à partir ", end="")
     if len(starters) > 1:
         print("des nœuds : ", end="")
     else:
