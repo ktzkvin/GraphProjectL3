@@ -52,8 +52,8 @@ def main_menu(graph_number):
             constraints_table = matrice_table(graph_number)
 
             # Stockage du tableau de contraintes dans la mémoire
-            graph_data = store_constraints_in_memory(constraints_table)
-            graph_data = {key: graph_data[key] for key in sorted(graph_data)}
+            graph_data = store_constraints_in_memory(constraints_table)  # Stockage du graphe en mémoire
+            graph_data = {key: graph_data[key] for key in sorted(graph_data)}  # Trier par ordre de nœud
 
             # Exécuter le choix de l'utilisateur
             execute_choice(choice, graph_data)
@@ -110,20 +110,14 @@ def execute_choice(choice, graph_data):
 
                 print("\n✦ ─────────── Calcul des Calendriers ─────────── ✦\n")
 
-                # Afficher les rangs
+                # Calcul des rangs et des calendriers
                 ranks = calculate_ranks(graph_data)
-
-                # Calcul du calendrier au plus tôt en utilisant les rangs
                 earliest_schedule = calculate_earliest_schedule(graph_data, ranks)
-                print("Débuts au plus tôt :", earliest_schedule)
-
-                # Détermination de la date de fin de projet au plus tôt
-                projet_fin = max(earliest_schedule.values())  # Utilisez ceci pour la date de fin au plus tard
-
-                # Calcul du calendrier au plus tard
+                projet_fin = max(earliest_schedule.values())  # Date de fin au plus tôt
                 latest_schedule = calculate_latest_schedule(graph_data, ranks, projet_fin)
-                print("Débuts au plus tard :", latest_schedule)
 
+                # Affichage des calendriers et du chemin critique
+                print_schedule_tables(earliest_schedule, latest_schedule)
 
     elif choice == 4:
 

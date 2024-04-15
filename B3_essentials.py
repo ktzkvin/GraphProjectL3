@@ -14,22 +14,22 @@ omega = chr(969)
 #
 def store_constraints_in_memory(constraints_table):
     graph_data = {}
+    n_plus_one = max(state for state, _, _ in constraints_table) + 1
 
-    # Initialisation
-    for state, _, predecessors in constraints_table:
+    for state, duration, predecessors in constraints_table:
         if state not in graph_data:
-            graph_data[state] = {"duration": 0, "predecessors": [], "successors": []}
+            graph_data[state] = {"duration": duration, "predecessors": [], "successors": []}
         for pred in predecessors:
             if pred not in graph_data:
                 graph_data[pred] = {"duration": 0, "predecessors": [], "successors": []}
+            graph_data[pred]["successors"].append(state)
+            graph_data[state]["predecessors"].append(pred)
 
-    # Remplir avec les données
-    for state, duration, predecessors in constraints_table:
-        graph_data[state]["duration"] = duration
-        for pred in predecessors:
-            if pred != '/':  # Ignorer l'état alpha
-                graph_data[pred]["successors"].append(state)
-                graph_data[state]["predecessors"].append(pred)
+    graph_data[n_plus_one] = {"duration": 0, "predecessors": [], "successors": []}
+    for state, data in graph_data.items():
+        if not data["successors"] and state != n_plus_one:
+            data["successors"].append(n_plus_one)
+            graph_data[n_plus_one]["predecessors"].append(state)
 
     return graph_data
 
@@ -168,34 +168,3 @@ def check_properties(graph_data):
         print(Fore.GREEN + "\nFin de la vérification de cycle. Résultat : Aucun cycle détecté dans le graphe." + Style.RESET_ALL)
 
     return has_negative_arc, has_cycles
-
-
-def calculate_ranks(graph_data):
-    # Initialiser le dictionnaire pour stocker les rangs
-    ranks = {state: None for state in graph_data.keys()}
-    k = 0  # Rang initial
-    # Utiliser une file pour parcourir les sommets du graphe (dequeue)
-    queue = deque([state for state, data in graph_data.items() if not data['predecessors']])  # Sommets sans prédécesseurs
-
-    while queue:
-        next_queue = deque()  # Pour stocker les sommets du prochain niveau
-        while queue:
-            current_state = queue.popleft()
-            ranks[current_state] = k
-            for successor in graph_data[current_state]['successors']:
-                # Vérifier si tous les prédécesseurs ont été assignés un rang
-                if all(ranks[pred] is not None for pred in graph_data[successor]['predecessors']):
-                    next_queue.append(successor)
-        queue = next_queue
-        k += 1
-
-    # Partie d'affichage des rangs
-    print(Fore.LIGHTYELLOW_EX + "✦" + Style.RESET_ALL + " Calcul des rangs :\n")
-    ranks_table = [[Back.WHITE + Fore.BLACK + " État " + Style.RESET_ALL + Fore.LIGHTWHITE_EX,
-                    Back.WHITE + Fore.BLACK + " Rang " + Style.RESET_ALL + Fore.LIGHTWHITE_EX]]
-    sorted_ranks = sorted(ranks.items(), key=lambda item: item[0])
-    ranks_table.extend([[str(state), str(rank)] for state, rank in sorted_ranks])
-    print(tabulate(ranks_table, headers="firstrow", tablefmt="github", numalign="center", stralign="center"))
-    print()
-
-    return ranks
