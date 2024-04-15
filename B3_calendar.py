@@ -2,6 +2,10 @@ from collections import deque
 from colorama import Fore, Back, Style
 from tabulate import tabulate
 
+# Initialiser Alpha et Oméga
+alpha = chr(945)
+omega = chr(969)
+
 
 # Demande pour calculer les calendriers ou non
 def prompt_for_calendars():
@@ -50,8 +54,14 @@ def calculate_ranks(graph_data):
 
     ranks_table = [[Back.WHITE + Fore.BLACK + " État " + Style.RESET_ALL,
                     Back.WHITE + Fore.BLACK + " Rang " + Style.RESET_ALL]]
+
+    # Trier par ordonnancement des rangs
     sorted_ranks = sorted(ranks.items(), key=lambda item: item[0])
-    ranks_table.extend([[str(state), str(rank)] for state, rank in sorted_ranks])
+
+    # Préciser alpha et oméga
+    for state, rank in sorted_ranks:
+        state_str = f"{state} ({alpha})" if state == 0 else f"{state} ({omega})" if state == max(graph_data.keys()) else str(state)
+        ranks_table.append([state_str, rank])
 
     print(tabulate(ranks_table, headers="firstrow", tablefmt="github", numalign="center", stralign="center"))
     print()

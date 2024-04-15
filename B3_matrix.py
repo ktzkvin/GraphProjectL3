@@ -41,8 +41,10 @@ def matrice_table(number):
 
 # Afficher la matrice des valeurs
 def display_value_matrix(graph_data):
+
     # Identifier tous les sommets (états) présents
     all_states = set(graph_data.keys())
+
     # Déterminer la taille de la matrice
     num_states = max(all_states) + 1
 

@@ -20,7 +20,7 @@ def draw_graph(graph_data, graph_number):
         if state == 0:
             dot.node(str(state), f"{alpha}", shape='doublecircle', color='seagreen3', style='filled')
 
-        # Nœud Omega
+        # Nœud Omegaf
         elif state == omega_id:
             dot.node(str(state), f"{omega}", shape='doublecircle', color='lightcoral', style='filled')
 
