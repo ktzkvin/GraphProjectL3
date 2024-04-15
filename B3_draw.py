@@ -49,4 +49,4 @@ def draw_graph(graph_data, graph_number):
                 dot.edge(str(state), str(omega_id), label=str(data['duration']))
 
     # Afficher le graphe
-    dot.render(f'data/graph.gv', view=True)  # Sauvegarde et ouverture automatique du graphe
+    dot.render(f'data/graph/graph_{graph_number}.gv', view=True)  # Sauvegarde et ouverture automatique du graphe
