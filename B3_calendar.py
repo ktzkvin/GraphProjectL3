@@ -5,31 +5,35 @@ from tabulate import tabulate
 
 # Fonction pour calculer les rangs d'un graphe
 def calculate_ranks(graph_data):
-
-    # Rang initial
+    # Définir 'k = 0', où 'k' représente le rang actuel à attribuer aux nœuds
     k = 0
 
-    # Initialiser le dictionnaire pour stocker les rangs
-    print(graph_data)
-    ranks = {state: None for state in graph_data.keys()}
+    # Initialiser le dictionnaire pour stocker les rangs de chaque nœud
+    ranks = {state: None for state in graph_data.keys()}  # clés = id des nœuds // valeurs = rangs assignés
 
-    # Utiliser une file pour parcourir les sommets du graphe (dequeue)
-    queue = deque([state for state, data in graph_data.items() if not data['predecessors']])  # Sommets sans prédécesseurs
+    # Identifier les sommets de départ (sans prédécesseurs) et les ajouter à la file d'attente
+    queue = deque([state for state, data in graph_data.items() if not data['predecessors']])
+
+    # Traiter les sommets niveau par niveau jusqu'à ce que tous aient un rang
     while queue:
-        next_queue = deque()  # Pour stocker les sommets du prochain niveau
+        # File d'attente pour le niveau suivant
+        next_queue = deque()
+
+        # Assigner le rang actuel 'k' à tous les sommets du niveau actuel
         while queue:
             current_state = queue.popleft()
             ranks[current_state] = k
-            for successor in graph_data[current_state]['successors']:
 
-                # Vérifier si tous les prédécesseurs ont été assignés un rang
+            # Vérifier si tous les prédécesseurs ont été assignés un rang
+            for successor in graph_data[current_state]['successors']:
                 if all(ranks[pred] is not None for pred in graph_data[successor]['predecessors']):
                     next_queue.append(successor)
 
+        # Passer au niveau suivant
         queue = next_queue
         k += 1
 
-    # Partie d'affichage des rangs
+    # Afficher le tableau des rangs avec les états et leur rang correspondant
     print(Fore.LIGHTYELLOW_EX + "✦" + Style.RESET_ALL + " Calcul des rangs :\n")
 
     ranks_table = [[Back.WHITE + Fore.BLACK + " État " + Style.RESET_ALL + Fore.LIGHTWHITE_EX,
