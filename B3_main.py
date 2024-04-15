@@ -85,7 +85,7 @@ def execute_choice(choice, graph_data, graph_number):
         display_constraints_table(graph_data)
 
         # Affichage sous forme de triplets
-        print("\n\n" + Fore.LIGHTYELLOW_EX + "✦" + Style.RESET_ALL + " Affichage du graphe sous forme de triplets :")
+        print("\n\n" + Fore.LIGHTYELLOW_EX + "✦" + Style.RESET_ALL + " Affichage du graphe sous forme de triplets :\n")
         display_graph_as_triplets(graph_data)
 
     elif choice == 2:

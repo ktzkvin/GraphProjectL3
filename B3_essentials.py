@@ -108,9 +108,11 @@ def check_properties(graph_data):
             # Ajouter la durée et le statut à la liste des détails des arcs
             arc_details.append([f"{state} -> {successor}", duration, arc_status])
 
-    # Afficher les détails des arcs avec tabulate
-    headers = ['Arc', 'Durée', 'Statut']
-    print(tabulate(arc_details, headers=headers, tablefmt='simple', numalign="center", stralign="center"))
+    headers = [Fore.BLACK + Back.WHITE + " Arc " + Fore.LIGHTWHITE_EX + Back.RESET,
+               Fore.BLACK + Back.WHITE + " Durée " + Fore.LIGHTWHITE_EX + Back.RESET,
+               Fore.BLACK + Back.WHITE + " Statut " + Fore.LIGHTWHITE_EX + Back.RESET]
+
+    print(tabulate(arc_details, headers=headers, tablefmt='github', numalign="center", stralign="center"))
 
     if has_negative_arc:
         print(Fore.RED + "\nLe graphe contient des arcs à valeur négative." + Style.RESET_ALL)
