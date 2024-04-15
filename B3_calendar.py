@@ -3,6 +3,18 @@ from colorama import Fore, Back, Style
 from tabulate import tabulate
 
 
+# Demande pour calculer les calendriers ou non
+def prompt_for_calendars():
+    while True:  # Boucle jusqu'à ce que l'utilisateur donne une réponse valide
+        user_input = input(Fore.LIGHTBLUE_EX + "\nSouhaitez-vous calculer les calendriers ? [" + Fore.GREEN + "y" + Fore.LIGHTBLUE_EX + "/" + Fore.RED + "n" + Fore.LIGHTBLUE_EX + "] ").lower()
+        if user_input == 'y':
+            return True
+        elif user_input == 'n':
+            return False
+        else:
+            print(Fore.RED + "Choix invalide, veuillez entrer 'y' pour oui ou 'n' pour non." + Fore.RESET)
+
+
 # Fonction pour calculer les rangs d'un graphe
 def calculate_ranks(graph_data):
     # Définir 'k = 0', où 'k' représente le rang actuel à attribuer aux nœuds
@@ -100,6 +112,8 @@ def calculate_margins_and_critical_paths(earliest_start, latest_start):
 
 
 def print_schedule_tables(earliest_schedule, latest_schedule):
+    print(Fore.LIGHTYELLOW_EX + "✦" + Style.RESET_ALL + " Calcul des calendriers, marges et chemins critiques :\n")
+
     # Préparation des données pour l'affichage
     headers = ["Tâche", "Début au plus tôt", "Début au plus tard", "Marge", "Chemin critique"]
     headers = [Fore.BLACK + Back.WHITE + " Tâche " + Style.RESET_ALL,
