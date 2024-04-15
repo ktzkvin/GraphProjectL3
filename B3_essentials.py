@@ -1,7 +1,7 @@
-# Fonctions utiles pour le projet
 from B3_matrix import *
 from colorama import Fore, Back, Style, init
-from collections import deque
+
+# ------------ Fonctions utiles pour le projet ------------ #
 
 # Initialiser les couleurs pour le terminal
 init(autoreset=True)
@@ -13,10 +13,8 @@ omega = chr(969)
 
 #
 def store_constraints_in_memory(constraints_table):
-    graph_data = {}
-
-    # Ajoutez Alpha avec la durée 0 et pas de prédécesseurs
-    graph_data[0] = {"duration": 0, "predecessors": [], "successors": []}
+    # Initialisation
+    graph_data = {0: {"duration": 0, "predecessors": [], "successors": []}}
 
     # Initialisez chaque état mentionné dans le tableau de contraintes
     for state, duration, predecessors in constraints_table:
@@ -44,7 +42,6 @@ def store_constraints_in_memory(constraints_table):
     return graph_data
 
 
-
 # Fonction pour afficher le graphe sous forme de triplets
 def display_graph_as_triplets(graph_data):
     max_state = max(graph_data.keys())  # Déterminer le plus grand état
@@ -66,18 +63,29 @@ def display_graph_as_triplets(graph_data):
 
 # Fonction pour afficher le tableau de contraintes
 def display_constraints_table(graph_data):
+    # Initialisation
     table_data = []
+
+    # Parcourir les données du graphe pour construire chaque ligne du tableau
     for state, data in graph_data.items():
-        row = [state, data["duration"], ", ".join(map(str, data["predecessors"]))]
+
+        # Convertir l'état en chaîne pour la concaténation
+        state_str = str(state) + " (" + alpha + ")" if state == 0 else str(state)  # Préciser qui est alpha
+        state_str += " (" + omega + ")" if state == max(graph_data.keys()) else ""  # Préciser qui est oméga
+
+        # Créer la ligne du tableau avec l'état, sa durée, et ses prédécesseurs
+        row = [state_str, data["duration"], ", ".join(map(str, data["predecessors"]))]
         table_data.append(row)
 
-    # Tri des données pour un affichage ordonné par l'état actuel
-    table_data.sort(key=lambda x: x[0])
+    # Tri des données pour un affichage ordonné des états
+    table_data.sort(key=lambda x: int(x[0].split()[0]))  # Convertir en entier pour pouvoir trier + get uniquement les nombres
 
     # État précédent de l'état 0 = /
-    table_data[0][2] = '/'
+    table_data[0][2] = "/"
 
-    headers = [Fore.BLACK + Back.WHITE + " État actuel " + Fore.LIGHTWHITE_EX + Back.RESET, Fore.BLACK + Back.WHITE + " Durée " + Fore.LIGHTWHITE_EX + Back.RESET, Fore.BLACK + Back.WHITE + " État(s) précédent(s) " + Fore.LIGHTWHITE_EX + Back.RESET]
+    headers = [Fore.BLACK + Back.WHITE + " État actuel " + Fore.LIGHTWHITE_EX + Back.RESET,
+               Fore.BLACK + Back.WHITE + " Durée " + Fore.LIGHTWHITE_EX + Back.RESET,
+               Fore.BLACK + Back.WHITE + " État(s) précédent(s) " + Fore.LIGHTWHITE_EX + Back.RESET]
     print(tabulate(table_data, headers=headers, tablefmt="github", numalign="center", stralign="center"))
 
 
@@ -110,7 +118,9 @@ def check_properties(graph_data):
 
     alpha_successors = graph_data[0]["successors"] if 0 in graph_data else []
     starters = ', '.join(map(str, alpha_successors))
-    print(Fore.LIGHTYELLOW_EX + "\n✦ " + Style.RESET_ALL + f"Démarrage de la vérification de cycle par parcours en profondeur (DFS) à partir ", end="")
+    print(
+        Fore.LIGHTYELLOW_EX + "\n✦ " + Style.RESET_ALL + f"Démarrage de la vérification de cycle par parcours en profondeur (DFS) à partir ",
+        end="")
     if len(starters) > 1:
         print("des nœuds : ", end="")
     else:
@@ -127,7 +137,8 @@ def check_properties(graph_data):
             cycle_start_index = path.index(current_state)
             cycle_path = path[cycle_start_index:]
 
-            print(Fore.RED + "Cycle détecté ! Le nœud " + str(current_state) + " a déjà été visité dans le chemin : " + Back.RED + Fore.BLACK + Style.BRIGHT + " " + " -> ".join(
+            print(Fore.RED + "Cycle détecté ! Le nœud " + str(
+                current_state) + " a déjà été visité dans le chemin : " + Back.RED + Fore.BLACK + Style.BRIGHT + " " + " -> ".join(
                 map(str, cycle_path)) + " " + Style.RESET_ALL + Style.RESET_ALL)
             all_cycles.append(cycle_path)
             has_cycles = True
@@ -139,7 +150,9 @@ def check_properties(graph_data):
 
             # Affichage des successeurs
             mot_successeur = "Successeur" if len(graph_data[current_state]["successors"]) == 1 else "Successeurs"
-            print(Fore.CYAN + ((len(path) - 1)  * "  ") + f"{mot_successeur} : " + ("[" + ", ".join(map(str, graph_data[current_state]["successors"])) + "]" if graph_data[current_state]["successors"] else "∅") + Style.RESET_ALL)
+            print(Fore.CYAN + ((len(path) - 1) * "  ") + f"{mot_successeur} : " + (
+                "[" + ", ".join(map(str, graph_data[current_state]["successors"])) + "]" if graph_data[current_state][
+                    "successors"] else "∅") + Style.RESET_ALL)
 
             # Appel récursif pour chaque successeur
             for successor in graph_data[current_state]["successors"]:
@@ -151,8 +164,11 @@ def check_properties(graph_data):
             # Gérer l'affichage du "Retour en arrière"
             if path:
                 prev_node = path[-1]
-                successeurs_prev = ", ".join(Fore.GREEN + str(succ) + Style.RESET_ALL if succ not in visited else Fore.RED + str(succ) + Style.RESET_ALL for succ in graph_data[prev_node]["successors"])
-                print(Fore.MAGENTA + (len(path) * "  ") + f"Retour en arrière : {prev_node} -> [{successeurs_prev}" + Fore.MAGENTA + "]" + Style.RESET_ALL)
+                successeurs_prev = ", ".join(
+                    Fore.GREEN + str(succ) + Style.RESET_ALL if succ not in visited else Fore.RED + str(
+                        succ) + Style.RESET_ALL for succ in graph_data[prev_node]["successors"])
+                print(Fore.MAGENTA + (
+                            len(path) * "  ") + f"Retour en arrière : {prev_node} -> [{successeurs_prev}" + Fore.MAGENTA + "]" + Style.RESET_ALL)
 
     for state in graph_data:
         # Ne pas prendre en compte le nœud Alpha
@@ -163,8 +179,10 @@ def check_properties(graph_data):
     print(Fore.CYAN + "Tout le graphe a été exploré." + Style.RESET_ALL)
 
     if has_cycles:
-        print(Fore.RED + "\nFin de la vérification de cycle. Résultat : Cycle détecté dans le graphe." + Style.RESET_ALL)
+        print(
+            Fore.RED + "\nFin de la vérification de cycle. Résultat : Cycle détecté dans le graphe." + Style.RESET_ALL)
     else:
-        print(Fore.GREEN + "\nFin de la vérification de cycle. Résultat : Aucun cycle détecté dans le graphe." + Style.RESET_ALL)
+        print(
+            Fore.GREEN + "\nFin de la vérification de cycle. Résultat : Aucun cycle détecté dans le graphe." + Style.RESET_ALL)
 
     return has_negative_arc, has_cycles
