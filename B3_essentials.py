@@ -92,7 +92,7 @@ def display_constraints_table(graph_data):
 # Fonction pour vérifier les propriétés d'un graphe
 def check_properties(graph_data):
 
-    # -------- Vérifier l'absence d'arcs à valeur négative -------- #
+    # --------- Vérifier l'absence d'arcs à valeur négative --------- #
     has_negative_arc = False
     arc_details = []
 
