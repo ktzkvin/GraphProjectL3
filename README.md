@@ -51,7 +51,7 @@ Le programme lit un tableau de contraintes à partir d'un fichier texte et stock
 Un graphe est généré sous forme matricielle, y compris les sommets fictifs alpha (α) et omega (ω).
 
 ![Affichage matriciel](https://cdn.discordapp.com/attachments/1222083642206060687/1229881122352140338/Screenshot_1_1.png?ex=66314b0d&is=661ed60d&hm=49c0593b03a90ebd4d06c194372392a9207eedfebae8cce2d071c140221bf430&)
-![Affichage matriciel](https://cdn.discordapp.com/attachments/1222083642206060687/1229879404013031454/Screenshot_2.png?ex=66314973&is=661ed473&hm=554beeba2693966ce8d54c906e9747ec994007cc13559287ede519070f91b22d&)
+![Affichage matriciel](https://cdn.discordapp.com/attachments/1222083642206060687/1229881589522104400/Screenshot_2_1.png?ex=66314b7d&is=661ed67d&hm=b4801b4b0d9b88c26b05529f5c77b3627831df76d1048977efde03078b913d18&)
 
 
 ### 3. Vérification des Propriétés du Graphe
