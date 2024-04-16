@@ -57,7 +57,7 @@ def display_graph_as_triplets(graph_data):
                 table_data.append([f"{state} -> {successor}", f"= {data['duration']}"])
 
     # Tri et affichage des triplets
-    table_data.sort(key=lambda x: x[0])
+    table_data.sort(key=lambda x: (int(x[0].split()[0]), int(x[0].split()[2]) if "->" in x[0] else float('inf')))
     print(tabulate(table_data, tablefmt="plain", numalign="right", stralign="left"))
 
 
