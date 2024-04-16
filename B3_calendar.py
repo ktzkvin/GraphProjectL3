@@ -30,41 +30,30 @@ def calculate_ranks(graph_data):
     # Identifier les sommets de départ (sans prédécesseurs) et les ajouter à la file d'attente
     queue = deque([state for state, data in graph_data.items() if not data['predecessors']])
 
+    print(Fore.LIGHTYELLOW_EX + "✦" + Style.RESET_ALL + " Calcul des rangs :")
+
     # Traiter les sommets niveau par niveau jusqu'à ce que tous aient un rang
     while queue:
         # File d'attente pour le niveau suivant
         next_queue = deque()
+        print(f"\n{Fore.LIGHTYELLOW_EX}Traitement du niveau {k} avec les sommets: {list(queue)}{Style.RESET_ALL}")
 
         # Assigner le rang actuel 'k' à tous les sommets du niveau actuel
         while queue:
             current_state = queue.popleft()
             ranks[current_state] = k
+            print(f"Attribution du rang {k} à l'état {current_state}")
 
             # Vérifier si tous les prédécesseurs ont été assignés un rang
             for successor in graph_data[current_state]['successors']:
                 if all(ranks[pred] is not None for pred in graph_data[successor]['predecessors']):
                     next_queue.append(successor)
+                    print(f"Ajout de l'état {successor} à la file du prochain niveau")
 
         # Passer au niveau suivant
         queue = next_queue
         k += 1
-
-    # Afficher le tableau des rangs avec les états et leur rang correspondant
-    print(Fore.LIGHTYELLOW_EX + "✦" + Style.RESET_ALL + " Calcul des rangs :\n")
-
-    ranks_table = [[Back.WHITE + Fore.BLACK + " État " + Style.RESET_ALL,
-                    Back.WHITE + Fore.BLACK + " Rang " + Style.RESET_ALL]]
-
-    # Trier par ordonnancement des rangs
-    sorted_ranks = sorted(ranks.items(), key=lambda item: item[0])
-
-    # Préciser alpha et oméga
-    for state, rank in sorted_ranks:
-        state_str = f"{state} ({alpha})" if state == 0 else f"{state} ({omega})" if state == max(graph_data.keys()) else str(state)
-        ranks_table.append([state_str, rank])
-
-    print(tabulate(ranks_table, headers="firstrow", tablefmt="github", numalign="center", stralign="center"))
-    print()
+    print(Fore.LIGHTYELLOW_EX + "Fin du calcul des rangs\n" + Style.RESET_ALL)
 
     return ranks
 
@@ -121,12 +110,15 @@ def calculate_margins_and_critical_paths(earliest_start, latest_start):
     return marges, chemin_critique
 
 
-def print_schedule_tables(earliest_schedule, latest_schedule):
-    print(Fore.LIGHTYELLOW_EX + "✦" + Style.RESET_ALL + " Calcul des calendriers, marges et du chemin critique :\n")
+def print_schedule_tables(earliest_schedule, latest_schedule, ranks):
+    print(Fore.LIGHTYELLOW_EX + "\n✦" + Style.RESET_ALL + " Calcul des "
+          + Fore.BLACK + Back.YELLOW + " calendriers " + Style.RESET_ALL + ", "
+          + Fore.BLACK + Back.YELLOW + " marges " + Style.RESET_ALL + " et du "
+          + Fore.BLACK + Back.YELLOW + " chemin critique " + Style.RESET_ALL + " (tableau trié par ordonnancement des rangs) :\n")
 
     # Préparation des données pour l'affichage
-    headers = ["Tâche", "Début au plus tôt", "Début au plus tard", "Marge", "Chemin critique"]
-    headers = [Fore.BLACK + Back.WHITE + " Tâche " + Style.RESET_ALL,
+    headers = [Fore.BLACK + Back.WHITE + " Rang " + Style.RESET_ALL,
+               Fore.BLACK + Back.WHITE + " État " + Style.RESET_ALL,
                Fore.BLACK + Back.WHITE + " Début au plus tôt " + Style.RESET_ALL,
                Fore.BLACK + Back.WHITE + " Début au plus tard " + Style.RESET_ALL,
                Fore.BLACK + Back.WHITE + " Marge " + Style.RESET_ALL,
@@ -134,17 +126,31 @@ def print_schedule_tables(earliest_schedule, latest_schedule):
     table_data = []
     critical_path = []
 
-    for task in sorted(earliest_schedule.keys()):
+    tasks_sorted_by_rank = sorted(earliest_schedule.keys(), key=lambda x: ranks[x])
+
+    for task in tasks_sorted_by_rank:
         es = earliest_schedule[task]
         ls = latest_schedule[task]
         marge = ls - es
+        rank = ranks[task]
+
+        # Préciser alpha et oméga
+        if task == 0:
+            task_label = f"{task} ({alpha})"
+        elif task == max(earliest_schedule.keys()):
+            task_label = f"{task} ({omega})"
+        else:
+            task_label = str(task)
+
+        # Critique ou non
         if marge == 0:
             critical_path.append(task)
-            row = [task, es, ls, marge, Fore.RED + "CRITIQUE" + Style.RESET_ALL]
+            row = [rank, task_label, es, ls, marge, Fore.RED + "CRITIQUE" + Style.RESET_ALL]
         else:
-            row = [task, es, ls, marge, "-"]
+            row = [rank, task_label, es, ls, marge, "-"]
         table_data.append(row)
 
+    # Affichage sous forme de tableau
     print(tabulate(table_data, headers=headers, tablefmt="github", numalign="center", stralign="center"))
 
     # Affichage du chemin critique

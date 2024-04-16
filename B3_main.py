@@ -117,7 +117,7 @@ def execute_choice(choice, graph_data, graph_number):
                 latest_schedule = calculate_latest_schedule(graph_data, ranks, projet_fin)
 
                 # Affichage des calendriers et du chemin critique
-                print_schedule_tables(earliest_schedule, latest_schedule)
+                print_schedule_tables(earliest_schedule, latest_schedule, ranks)
 
     elif choice == 4:
 
