@@ -77,8 +77,8 @@ Si aucun arc à valeur négative n'a été trouvé et que le graphe ne comporte 
 ### 3.2 Calcul des calendriers
 Le graphe est examiné pour s'assurer qu'il ne contient pas de circuits et que toutes les valeurs d'arc sont non négatives.
 
-![Calcul des rangs 1](https://cdn.discordapp.com/attachments/1222083642206060687/1229888804773695661/Screenshot_10.png?ex=66315235&is=661edd35&hm=ec4f02d70cd575e382361160b78fd99beb4a1deb82e66b8069a8010efc7c52f3&)
-![Calcul des rangs 2](https://cdn.discordapp.com/attachments/1222083642206060687/1229888805075681340/Screenshot_11.png?ex=66315235&is=661edd35&hm=d4425e98e32cdf03eb745fd6ce6f66029988cba6458e26d1e1a7a3efdb5528f7&)
+![Calcul des rangs 1](https://cdn.discordapp.com/attachments/1222083642206060687/1229890734312919162/Screenshot_10.png?ex=66315401&is=661edf01&hm=2b8cc2f161dd0ef9a3b21386d480dc52391afd00d79ddc61b86af49e5887e9fb&)
+![Calcul des rangs 2](https://cdn.discordapp.com/attachments/1222083642206060687/1229890734052610048/Screenshot_11.png?ex=66315401&is=661edf01&hm=28991a866b3c8a732967a5dbbce913c09c7da71967e6307baeb3c934503da2c1&)
 
 
 ### 4. Calcul des Rangs
