@@ -10,7 +10,7 @@ init(autoreset=True)
 # Fonction pour mettre une pause
 def continue_prompt():
     while True:  # Boucle jusqu'à ce que l'utilisateur donne une réponse valide
-        user_input = input("\n" + Fore.LIGHTBLUE_EX + "Souhaitez-vous continuer ? [" + Fore.GREEN + "y" + Fore.LIGHTBLUE_EX + "/" + Fore.RED + "n" + Fore.LIGHTBLUE_EX + "] ").lower()
+        user_input = input("\n" + Fore.LIGHTBLUE_EX + "Souhaitez-vous continuer ? [" + Fore.GREEN + "y" + Fore.LIGHTBLUE_EX + "/" + Fore.RED + "n" + Fore.LIGHTBLUE_EX + "] " + Style.RESET_ALL).lower()
         if user_input == 'y':
             return True
         elif user_input == 'n':
