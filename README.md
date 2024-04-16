@@ -43,9 +43,9 @@ Ou bien exécuter le fichier B3_main.py à l'aide de votre IDE.
 Chaque étape du processus d'ordonnancement est illustrée ci-dessous avec un GIF démonstratif :
 
 ### 0. Lecture du Tableau de Contraintes : Menu principal
-Le programme lit un tableau de contraintes à partir d'un fichier texte et stocke les informations en mémoire. Puis, un menu est affiché pour choisir une fonctionnalité à lancer sur le tableau de contraintes.
+Le programme lit un tableau de contraintes à partir d'un fichier texte et stocke les informations en mémoire. <br />Puis, un menu est affiché pour choisir une fonctionnalité à lancer sur le tableau de contraintes.
 
-![Lecture du tableau de contraintes](https://cdn.discordapp.com/attachments/1222083642206060687/1229878743158489158/sequence_1.gif?ex=663148d6&is=661ed3d6&hm=e4135b787fb987a96f9e82b9ff23af729719b1f6d279df1ad27382bb1a3b2893&)
+![Lecture du tableau de contraintes](https://cdn.discordapp.com/attachments/1222083642206060687/1229878743158489158/sequence_1.gif?ex=663148d6&is=661ed3d6&hm=e4135b787fb987a96f9e82b9ff23af729719b1f6d279df1ad27382bb1a3b2893&)<br />
 _Menu principal_
 
 ### 1. Affichage du Tableau de Contraintes
@@ -53,8 +53,8 @@ Le graphe mémorisé est généré sous forme de **tableau**, y compris les somm
 De même, le graphe est affiché sous forme de triplets pour une meilleure compréhension.
 
 ![Tableau de contraintes](https://cdn.discordapp.com/attachments/1222083642206060687/1229881122352140338/Screenshot_1_1.png?ex=66314b0d&is=661ed60d&hm=49c0593b03a90ebd4d06c194372392a9207eedfebae8cce2d071c140221bf430&)
-![Affichage par triplets](https://cdn.discordapp.com/attachments/1222083642206060687/1229881589522104400/Screenshot_2_1.png?ex=66314b7d&is=661ed67d&hm=b4801b4b0d9b88c26b05529f5c77b3627831df76d1048977efde03078b913d18&)
-_Tableaue de contraintes et affichage sous forme de triplets_
+![Affichage par triplets](https://cdn.discordapp.com/attachments/1222083642206060687/1229881589522104400/Screenshot_2_1.png?ex=66314b7d&is=661ed67d&hm=b4801b4b0d9b88c26b05529f5c77b3627831df76d1048977efde03078b913d18&)<br />
+_Tableau de contraintes et affichage sous forme de triplets_
 
 ### 2. Affichage Matriciel
 Le graphe mémorisé est généré sous forme **matricielle**, y compris les sommets fictifs 0 (α) et N+1 (ω).
