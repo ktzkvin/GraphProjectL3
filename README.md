@@ -81,8 +81,18 @@ Pour calculer les calendriers, nous avons d'abord besoin de **calculer les rangs
 ![Calcul des rangs 2](https://cdn.discordapp.com/attachments/1222083642206060687/1229890734052610048/Screenshot_11.png?ex=66315401&is=661edf01&hm=28991a866b3c8a732967a5dbbce913c09c7da71967e6307baeb3c934503da2c1&)
 _Calcul des rangs_
 
-Enfin, 
-![Calcul des calendriers](https://cdn.discordapp.com/attachments/1222083642206060687/1229891175243059210/Screenshot_12.png?ex=6631546a&is=661edf6a&hm=111982e2e1167c95d1be2572faacc50be8ae9e2d4d7ca0339cd57b094644fe4d&)
+
+Enfin, l'algorithme calcule les dates au plus tôt, les dates au plus tard ainsi que les marges et le chemin critique final.
+
+![Calcul des calendriers](https://cdn.discordapp.com/attachments/1222083642206060687/1229892011062988914/Screenshot_13.png?ex=66315531&is=661ee031&hm=0ebdf7ddaa2c8ee70937e077b72d7166154963e76143e5d12c44f9aad99de785&)
+_Tableau des calendriers_
+
+
+Pour un meilleur affichage, une fenêtre s'ouvre automatiquement dans le navigateur par défaut nous affichant le graphe et son chemin critique _(flèches rouges)_. 
+
+![Graphe du chemin critique](https://cdn.discordapp.com/attachments/1222083642206060687/1229892638635986944/Screenshot_14.png?ex=663155c7&is=661ee0c7&hm=98c3af530224dd93a339c093923e799d1c35e60ee6bb64244a10c115bb7de9fb&)
+_Graphe et son chemin critique_
+
 
 ### 4. Calcul des Rangs
 Les rangs de tous les sommets du graphe sont calculés pour préparer la planification des tâches.
