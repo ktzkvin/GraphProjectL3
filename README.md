@@ -46,7 +46,7 @@ Chaque étape du processus d'ordonnancement est illustrée ci-dessous avec un GI
 Le programme lit un tableau de contraintes à partir d'un fichier texte et stocke les informations en **mémoire**. <br />
 Puis, un **menu** est affiché pour choisir une fonctionnalité à lancer sur le tableau de contraintes.
 
-![Lecture du tableau de contraintes](https://cdn.discordapp.com/attachments/1222083642206060687/1229878743158489158/sequence_1.gif?ex=663148d6&is=661ed3d6&hm=e4135b787fb987a96f9e82b9ff23af729719b1f6d279df1ad27382bb1a3b2893&)<br />
+![Lecture du tableau de contraintes](https://cdn.discordapp.com/attachments/1222083642206060687/1229896274690703360/Sequence_02_1.gif?ex=6631592a&is=661ee42a&hm=ee3acac8b7e4f62c2fa2dbfa18ae7c5d412d5be7b61a43b2d9b062e876964bbb&)<br />
 _Menu principal_
 
 ### 1. Affichage du Tableau de Contraintes
