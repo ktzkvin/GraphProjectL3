@@ -45,12 +45,14 @@ Chaque étape du processus d'ordonnancement est illustrée ci-dessous avec un GI
 ### 1. Lecture du Tableau de Contraintes
 Le programme lit un tableau de contraintes à partir d'un fichier texte et stocke les informations en mémoire. Puis, un menu vous est affiché pour choisir une fonctionnalité à lancer sur le tableau de contraintes.
 
-![Lecture du tableau de contraintes](https://cdn.discordapp.com/attachments/422113586597593088/1227010856659849308/1_1.gif?ex=6626d9e8&is=661464e8&hm=9c90b80ddf6b784c84e14d747c582b2dc374fbbc53c0cb0e7d93f6fb134c9b61&)
+![Lecture du tableau de contraintes](https://cdn.discordapp.com/attachments/1222083642206060687/1229878743158489158/sequence_1.gif?ex=663148d6&is=661ed3d6&hm=e4135b787fb987a96f9e82b9ff23af729719b1f6d279df1ad27382bb1a3b2893&)
 
 ### 2. Affichage Matriciel
 Un graphe est généré sous forme matricielle, y compris les sommets fictifs alpha (α) et omega (ω).
 
-![Affichage matriciel](https://cdn.discordapp.com/attachments/422113586597593088/1227010856659849308/1_1.gif?ex=6626d9e8&is=661464e8&hm=9c90b80ddf6b784c84e14d747c582b2dc374fbbc53c0cb0e7d93f6fb134c9b61&)
+![Affichage matriciel](https://cdn.discordapp.com/attachments/1222083642206060687/1229879404356960397/Screenshot_1.png?ex=66314974&is=661ed474&hm=d31475900481691d5abbd0d30c97861142b092737fef67949910f68b0f46a1c7&)
+![Affichage matriciel](https://cdn.discordapp.com/attachments/1222083642206060687/1229879404013031454/Screenshot_2.png?ex=66314973&is=661ed473&hm=554beeba2693966ce8d54c906e9747ec994007cc13559287ede519070f91b22d&)
+
 
 ### 3. Vérification des Propriétés du Graphe
 Le graphe est examiné pour s'assurer qu'il ne contient pas de circuits et que toutes les valeurs d'arc sont non négatives.
