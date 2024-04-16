@@ -120,8 +120,8 @@ def print_schedule_tables(earliest_schedule, latest_schedule, ranks, graph_data,
     # Préparation des données pour l'affichage
     headers = [Fore.BLACK + Back.WHITE + " Rang " + Style.RESET_ALL,
                Fore.BLACK + Back.WHITE + " État " + Style.RESET_ALL,
-               Fore.BLACK + Back.WHITE + " Début au plus tôt " + Style.RESET_ALL,
-               Fore.BLACK + Back.WHITE + " Début au plus tard " + Style.RESET_ALL,
+               Fore.BLACK + Back.WHITE + " Dates au plus tôt " + Style.RESET_ALL,
+               Fore.BLACK + Back.WHITE + " Dates au plus tard " + Style.RESET_ALL,
                Fore.BLACK + Back.WHITE + " Marge " + Style.RESET_ALL,
                Fore.BLACK + Back.WHITE + " Chemin critique " + Style.RESET_ALL]
     table_data = []
