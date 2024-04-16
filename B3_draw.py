@@ -51,6 +51,7 @@ def draw_graph(graph_data, graph_number):
 
     # Sauvegarde et ouverture automatique du graphe
     dot.render(f'data/graph/graph_{graph_number}.gv', view=True)
+    print(Fore.GREEN + f"\n Graphe enregistré sous 'data/graph/graph_{graph_number}.gv'.")
 
     return dot
 
@@ -100,12 +101,13 @@ def draw_critical_path_graph(graph_data, graph_number, critical_path):
                 else:
                     dot.edge(str(state), str(omega_id), label=str(data['duration']))
 
-    # Ajouter des arcs critiques avec un style différent
+    # Ajouter des arcs critiques avec style différent
     for start, end in critical_edges:
-        duration = graph_data[start]['successors'][graph_data[start]['successors'].index(end)]
+        duration = graph_data[start]['duration']
         dot.edge(str(start), str(end), label=str(duration), color='red', penwidth='3.0', constraint='true')
 
     # Sauvegarde et ouverture automatique du graphe
     dot.render(f'data/graph/critical_path_graph_{graph_number}.gv', view=True)
+    print(Fore.GREEN + f"\n Graphe enregistré sous 'data/graph/critical_path_graph_{graph_number}.gv'.")
 
     return dot
