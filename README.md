@@ -75,11 +75,14 @@ Si aucun arc à valeur négative n'a été trouvé et que le graphe ne comporte 
 ![Proposition du calcul des calendriers](https://cdn.discordapp.com/attachments/1222083642206060687/1229884943459418122/Screenshot_6.png?ex=66314e9c&is=661ed99c&hm=49456bdb5f476e45034870e8432cae655998f5fde0b1c3a351b741e8e9ae7d9a&)
 
 ### 3.2 Calcul des calendriers
-Le graphe est examiné pour s'assurer qu'il ne contient pas de circuits et que toutes les valeurs d'arc sont non négatives.
+Pour calculer les calendriers, nous avons d'abord besoin de **calculer les rangs** :
 
 ![Calcul des rangs 1](https://cdn.discordapp.com/attachments/1222083642206060687/1229890734312919162/Screenshot_10.png?ex=66315401&is=661edf01&hm=2b8cc2f161dd0ef9a3b21386d480dc52391afd00d79ddc61b86af49e5887e9fb&)
 ![Calcul des rangs 2](https://cdn.discordapp.com/attachments/1222083642206060687/1229890734052610048/Screenshot_11.png?ex=66315401&is=661edf01&hm=28991a866b3c8a732967a5dbbce913c09c7da71967e6307baeb3c934503da2c1&)
+_Calcul des rangs_
 
+Enfin, 
+![Calcul des calendriers](https://cdn.discordapp.com/attachments/1222083642206060687/1229891175243059210/Screenshot_12.png?ex=6631546a&is=661edf6a&hm=111982e2e1167c95d1be2572faacc50be8ae9e2d4d7ca0339cd57b094644fe4d&)
 
 ### 4. Calcul des Rangs
 Les rangs de tous les sommets du graphe sont calculés pour préparer la planification des tâches.
