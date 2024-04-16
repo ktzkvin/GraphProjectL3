@@ -46,6 +46,7 @@ Chaque étape du processus d'ordonnancement est illustrée ci-dessous avec un GI
 Le programme lit un tableau de contraintes à partir d'un fichier texte et stocke les informations en mémoire. Puis, un menu est affiché pour choisir une fonctionnalité à lancer sur le tableau de contraintes.
 
 ![Lecture du tableau de contraintes](https://cdn.discordapp.com/attachments/1222083642206060687/1229878743158489158/sequence_1.gif?ex=663148d6&is=661ed3d6&hm=e4135b787fb987a96f9e82b9ff23af729719b1f6d279df1ad27382bb1a3b2893&)
+_Menu principal_
 
 ### 1. Affichage du Tableau de Contraintes
 Le graphe mémorisé est généré sous forme de **tableau**, y compris les sommets fictifs 0 (α) et N+1 (ω).
@@ -53,11 +54,13 @@ De même, le graphe est affiché sous forme de triplets pour une meilleure compr
 
 ![Tableau de contraintes](https://cdn.discordapp.com/attachments/1222083642206060687/1229881122352140338/Screenshot_1_1.png?ex=66314b0d&is=661ed60d&hm=49c0593b03a90ebd4d06c194372392a9207eedfebae8cce2d071c140221bf430&)
 ![Affichage par triplets](https://cdn.discordapp.com/attachments/1222083642206060687/1229881589522104400/Screenshot_2_1.png?ex=66314b7d&is=661ed67d&hm=b4801b4b0d9b88c26b05529f5c77b3627831df76d1048977efde03078b913d18&)
+_Tableaue de contraintes et affichage sous forme de triplets_
 
 ### 2. Affichage Matriciel
 Le graphe mémorisé est généré sous forme **matricielle**, y compris les sommets fictifs 0 (α) et N+1 (ω).
 
 ![Affichage matriciel](https://cdn.discordapp.com/attachments/1222083642206060687/1229883670949662750/Screenshot_3.png?ex=66314d6d&is=661ed86d&hm=1955062260d09e6bd5ca3289814b1c8391fec56691d04f9b5f8ed68f1487c1d5&)
+_Affichage matriciel_
 
 ### 3.1 Vérification des Propriétés du Graphe
 Le graphe est examiné pour s'assurer que toutes les valeurs d'arc sont positives et qu'il ne contient pas de circuit.
@@ -90,21 +93,18 @@ _Tableau des calendriers_
 
 Pour un meilleur affichage, une fenêtre s'ouvre automatiquement dans le navigateur par défaut nous affichant le graphe et son chemin critique _(flèches rouges)_. 
 
-![Graphe du chemin critique](https://cdn.discordapp.com/attachments/1222083642206060687/1229892638635986944/Screenshot_14.png?ex=663155c7&is=661ee0c7&hm=98c3af530224dd93a339c093923e799d1c35e60ee6bb64244a10c115bb7de9fb&)
-_Graphe et son chemin critique_
+![Affichage du graphe et de son chemin critique](https://cdn.discordapp.com/attachments/1222083642206060687/1229892638635986944/Screenshot_14.png?ex=663155c7&is=661ee0c7&hm=98c3af530224dd93a339c093923e799d1c35e60ee6bb64244a10c115bb7de9fb&)
+_Affichage du graphe et de son chemin critique_
 
 
-### 4. Calcul des Rangs
-Les rangs de tous les sommets du graphe sont calculés pour préparer la planification des tâches.
+### 4. BONUS : Affichage du graphe
+Ne faisant par partie du cahier des charges du sujet, nous avons décidé d'importer un affichage graphique afin d'avoir une meilleure compréhension du graphe.
 
-![Calcul des rangs]()
+![Affichage du graphe](https://cdn.discordapp.com/attachments/1222083642206060687/1229893871022903409/Screenshot_15.png?ex=663156ed&is=661ee1ed&hm=5ba5fc4f1f43edad650caef784d46686e3b72d02dd7862ae800e899320b312e3&)
+_Affichage du graphe_
 
-### 5. Calendriers et Marges
-Les calendriers au plus tôt et au plus tard sont déterminés, ainsi que les marges associées à chaque tâche.
+### 5. Changer la table de contraintes
+Pour éviter toute interruption du code, il est également possible de choisir une nouvelle table de contraintes à étudier.
 
-![Calendriers et marges]()
-
-### 6. Chemins Critiques
-Les chemins critiques sont identifiés, marquant les séquences
-
-### BONUS : afficher le graphe
+![Changer la table de contraintes](https://cdn.discordapp.com/attachments/1222083642206060687/1229896274690703360/Sequence_02_1.gif?ex=6631592a&is=661ee42a&hm=ee3acac8b7e4f62c2fa2dbfa18ae7c5d412d5be7b61a43b2d9b062e876964bbb&)
+_Changer la table de contraintes_
