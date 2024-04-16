@@ -38,7 +38,7 @@ def main_menu(graph_number):
 
         try:
             print(Fore.LIGHTBLUE_EX + "\n┌─────────────────────")
-            choice = int(input(Fore.LIGHTBLUE_EX + "█ Entrez votre choix : "))
+            choice = int(input(Fore.LIGHTBLUE_EX + "█ Entrez votre choix : " + Style.RESET_ALL))
         except ValueError:
             print(Fore.RED + "\n  ⚠" + Fore.RESET + " Veuillez entrer un chiffre entre 1 et 4.")
             continue
