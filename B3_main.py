@@ -124,7 +124,6 @@ def execute_choice(choice, graph_data, graph_number):
         # Afficher le graphe
         if graph_data:
             draw_graph(graph_data, graph_number)
-            print(Fore.GREEN + "\n Graphe enregistré sous 'data/graph.gv'.")
 
         else:
             print("\nImpossible de dessiner le graphe, données non disponibles.\n")
