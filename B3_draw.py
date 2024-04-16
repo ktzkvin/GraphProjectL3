@@ -48,5 +48,22 @@ def draw_graph(graph_data, graph_number):
                 # Ajouter un arc vers Oméga pour les états sans successeur
                 dot.edge(str(state), str(omega_id), label=str(data['duration']))
 
-    # Afficher le graphe
-    dot.render(f'data/graph/graph_{graph_number}.gv', view=True)  # Sauvegarde et ouverture automatique du graphe
+    # Sauvegarde et ouverture automatique du graphe
+    dot.render(f'data/graph/graph_{graph_number}.gv', view=True)
+
+    return dot
+
+
+def draw_critical_path_graph(graph_data, graph_number, critical_path):
+    # Création de l'objet graphique avec la fonction draw_graph
+    dot = draw_graph(graph_data, graph_number)
+
+    # Identification des arcs du chemin critique
+    critical_edges = [(critical_path[i], critical_path[i + 1]) for i in range(len(critical_path) - 1)]
+
+    # Modification de la couleur et de l'épaisseur des arcs pour le chemin critique
+    for start, end in critical_edges:
+        dot.edge(str(start), str(end), color='red', penwidth='3.0', constraint='true')
+
+    # Sauvegarde et ouverture automatique du graphe modifié
+    dot.render(f'data/graph/critical_path_graph_{graph_number}.gv', view=True)

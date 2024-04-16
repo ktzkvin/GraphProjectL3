@@ -1,6 +1,7 @@
 from collections import deque
 from colorama import Fore, Back, Style
 from tabulate import tabulate
+from B3_draw import draw_critical_path_graph
 
 # Initialiser Alpha et Oméga
 alpha = chr(945)
@@ -110,7 +111,7 @@ def calculate_margins_and_critical_paths(earliest_start, latest_start):
     return marges, chemin_critique
 
 
-def print_schedule_tables(earliest_schedule, latest_schedule, ranks):
+def print_schedule_tables(earliest_schedule, latest_schedule, ranks, graph_data, graph_number):
     print(Fore.LIGHTYELLOW_EX + "\n✦" + Style.RESET_ALL + " Calcul des "
           + Fore.BLACK + Back.YELLOW + " calendriers " + Style.RESET_ALL + ", "
           + Fore.BLACK + Back.YELLOW + " marges " + Style.RESET_ALL + " et du "
@@ -155,3 +156,6 @@ def print_schedule_tables(earliest_schedule, latest_schedule, ranks):
 
     # Affichage du chemin critique
     print(Fore.LIGHTYELLOW_EX + "\nChemin critique : " + " -> ".join(map(str, critical_path)) + Style.RESET_ALL + "\n")
+
+    # Appel de la fonction de dessin du chemin critique
+    draw_critical_path_graph(graph_data, graph_number, critical_path)
