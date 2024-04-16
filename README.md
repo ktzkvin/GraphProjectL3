@@ -50,7 +50,7 @@ Le programme lit un tableau de contraintes à partir d'un fichier texte et stock
 ### 2. Affichage Matriciel
 Un graphe est généré sous forme matricielle, y compris les sommets fictifs alpha (α) et omega (ω).
 
-![Affichage matriciel](https://cdn.discordapp.com/attachments/1222083642206060687/1229879404356960397/Screenshot_1.png?ex=66314974&is=661ed474&hm=d31475900481691d5abbd0d30c97861142b092737fef67949910f68b0f46a1c7&)
+![Affichage matriciel](https://cdn.discordapp.com/attachments/1222083642206060687/1229880422238916829/Screenshot_1.png?ex=66314a66&is=661ed566&hm=37c0d8d2b8284b0554a057b110aa12847b8f20f537b83edfe9c23bbea196c765&)
 ![Affichage matriciel](https://cdn.discordapp.com/attachments/1222083642206060687/1229879404013031454/Screenshot_2.png?ex=66314973&is=661ed473&hm=554beeba2693966ce8d54c906e9747ec994007cc13559287ede519070f91b22d&)
 
 
