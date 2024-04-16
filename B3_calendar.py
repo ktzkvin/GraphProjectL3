@@ -109,7 +109,7 @@ def calculate_latest_schedule(graph_data, ranks, projet_fin):
     return latest_start
 
 
-# Fonction pour calculer les marges et les chemins critiques
+# Fonction pour calculer les marges + chemin critique
 def calculate_margins_and_critical_paths(earliest_start, latest_start):
     marges = []
     chemin_critique = []
@@ -122,7 +122,7 @@ def calculate_margins_and_critical_paths(earliest_start, latest_start):
 
 
 def print_schedule_tables(earliest_schedule, latest_schedule):
-    print(Fore.LIGHTYELLOW_EX + "✦" + Style.RESET_ALL + " Calcul des calendriers, marges et chemins critiques :\n")
+    print(Fore.LIGHTYELLOW_EX + "✦" + Style.RESET_ALL + " Calcul des calendriers, marges et du chemin critique :\n")
 
     # Préparation des données pour l'affichage
     headers = ["Tâche", "Début au plus tôt", "Début au plus tard", "Marge", "Chemin critique"]
@@ -148,4 +148,4 @@ def print_schedule_tables(earliest_schedule, latest_schedule):
     print(tabulate(table_data, headers=headers, tablefmt="github", numalign="center", stralign="center"))
 
     # Affichage du chemin critique
-    print(Fore.LIGHTYELLOW_EX + "\nChemin critique : " + ", ".join(map(str, critical_path)) + Style.RESET_ALL + "\n")
+    print(Fore.LIGHTYELLOW_EX + "\nChemin critique : " + " -> ".join(map(str, critical_path)) + Style.RESET_ALL + "\n")
