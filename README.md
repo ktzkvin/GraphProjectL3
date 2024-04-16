@@ -59,7 +59,19 @@ Le graphe graphe mémorisé est généré sous forme **matricielle**, y compris 
 
 ![Affichage matriciel](https://cdn.discordapp.com/attachments/1222083642206060687/1229883670949662750/Screenshot_3.png?ex=66314d6d&is=661ed86d&hm=1955062260d09e6bd5ca3289814b1c8391fec56691d04f9b5f8ed68f1487c1d5&)
 
-### 3. Vérification des Propriétés du Graphe
+### 3.1 Vérification des Propriétés du Graphe
+Le graphe est examiné pour s'assurer que toutes les valeurs d'arc sont positives et qu'il ne contient pas de circuit.
+
+![Vérification arc négatif](https://cdn.discordapp.com/attachments/1222083642206060687/1229884942775877652/Screenshot_4.png?ex=66314e9c&is=661ed99c&hm=b7ea80729d4e56e1a996276572ed97bf95e56988576b3963214ac35fa5d31d8a&)
+_Vérification des arcs_
+
+![Vérification des circuits](https://cdn.discordapp.com/attachments/1222083642206060687/1229884943111557230/Screenshot_5.png?ex=66314e9c&is=661ed99c&hm=7641dbe48174e401191f2ba27d8e84e5f47cb1447e0a6fafb6f9f162433c030c&)
+_Vérification de la présence de circuit_
+
+Si aucun arc à valeur négative n'a été trouvé et que le circuit ne comporte aucun circuit, alors une proposition de calcul des calendriers est lancée (cf. 3.2).
+![Proposition du calcul des calendriers](https://cdn.discordapp.com/attachments/1222083642206060687/1229884943459418122/Screenshot_6.png?ex=66314e9c&is=661ed99c&hm=49456bdb5f476e45034870e8432cae655998f5fde0b1c3a351b741e8e9ae7d9a&)
+
+### 3.2 Vérification des Propriétés du Graphe
 Le graphe est examiné pour s'assurer qu'il ne contient pas de circuits et que toutes les valeurs d'arc sont non négatives.
 
 ![Vérification des propriétés]()
