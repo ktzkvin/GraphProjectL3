@@ -77,8 +77,8 @@ Si aucun arc à valeur négative n'a été trouvé et que le graphe ne comporte 
 ### 3.2 Calcul des calendriers
 Pour calculer les calendriers, nous avons d'abord besoin de **calculer les rangs** :
 
-![Calcul des rangs 1](https://cdn.discordapp.com/attachments/1222083642206060687/1229890734312919162/Screenshot_10.png?ex=66315401&is=661edf01&hm=2b8cc2f161dd0ef9a3b21386d480dc52391afd00d79ddc61b86af49e5887e9fb&)
-![Calcul des rangs 2](https://cdn.discordapp.com/attachments/1222083642206060687/1229890734052610048/Screenshot_11.png?ex=66315401&is=661edf01&hm=28991a866b3c8a732967a5dbbce913c09c7da71967e6307baeb3c934503da2c1&)
+![Calcul des rangs 1](https://cdn.discordapp.com/attachments/1222083642206060687/1229893465983291492/Screenshot_10_1.png?ex=6631568c&is=661ee18c&hm=268335502323ff0cf362313224ca3e3ae4dc284c90c759091310514372b78d99&)
+![Calcul des rangs 2](https://cdn.discordapp.com/attachments/1222083642206060687/1229893466285412423/Screenshot_11_1.png?ex=6631568c&is=661ee18c&hm=bfebfb5b6072b7be7cbc463681c9a20a05b5c814bf6f3c1e1caab7ae17e8a56b&)
 _Calcul des rangs_
 
 
