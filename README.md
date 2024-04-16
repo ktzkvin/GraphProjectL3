@@ -109,7 +109,7 @@ _Affichage du graphe_
 ### 5. Changer la table de contraintes
 Pour éviter toute interruption du code, il est également possible de choisir une nouvelle table de contraintes à étudier.
 
-![Affichage par triplets](https://cdn.discordapp.com/attachments/422113586597593088/1229910171489402951/Sequence_02_4.gif?ex=6631661b&is=661ef11b&hm=d7b8e7ffb06af5fd855e5794651ed6f5f18468328282781796c5da00bb05776a&)<br />
+![Affichage par triplets](https://cdn.discordapp.com/attachments/422113586597593088/1229911248825618534/Sequence_02_5.gif?ex=6631671c&is=661ef21c&hm=f58f269d5bbbcacb374843581f7a01ac454f2e919b2a348256453e62d5c113c7&)<br />
 _Changer la table de contraintes_
 
 
