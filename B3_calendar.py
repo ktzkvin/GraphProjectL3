@@ -162,9 +162,6 @@ def print_schedule_tables(earliest_schedule, latest_schedule, ranks, graph_data,
     # Affichage sous forme de tableau
     print(tabulate(table_data, headers=headers, tablefmt="github", numalign="center", stralign="center"))
 
-    # Affichage du chemin critique
-    print(Fore.LIGHTYELLOW_EX + "\nChemin critique : " + " -> ".join(map(str, critical_path)) + Style.RESET_ALL + "\n")
-
     # Durée totale du projet à l'aide des dates au plus tôt
     end_duration = max(earliest_schedule.values())
 
@@ -176,16 +173,22 @@ def print_schedule_tables(earliest_schedule, latest_schedule, ranks, graph_data,
 
     # Vérification et affichage du nombre de chemins critiques trouvés.
     if all_critical_paths:
-        print(f"Nombre de chemins critiques détectés: {len(all_critical_paths)}")
+        print(Fore.LIGHTYELLOW_EX + f"\nNombre de chemins critiques détectés: {len(all_critical_paths)}" + Style.RESET_ALL)
         # Affichage de chaque chemin critique, numéroté pour une meilleure lisibilité.
         for index, path in enumerate(all_critical_paths, start=1):
-            print(f"Chemin critique {index}: {' -> '.join(map(str, path))}")
+            print(Fore.LIGHTYELLOW_EX + f"Chemin critique {index} : {' -> '.join(map(str, path))}" + Style.RESET_ALL)
     else:
         # Message informatif indiquant qu'aucun chemin critique n'a été détecté.
-        print("Aucun chemin critique détecté.")
+        print(Fore.LIGHTYELLOW_EX + "Aucun chemin critique détecté." + Style.RESET_ALL)
 
-    # Dessiner le graphe avec son chemin critique
-    draw_critical_path_graph(graph_data, graph_number, critical_path)
+    # Dessiner 1 graphe pour 1 chemin critique
+    k = 1
+    if len(all_critical_paths) > 1:
+        for path in all_critical_paths:
+            draw_critical_path_graph(graph_data, graph_number, path, k)
+            k += 1
+    else:
+        draw_critical_path_graph(graph_data, graph_number, critical_path, 0)
 
 
 # Fonction pour trouver le ou les chemins critiques

@@ -62,7 +62,7 @@ def draw_graph(graph_data, graph_number):
 
 
 # Fonction pour dessiner le graphe avec son chemin critique (BONUS)
-def draw_critical_path_graph(graph_data, graph_number, critical_path):
+def draw_critical_path_graph(graph_data, graph_number, critical_path, number_of_critical_paths):
 
     # Initialisation
     dot = Digraph(comment=f'Graphe {graph_number} - Chemin critique')
@@ -120,7 +120,11 @@ def draw_critical_path_graph(graph_data, graph_number, critical_path):
         dot.edge(str(start), str(end), label=str(duration), color='red', penwidth='3.0', constraint='true')
 
     # Sauvegarde et ouverture automatique du graphe
-    dot.render(f'data/graph/critical_path_graph_{graph_number}.gv', view=True)
-    print(Fore.GREEN + f"\n Graphe enregistré sous 'data/graph/critical_path_graph_{graph_number}.gv'.")
+    if number_of_critical_paths == 0:
+        dot.render(f'data/graph/critical_path_graph_{graph_number}.gv', view=True)
+        print(Fore.GREEN + f"\n Graphe enregistré sous 'data/graph/critical_path_graph_{graph_number}.gv'.")
+    else:
+        dot.render(f'data/graph/critical_path_graph_{graph_number}_{number_of_critical_paths}.gv', view=True)
+        print(Fore.GREEN + f"\n Graphe enregistré sous 'data/graph/critical_path_graph_{graph_number}_{number_of_critical_paths}.gv'.")
 
     return dot
