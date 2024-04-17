@@ -7,10 +7,11 @@ alpha = chr(945)
 omega = chr(969)
 
 
-# Lit le contenu du fichier spécifié par le numéro de la table
+# Fonction qui lit le contenu du fichier spécifié par le numéro de la table
 def read_data(number):
-    # Lit le contenu du fichier spécifié par le numéro du tableau de contraintes
+    # Lit le contenu du fichier spécifié par le "number"
     file_path = f'data/table {number}.txt'
+
     if os.path.exists(file_path):
         with open(file_path, 'r') as file:
             return file.read()
@@ -18,8 +19,10 @@ def read_data(number):
         return None
 
 
-# Lit + enregistre les données de la table de contraintes sous forme de matrice
+# Fonction qui lit + enregistre les données de la table de contraintes sous forme de matrice
 def matrice_table(number):
+
+    # Initialisation
     table = []
     data_table = read_data(number)
 
@@ -27,7 +30,7 @@ def matrice_table(number):
         print(f"Le fichier pour le tableau de contraintes numéro {number} est introuvable.")
         return []
 
-    # Traitez les données de la table
+    # Traiter les données de la table
     lines = data_table.strip().split('\n')
     for line in lines:
         columns = line.strip().split()
@@ -39,10 +42,10 @@ def matrice_table(number):
     return table
 
 
-# Afficher la matrice des valeurs
+# Fonction pour afficher la matrice des valeurs
 def display_value_matrix(graph_data):
 
-    # Identifier tous les sommets (états) présents
+    # Identifier tous les états présents
     all_states = set(graph_data.keys())
 
     # Déterminer la taille de la matrice
@@ -55,11 +58,12 @@ def display_value_matrix(graph_data):
     for state, data in graph_data.items():
         for successor in data['successors']:
             duration_str = str(data['duration'])
+
             # Colorier la durée si ce n'est pas un '*'
             color_duration = Fore.LIGHTGREEN_EX + Style.BRIGHT + duration_str + Style.RESET_ALL if duration_str != '*' else '*'
             matrix[state][successor] = color_duration
 
-    # Afficher la matrice
+    # Initialisation du tableau
     headers = [''] + [f"{i} ({alpha})" if i == 0 else f"{i} ({omega})" if i == num_states - 1 else str(i) for i in range(num_states)]
 
     # Modifier la première colonne de chaque rangée pour inclure alpha et oméga
@@ -68,4 +72,5 @@ def display_value_matrix(graph_data):
         first_column = f"{i} ({alpha})" if i == 0 else f"{i} ({omega})" if i == num_states - 1 else str(i)
         rows.append([first_column] + row)
 
+    # Afficher le tableau
     print(tabulate(rows, headers=headers, tablefmt='presto', numalign='center', stralign='center'))
