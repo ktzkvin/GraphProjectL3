@@ -7,7 +7,7 @@ from colorama import Fore, Back, Style, init
 init(autoreset=True)
 
 
-# Fonction pour mettre une pause
+# Fonction pour mettre en pause (demande pour continuer ou non)
 def continue_prompt():
     while True:  # Boucle jusqu'à ce que l'utilisateur donne une réponse valide
         user_input = input("\n" + Fore.LIGHTBLUE_EX + "Souhaitez-vous continuer ? [" + Fore.GREEN + "y" + Fore.LIGHTBLUE_EX + "/" + Fore.RED + "n" + Fore.LIGHTBLUE_EX + "] " + Style.RESET_ALL).lower()
