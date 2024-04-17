@@ -91,7 +91,7 @@ _Calcul des rangs_
 
 Enfin, l'algorithme calcule les **dates au plus tôt**, les **dates au plus tard** ainsi que les **marges** et le **chemin critique** final.
 
-![Calcul des calendriers](https://cdn.discordapp.com/attachments/1222083642206060687/1229892011062988914/Screenshot_13.png?ex=66315531&is=661ee031&hm=0ebdf7ddaa2c8ee70937e077b72d7166154963e76143e5d12c44f9aad99de785&)
+![Calcul des calendriers](https://cdn.discordapp.com/attachments/422113586597593088/1230138852031729724/Screenshot_3.png?ex=66323b15&is=661fc615&hm=4e4acfe0156c0dd4abb7650b11c934becc0b3d6bcccd08f4f58bcd41fd26eac6&)
 _Tableau des calendriers_
 
 
