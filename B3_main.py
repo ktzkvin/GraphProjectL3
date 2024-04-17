@@ -98,7 +98,7 @@ def execute_choice(choice, graph_data, graph_number):
         print(Fore.RESET + "\n✦ ─────────── " + Fore.LIGHTWHITE_EX + "Matrice des valeurs" + Fore.RESET + " ─────────── ✦\n")
         display_value_matrix(graph_data)
 
-    # Vérifier les propriétés -> calcul des calendriers
+    # Vérifier les propriétés + calcul des calendriers
     elif choice == 3:
 
         print("\n✦ ─────────── Vérification des propriétés ─────────── ✦\n")
@@ -106,7 +106,7 @@ def execute_choice(choice, graph_data, graph_number):
         # Vérification propriétés : arcs positifs + pas de cycles
         has_negative_arcs, has_cycles = check_properties(graph_data)
 
-        # Si propriétés validées -> proposition de calcul des calendriers
+        # Si propriétés validées + proposition de calcul des calendriers
         if not has_negative_arcs and not has_cycles:
 
             print(Fore.GREEN + "\n✦ Le graphe ne contient ni arc à valeur négative ni cycle.\n✦ " + Back.GREEN + Fore.BLACK + "C'est un graphe d'ordonnancement." + Style.RESET_ALL)
