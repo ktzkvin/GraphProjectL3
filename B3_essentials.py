@@ -11,12 +11,13 @@ alpha = chr(945)
 omega = chr(969)
 
 
-#
+# Stockage du tableau de contraintes dans la mémoire
 def store_constraints_in_memory(constraints_table):
+
     # Initialisation
     graph_data = {0: {"duration": 0, "predecessors": [], "successors": []}}
 
-    # Initialisez chaque état mentionné dans le tableau de contraintes
+    # Initialiser chaque état mentionné dans le tableau de contraintes
     for state, duration, predecessors in constraints_table:
         if state not in graph_data:
             graph_data[state] = {"duration": duration, "predecessors": [], "successors": []}
@@ -24,16 +25,17 @@ def store_constraints_in_memory(constraints_table):
             if pred not in graph_data:
                 graph_data[pred] = {"duration": 0, "predecessors": [], "successors": []}
 
-    # Maintenant, ajoutez les prédécesseurs et les successeurs
+    # Ajout des prédécesseurs et des successeurs
     for state, duration, predecessors in constraints_table:
         graph_data[state]['duration'] = duration
         for pred in predecessors:
             graph_data[pred]["successors"].append(state)
             graph_data[state]["predecessors"].append(pred)
 
-    # Identifier le dernier état comme Oméga et ajuster ses prédécesseurs
+    # Identifier le dernier état comme Oméga
     n_plus_one = max(state for state, _, _ in constraints_table) + 1
     graph_data[n_plus_one] = {"duration": 0, "predecessors": [], "successors": []}
+
     for state, data in graph_data.items():
         if not data["successors"] and state != n_plus_one:
             data["successors"].append(n_plus_one)
@@ -44,12 +46,18 @@ def store_constraints_in_memory(constraints_table):
 
 # Fonction pour afficher le graphe sous forme de triplets
 def display_graph_as_triplets(graph_data):
-    max_state = max(graph_data.keys())  # Déterminer le plus grand état
+
+    # Initialisation
     table_data = []
+
+    # Déterminer l'état le plus grand
+    max_state = max(graph_data.keys())
 
     for state, data in graph_data.items():
         if state == max_state:
             continue  # Oméga ne doit pas apparaître en tant que nœud de départ
+
+        # Enregistrement des triplets
         for successor in data['successors']:
             if successor == max_state:
                 table_data.append([f"{state} -> {successor} ({omega})", f"= {data['duration']}"])
@@ -63,6 +71,7 @@ def display_graph_as_triplets(graph_data):
 
 # Fonction pour afficher le tableau de contraintes
 def display_constraints_table(graph_data):
+
     # Initialisation
     table_data = []
 
@@ -80,9 +89,10 @@ def display_constraints_table(graph_data):
     # Tri des données pour un affichage ordonné des états
     table_data.sort(key=lambda x: int(x[0].split()[0]))  # Convertir en entier pour pouvoir trier + get uniquement les nombres
 
-    # État précédent de l'état 0 = /
+    # État précédent de l'état 0 = "/" (= nul)
     table_data[0][2] = "/"
 
+    # Afficher le tableau
     headers = [Fore.BLACK + Back.WHITE + " État actuel " + Style.RESET_ALL,
                Fore.BLACK + Back.WHITE + " Durée " + Style.RESET_ALL,
                Fore.BLACK + Back.WHITE + " État(s) précédent(s) " + Style.RESET_ALL]
@@ -99,6 +109,7 @@ def check_properties(graph_data):
     print(
         Fore.LIGHTYELLOW_EX + "\n✦ " + Style.RESET_ALL + f"Démarrage de la vérification d'arcs négatifs\n")
 
+    # Vérification une à une
     for state, data in graph_data.items():
         for successor in data['successors']:
             duration = graph_data[state]['duration']
@@ -111,6 +122,7 @@ def check_properties(graph_data):
             # Ajouter la durée et le statut à la liste des détails des arcs
             arc_details.append([f"{state} -> {successor}", duration, arc_status])
 
+    # Afficher l'ensemble des résultats sous forme de tableau
     headers = [Fore.BLACK + Back.WHITE + " Arc " + Style.RESET_ALL,
                Fore.BLACK + Back.WHITE + " Durée " + Style.RESET_ALL,
                Fore.BLACK + Back.WHITE + " Statut " + Style.RESET_ALL]
@@ -143,6 +155,7 @@ def check_properties(graph_data):
         print(Fore.YELLOW + len(path) * "  " + f"Nœud visité : {current_state}" + Style.RESET_ALL)
         nonlocal has_cycles
 
+        # Si l'état est stocké das la pile = cycle détecté
         if current_state in rec_stack:
             cycle_start_index = path.index(current_state)
             cycle_path = path[cycle_start_index:]
@@ -153,6 +166,7 @@ def check_properties(graph_data):
             all_cycles.append(cycle_path)
             has_cycles = True
 
+        # Sinon, on l'ajoute à la pile
         elif current_state not in visited:
             visited.add(current_state)
             rec_stack.add(current_state)
@@ -181,6 +195,7 @@ def check_properties(graph_data):
                             len(path) * "  ") + f"Retour en arrière : {prev_node} -> [{successeurs_prev}" + Fore.MAGENTA + "]" + Style.RESET_ALL)
 
     for state in graph_data:
+
         # Ne pas prendre en compte le nœud Alpha
         if state not in visited and state != 0:
             print(Fore.CYAN + "\n✦ Exploration par le nœud : " + str(state) + Style.RESET_ALL)
@@ -188,6 +203,7 @@ def check_properties(graph_data):
 
     print(Fore.CYAN + "Tout le graphe a été exploré." + Style.RESET_ALL)
 
+    # Affichage final : cycle ou non
     if has_cycles:
         print(
             Fore.RED + "\nFin de la vérification de cycle. Résultat : Cycle détecté dans le graphe." + Style.RESET_ALL)
