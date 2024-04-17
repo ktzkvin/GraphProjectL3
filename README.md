@@ -55,7 +55,7 @@ Le graphe mémorisé est généré sous forme de **tableau**, y compris les somm
 De même, le graphe est affiché sous forme de **triplets** pour une meilleure compréhension.
 
 ![Tableau de contraintes](https://cdn.discordapp.com/attachments/1222083642206060687/1229881122352140338/Screenshot_1_1.png?ex=66314b0d&is=661ed60d&hm=49c0593b03a90ebd4d06c194372392a9207eedfebae8cce2d071c140221bf430&)
-![Affichage par triplets](https://cdn.discordapp.com/attachments/1222083642206060687/1229881589522104400/Screenshot_2_1.png?ex=66314b7d&is=661ed67d&hm=b4801b4b0d9b88c26b05529f5c77b3627831df76d1048977efde03078b913d18&)<br />
+![Affichage par triplets](https://cdn.discordapp.com/attachments/422113586597593088/1230088344990388305/Screenshot_1.png?ex=66320c0b&is=661f970b&hm=9c0ff0fc416e8b117396c5d6bbad9297ce5a3284ef338e8e32b4d9a40a3f295c&)<br />
 _Tableau de contraintes et affichage sous forme de triplets_
 
 ### 2. Affichage Matriciel
