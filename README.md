@@ -1,7 +1,7 @@
 
 # 🧮 L3 Projet : Théorie des Graphes
 
-Projet de Théorie des Graphes de 3ème année à l'EFREI Paris du groupe B3.
+Projet de Théorie des Graphes de 3ème année à l'EFREI Paris du groupe B3.<br />
 Le projet doit s'exécuter sur une série de 14 tables de test. Afin d'explorer tout le potentiel du programme, nous avons créé la `table 15.txt` comportant des arcs négatifs.
 
 
@@ -44,7 +44,7 @@ Ou bien exécuter le fichier B3_main.py à l'aide de votre IDE.
 Chaque étape du processus d'ordonnancement est illustrée ci-dessous avec un GIF démonstratif :
 
 ### 0. Lecture du Tableau de Contraintes : Menu principal
-Le programme lit un tableau de contraintes à partir d'un fichier texte et stocke les informations en **mémoire**. <br />
+Le programme lit un tableau de contraintes à partir d'un fichier texte et stocke les informations en **mémoire**.<br />
 Puis, un **menu** est affiché pour choisir une fonctionnalité à lancer sur le tableau de contraintes.
 
 ![Lecture du tableau de contraintes](https://cdn.discordapp.com/attachments/1222083642206060687/1229878743158489158/sequence_1.gif?ex=663148d6&is=661ed3d6&hm=e4135b787fb987a96f9e82b9ff23af729719b1f6d279df1ad27382bb1a3b2893&)<br />
