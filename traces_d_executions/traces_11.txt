@@ -1,0 +1,304 @@
+╠═════════════════════ Menu Principal ═════════════════════╣
+
+  1.  Afficher le tableau de contraintes
+  2.  Afficher la matrice des valeurs
+  3.  Vérifier les propriétés -> calcul des calendriers
+  4.  BONUS Afficher le graphe
+
+  5.  Changer la table de contraintes
+  0.  Quitter
+
+╚═══════════════════════ Table : 10 ═══════════════════════╝
+
+┌─────────────────────
+█ Entrez votre choix : 5
+
+✦ ─────────── Changement de la table de contraintes ─────────── ✦
+
+  ✦ Entrez le nouveau numéro de la table de contraintes (1-15) : 11
+
+Table de contraintes changée.
+
+
+
+╠═════════════════════ Menu Principal ═════════════════════╣
+
+  1.  Afficher le tableau de contraintes
+  2.  Afficher la matrice des valeurs
+  3.  Vérifier les propriétés -> calcul des calendriers
+  4.  BONUS Afficher le graphe
+
+  5.  Changer la table de contraintes
+  0.  Quitter
+
+╚═══════════════════════ Table : 11 ═══════════════════════╝
+
+┌─────────────────────
+█ Entrez votre choix : 1
+
+
+✦ ─────────── Création du graphe d’ordonnancement ─────────── ✦
+
+✦ Tableau de contraintes :
+
+|   État actuel   |   Durée   |   État(s) précédent(s)   |
+|-----------------|-----------|--------------------------|
+|      0 (α)      |     0     |            /             |
+|        1        |     1     |            0             |
+|        2        |     1     |           1, 4           |
+|        3        |     4     |            2             |
+|        4        |     2     |           1, 5           |
+|        5        |     5     |            1             |
+|        6        |     6     |           4, 5           |
+|        7        |     3     |           3, 5           |
+|        8        |     0     |        2, 4, 6, 7        |
+|      9 (ω)      |     0     |            8             |
+
+
+✦ Affichage du graphe sous forme de triplets :
+
+0 (α) -> 1  = 0
+1 -> 2      = 1
+1 -> 4      = 1
+1 -> 5      = 1
+2 -> 3      = 1
+2 -> 8      = 1
+3 -> 7      = 4
+4 -> 2      = 2
+4 -> 6      = 2
+4 -> 8      = 2
+5 -> 4      = 5
+5 -> 6      = 5
+5 -> 7      = 5
+6 -> 8      = 6
+7 -> 8      = 3
+8 -> 9 (ω)  = 0
+
+Souhaitez-vous continuer ? [y/n] y
+
+
+╠═════════════════════ Menu Principal ═════════════════════╣
+
+  1.  Afficher le tableau de contraintes
+  2.  Afficher la matrice des valeurs
+  3.  Vérifier les propriétés -> calcul des calendriers
+  4.  BONUS Afficher le graphe
+
+  5.  Changer la table de contraintes
+  0.  Quitter
+
+╚═══════════════════════ Table : 11 ═══════════════════════╝
+
+┌─────────────────────
+█ Entrez votre choix : 2
+
+✦ ─────────── Matrice des valeurs ─────────── ✦
+
+       |  0 (α)  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9 (ω)
+-------+---------+-----+-----+-----+-----+-----+-----+-----+-----+---------
+ 0 (α) |    *    |  0  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |    *
+   1   |    *    |  *  |  1  |  *  |  1  |  1  |  *  |  *  |  *  |    *
+   2   |    *    |  *  |  *  |  1  |  *  |  *  |  *  |  *  |  1  |    *
+   3   |    *    |  *  |  *  |  *  |  *  |  *  |  *  |  4  |  *  |    *
+   4   |    *    |  *  |  2  |  *  |  *  |  *  |  2  |  *  |  2  |    *
+   5   |    *    |  *  |  *  |  *  |  5  |  *  |  5  |  5  |  *  |    *
+   6   |    *    |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  6  |    *
+   7   |    *    |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  3  |    *
+   8   |    *    |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |    0
+ 9 (ω) |    *    |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |    *
+
+Souhaitez-vous continuer ? [y/n] y
+
+
+╠═════════════════════ Menu Principal ═════════════════════╣
+
+  1.  Afficher le tableau de contraintes
+  2.  Afficher la matrice des valeurs
+  3.  Vérifier les propriétés -> calcul des calendriers
+  4.  BONUS Afficher le graphe
+
+  5.  Changer la table de contraintes
+  0.  Quitter
+
+╚═══════════════════════ Table : 11 ═══════════════════════╝
+
+┌─────────────────────
+█ Entrez votre choix : 3
+
+✦ ─────────── Vérification des propriétés ─────────── ✦
+
+
+✦ Démarrage de la vérification d'arcs négatifs
+
+|   Arc   |   Durée   |   Statut   |
+|---------|-----------|------------|
+| 0 -> 1  |     0     |  POSITIVE  |
+| 1 -> 2  |     1     |  POSITIVE  |
+| 1 -> 4  |     1     |  POSITIVE  |
+| 1 -> 5  |     1     |  POSITIVE  |
+| 2 -> 3  |     1     |  POSITIVE  |
+| 2 -> 8  |     1     |  POSITIVE  |
+| 3 -> 7  |     4     |  POSITIVE  |
+| 4 -> 2  |     2     |  POSITIVE  |
+| 4 -> 6  |     2     |  POSITIVE  |
+| 4 -> 8  |     2     |  POSITIVE  |
+| 5 -> 4  |     5     |  POSITIVE  |
+| 5 -> 6  |     5     |  POSITIVE  |
+| 5 -> 7  |     5     |  POSITIVE  |
+| 6 -> 8  |     6     |  POSITIVE  |
+| 7 -> 8  |     3     |  POSITIVE  |
+| 8 -> 9  |     0     |  POSITIVE  |
+
+Le graphe ne contient pas d'arc à valeur négative.
+
+✦ Démarrage de la vérification de cycle par parcours en profondeur (DFS) à partir du nœud : 1
+
+✦ Exploration par le nœud : 1
+Nœud visité : 1
+Successeurs : [2, 4, 5]
+  Nœud visité : 2
+  Successeurs : [3, 8]
+    Nœud visité : 3
+    Successeur : [7]
+      Nœud visité : 7
+      Successeur : [8]
+        Nœud visité : 8
+        Successeur : [9]
+          Nœud visité : 9
+          Successeurs : ∅
+          Retour en arrière : 8 -> [9]
+        Retour en arrière : 7 -> [8]
+      Retour en arrière : 3 -> [7]
+    Retour en arrière : 2 -> [3, 8]
+    Nœud visité : 8
+  Retour en arrière : 1 -> [2, 4, 5]
+  Nœud visité : 4
+  Successeurs : [2, 6, 8]
+    Nœud visité : 2
+    Nœud visité : 6
+    Successeur : [8]
+      Nœud visité : 8
+    Retour en arrière : 4 -> [2, 6, 8]
+    Nœud visité : 8
+  Retour en arrière : 1 -> [2, 4, 5]
+  Nœud visité : 5
+  Successeurs : [4, 6, 7]
+    Nœud visité : 4
+    Nœud visité : 6
+    Nœud visité : 7
+  Retour en arrière : 1 -> [2, 4, 5]
+Tout le graphe a été exploré.
+
+Fin de la vérification de cycle. Résultat : Aucun cycle détecté dans le graphe.
+
+✦ Le graphe ne contient ni arc à valeur négative ni cycle.
+✦ C'est un graphe d'ordonnancement.
+
+Souhaitez-vous calculer les calendriers ? [y/n] y
+
+✦ ─────────── Calcul des Calendriers ─────────── ✦
+
+✦ Calcul des rangs :
+
+Traitement du niveau 0 avec les sommets: [0]
+Attribution du rang 0 à l'état 0
+Ajout de l'état 1 à la file du prochain niveau
+
+Traitement du niveau 1 avec les sommets: [1]
+Attribution du rang 1 à l'état 1
+Ajout de l'état 5 à la file du prochain niveau
+
+Traitement du niveau 2 avec les sommets: [5]
+Attribution du rang 2 à l'état 5
+Ajout de l'état 4 à la file du prochain niveau
+
+Traitement du niveau 3 avec les sommets: [4]
+Attribution du rang 3 à l'état 4
+Ajout de l'état 2 à la file du prochain niveau
+Ajout de l'état 6 à la file du prochain niveau
+
+Traitement du niveau 4 avec les sommets: [2, 6]
+Attribution du rang 4 à l'état 2
+Ajout de l'état 3 à la file du prochain niveau
+Attribution du rang 4 à l'état 6
+
+Traitement du niveau 5 avec les sommets: [3]
+Attribution du rang 5 à l'état 3
+Ajout de l'état 7 à la file du prochain niveau
+
+Traitement du niveau 6 avec les sommets: [7]
+Attribution du rang 6 à l'état 7
+Ajout de l'état 8 à la file du prochain niveau
+
+Traitement du niveau 7 avec les sommets: [8]
+Attribution du rang 7 à l'état 8
+Ajout de l'état 9 à la file du prochain niveau
+
+Traitement du niveau 8 avec les sommets: [9]
+Attribution du rang 8 à l'état 9
+Fin du calcul des rangs
+
+
+✦ Calcul des  calendriers ,  marges  et du  chemin critique  (tableau trié par ordonnancement des rangs) :
+
+|   Rang   |   État   |   Dates au plus tôt   |   Dates au plus tard   |   Marge   |   Chemin critique   |
+|----------|----------|-----------------------|------------------------|-----------|---------------------|
+|    0     |  0 (α)   |           0           |           0            |     0     |      CRITIQUE       |
+|    1     |    1     |           0           |           0            |     0     |      CRITIQUE       |
+|    2     |    5     |           1           |           1            |     0     |      CRITIQUE       |
+|    3     |    4     |           6           |           6            |     0     |      CRITIQUE       |
+|    4     |    2     |           8           |           8            |     0     |      CRITIQUE       |
+|    4     |    6     |           8           |           10           |     2     |          -          |
+|    5     |    3     |           9           |           9            |     0     |      CRITIQUE       |
+|    6     |    7     |          13           |           13           |     0     |      CRITIQUE       |
+|    7     |    8     |          16           |           16           |     0     |      CRITIQUE       |
+|    8     |  9 (ω)   |          16           |           16           |     0     |      CRITIQUE       |
+
+Nombre de chemins critiques détectés: 1
+Chemin critique 1 : 0 -> 1 -> 5 -> 4 -> 2 -> 3 -> 7 -> 8 -> 9
+
+ Graphe enregistré sous 'data/graph/critical_path_graph_11.gv'.
+
+Souhaitez-vous continuer ? [y/n] y
+
+
+╠═════════════════════ Menu Principal ═════════════════════╣
+
+  1.  Afficher le tableau de contraintes
+  2.  Afficher la matrice des valeurs
+  3.  Vérifier les propriétés -> calcul des calendriers
+  4.  BONUS Afficher le graphe
+
+  5.  Changer la table de contraintes
+  0.  Quitter
+
+╚═══════════════════════ Table : 11 ═══════════════════════╝
+
+┌─────────────────────
+█ Entrez votre choix : 4
+
+ Graphe enregistré sous 'data/graph/graph_11.gv'.
+
+Souhaitez-vous continuer ? [y/n] y
+
+
+╠═════════════════════ Menu Principal ═════════════════════╣
+
+  1.  Afficher le tableau de contraintes
+  2.  Afficher la matrice des valeurs
+  3.  Vérifier les propriétés -> calcul des calendriers
+  4.  BONUS Afficher le graphe
+
+  5.  Changer la table de contraintes
+  0.  Quitter
+
+╚═══════════════════════ Table : 11 ═══════════════════════╝
+
+┌─────────────────────
+█ Entrez votre choix : 5
+
+✦ ─────────── Changement de la table de contraintes ─────────── ✦
+
+  ✦ Entrez le nouveau numéro de la table de contraintes (1-15) : 12
+
+Table de contraintes changée.

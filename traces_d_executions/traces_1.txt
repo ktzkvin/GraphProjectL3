@@ -1,0 +1,251 @@
+C:\Users\Kevin\OneDrive\Bureau\GraphProjectL3\.venv\Scripts\python.exe C:\Users\Kevin\OneDrive\Bureau\GraphProjectL3\B3_main.py 
+
+╔═══════════════════ Projet Graphe : B3 ═══════════════════╗
+
+  ✦ Entrez le numéro de la table de contraintes (1-15) : 1
+
+
+╠═════════════════════ Menu Principal ═════════════════════╣
+
+  1.  Afficher le tableau de contraintes
+  2.  Afficher la matrice des valeurs
+  3.  Vérifier les propriétés -> calcul des calendriers
+  4.  BONUS Afficher le graphe
+
+  5.  Changer la table de contraintes
+  0.  Quitter
+
+╚═══════════════════════ Table : 1 ════════════════════════╝
+
+┌─────────────────────
+█ Entrez votre choix : 1
+
+
+✦ ─────────── Création du graphe d’ordonnancement ─────────── ✦
+
+✦ Tableau de contraintes :
+
+|   État actuel   |   Durée   |   État(s) précédent(s)   |
+|-----------------|-----------|--------------------------|
+|      0 (α)      |     0     |            /             |
+|        1        |     2     |            0             |
+|        2        |     5     |            0             |
+|        3        |     4     |            1             |
+|        4        |     2     |         2, 3, 13         |
+|        5        |     5     |            4             |
+|        6        |     5     |            5             |
+|        7        |     9     |            6             |
+|        8        |     2     |            7             |
+|        9        |     5     |            8             |
+|       10        |     1     |            11            |
+|       11        |     1     |            4             |
+|       12        |     1     |            3             |
+|       13        |     9     |          6, 12           |
+|     14 (ω)      |     0     |          9, 10           |
+
+
+✦ Affichage du graphe sous forme de triplets :
+
+0 (α) -> 1    = 0
+0 (α) -> 2    = 0
+1 -> 3        = 2
+2 -> 4        = 5
+3 -> 4        = 4
+3 -> 12       = 4
+4 -> 5        = 2
+4 -> 11       = 2
+5 -> 6        = 5
+6 -> 7        = 5
+6 -> 13       = 5
+7 -> 8        = 9
+8 -> 9        = 2
+9 -> 14 (ω)   = 5
+10 -> 14 (ω)  = 1
+11 -> 10      = 1
+12 -> 13      = 1
+13 -> 4       = 9
+
+Souhaitez-vous continuer ? [y/n] 2
+Choix invalide, veuillez entrer 'y' pour oui ou 'n' pour non.
+
+Souhaitez-vous continuer ? [y/n] y
+
+
+╠═════════════════════ Menu Principal ═════════════════════╣
+
+  1.  Afficher le tableau de contraintes
+  2.  Afficher la matrice des valeurs
+  3.  Vérifier les propriétés -> calcul des calendriers
+  4.  BONUS Afficher le graphe
+
+  5.  Changer la table de contraintes
+  0.  Quitter
+
+╚═══════════════════════ Table : 1 ════════════════════════╝
+
+┌─────────────────────
+█ Entrez votre choix : 2
+
+✦ ─────────── Matrice des valeurs ─────────── ✦
+
+        |  0 (α)  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  10  |  11  |  12  |  13  |  14 (ω)
+--------+---------+-----+-----+-----+-----+-----+-----+-----+-----+-----+------+------+------+------+----------
+ 0 (α)  |    *    |  0  |  0  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *   |  *   |  *   |  *   |    *
+   1    |    *    |  *  |  *  |  2  |  *  |  *  |  *  |  *  |  *  |  *  |  *   |  *   |  *   |  *   |    *
+   2    |    *    |  *  |  *  |  *  |  5  |  *  |  *  |  *  |  *  |  *  |  *   |  *   |  *   |  *   |    *
+   3    |    *    |  *  |  *  |  *  |  4  |  *  |  *  |  *  |  *  |  *  |  *   |  *   |  4   |  *   |    *
+   4    |    *    |  *  |  *  |  *  |  *  |  2  |  *  |  *  |  *  |  *  |  *   |  2   |  *   |  *   |    *
+   5    |    *    |  *  |  *  |  *  |  *  |  *  |  5  |  *  |  *  |  *  |  *   |  *   |  *   |  *   |    *
+   6    |    *    |  *  |  *  |  *  |  *  |  *  |  *  |  5  |  *  |  *  |  *   |  *   |  *   |  5   |    *
+   7    |    *    |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  9  |  *  |  *   |  *   |  *   |  *   |    *
+   8    |    *    |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  2  |  *   |  *   |  *   |  *   |    *
+   9    |    *    |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *   |  *   |  *   |  *   |    5
+   10   |    *    |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *   |  *   |  *   |  *   |    1
+   11   |    *    |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  1   |  *   |  *   |  *   |    *
+   12   |    *    |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *   |  *   |  *   |  1   |    *
+   13   |    *    |  *  |  *  |  *  |  9  |  *  |  *  |  *  |  *  |  *  |  *   |  *   |  *   |  *   |    *
+ 14 (ω) |    *    |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *   |  *   |  *   |  *   |    *
+
+Souhaitez-vous continuer ? [y/n] y
+
+
+╠═════════════════════ Menu Principal ═════════════════════╣
+
+  1.  Afficher le tableau de contraintes
+  2.  Afficher la matrice des valeurs
+  3.  Vérifier les propriétés -> calcul des calendriers
+  4.  BONUS Afficher le graphe
+
+  5.  Changer la table de contraintes
+  0.  Quitter
+
+╚═══════════════════════ Table : 1 ════════════════════════╝
+
+┌─────────────────────
+█ Entrez votre choix : 3
+
+✦ ─────────── Vérification des propriétés ─────────── ✦
+
+
+✦ Démarrage de la vérification d'arcs négatifs
+
+|   Arc    |   Durée   |   Statut   |
+|----------|-----------|------------|
+|  0 -> 1  |     0     |  POSITIVE  |
+|  0 -> 2  |     0     |  POSITIVE  |
+|  1 -> 3  |     2     |  POSITIVE  |
+|  2 -> 4  |     5     |  POSITIVE  |
+|  3 -> 4  |     4     |  POSITIVE  |
+| 3 -> 12  |     4     |  POSITIVE  |
+|  4 -> 5  |     2     |  POSITIVE  |
+| 4 -> 11  |     2     |  POSITIVE  |
+|  5 -> 6  |     5     |  POSITIVE  |
+|  6 -> 7  |     5     |  POSITIVE  |
+| 6 -> 13  |     5     |  POSITIVE  |
+|  7 -> 8  |     9     |  POSITIVE  |
+|  8 -> 9  |     2     |  POSITIVE  |
+| 9 -> 14  |     5     |  POSITIVE  |
+| 10 -> 14 |     1     |  POSITIVE  |
+| 11 -> 10 |     1     |  POSITIVE  |
+| 12 -> 13 |     1     |  POSITIVE  |
+| 13 -> 4  |     9     |  POSITIVE  |
+
+Le graphe ne contient pas d'arc à valeur négative.
+
+✦ Démarrage de la vérification de cycle par parcours en profondeur (DFS) à partir des nœuds : 1, 2
+
+✦ Exploration par le nœud : 1
+Nœud visité : 1
+Successeur : [3]
+  Nœud visité : 3
+  Successeurs : [4, 12]
+    Nœud visité : 4
+    Successeurs : [5, 11]
+      Nœud visité : 5
+      Successeur : [6]
+        Nœud visité : 6
+        Successeurs : [7, 13]
+          Nœud visité : 7
+          Successeur : [8]
+            Nœud visité : 8
+            Successeur : [9]
+              Nœud visité : 9
+              Successeur : [14]
+                Nœud visité : 14
+                Successeurs : ∅
+                Retour en arrière : 9 -> [14]
+              Retour en arrière : 8 -> [9]
+            Retour en arrière : 7 -> [8]
+          Retour en arrière : 6 -> [7, 13]
+          Nœud visité : 13
+          Successeur : [4]
+            Nœud visité : 4
+Cycle détecté ! Le nœud 4 a déjà été visité dans le chemin :  4 -> 5 -> 6 -> 13 
+          Retour en arrière : 6 -> [7, 13]
+        Retour en arrière : 5 -> [6]
+      Retour en arrière : 4 -> [5, 11]
+      Nœud visité : 11
+      Successeur : [10]
+        Nœud visité : 10
+        Successeur : [14]
+          Nœud visité : 14
+        Retour en arrière : 11 -> [10]
+      Retour en arrière : 4 -> [5, 11]
+    Retour en arrière : 3 -> [4, 12]
+    Nœud visité : 12
+    Successeur : [13]
+      Nœud visité : 13
+    Retour en arrière : 3 -> [4, 12]
+  Retour en arrière : 1 -> [3]
+
+✦ Exploration par le nœud : 2
+Nœud visité : 2
+Successeur : [4]
+  Nœud visité : 4
+Tout le graphe a été exploré.
+
+Fin de la vérification de cycle. Résultat : Cycle détecté dans le graphe.
+
+Souhaitez-vous continuer ? [y/n] y
+
+
+╠═════════════════════ Menu Principal ═════════════════════╣
+
+  1.  Afficher le tableau de contraintes
+  2.  Afficher la matrice des valeurs
+  3.  Vérifier les propriétés -> calcul des calendriers
+  4.  BONUS Afficher le graphe
+
+  5.  Changer la table de contraintes
+  0.  Quitter
+
+╚═══════════════════════ Table : 1 ════════════════════════╝
+
+┌─────────────────────
+█ Entrez votre choix : 4
+
+ Graphe enregistré sous 'data/graph/graph_1.gv'.
+
+Souhaitez-vous continuer ? [y/n] y
+
+
+╠═════════════════════ Menu Principal ═════════════════════╣
+
+  1.  Afficher le tableau de contraintes
+  2.  Afficher la matrice des valeurs
+  3.  Vérifier les propriétés -> calcul des calendriers
+  4.  BONUS Afficher le graphe
+
+  5.  Changer la table de contraintes
+  0.  Quitter
+
+╚═══════════════════════ Table : 1 ════════════════════════╝
+
+┌─────────────────────
+█ Entrez votre choix : 5
+
+✦ ─────────── Changement de la table de contraintes ─────────── ✦
+
+  ✦ Entrez le nouveau numéro de la table de contraintes (1-15) : 2
+
+Table de contraintes changée.
