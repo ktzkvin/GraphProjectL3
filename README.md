@@ -114,6 +114,3 @@ Pour éviter toute interruption du code, il est également possible de choisir u
 
 ![Affichage par triplets](https://cdn.discordapp.com/attachments/422113586597593088/1229912143504085122/Sequence_02_6.gif?ex=663167f1&is=661ef2f1&hm=ad1f7531012bd831358ecf1109053f7ff004abd6f1efcee3925a52813a6e053a&)<br />
 _Changer la table de contraintes_
-
-
-
