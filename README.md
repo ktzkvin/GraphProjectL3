@@ -1,7 +1,7 @@
 
 # 🧮 L3 Projet : Théorie des Graphes
 
-Projet de Théorie des Graphes de 3ème année à l'EFREI Paris du groupe B3.<br />
+Projet de Théorie des Graphes de 3ᵉ année à l'EFREI Paris du groupe B3.<br />
 Le projet doit s'exécuter sur une série de 14 tables de test. Afin d'explorer tout le potentiel du programme, nous avons créé la `table 15.txt` comportant des arcs négatifs.
 
 
