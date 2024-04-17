@@ -59,13 +59,14 @@ def display_graph_as_triplets(graph_data):
 
         # Enregistrement des triplets
         for successor in data['successors']:
-            if successor == max_state:
+            if state == 0:
+                table_data.append([f"{state} ({alpha}) -> {successor} ", f"= {data['duration']}"])
+            elif successor == max_state:
                 table_data.append([f"{state} -> {successor} ({omega})", f"= {data['duration']}"])
             else:
                 table_data.append([f"{state} -> {successor}", f"= {data['duration']}"])
 
     # Tri et affichage des triplets
-    table_data.sort(key=lambda x: (int(x[0].split()[0]), int(x[0].split()[2]) if "->" in x[0] else float('inf')))
     print(tabulate(table_data, tablefmt="plain", numalign="right", stralign="left"))
 
 
