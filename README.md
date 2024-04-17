@@ -107,7 +107,7 @@ Ne faisant par partie du cahier des charges du sujet, nous avons décidé d'impo
 ![Affichage du graphe](https://cdn.discordapp.com/attachments/1222083642206060687/1229893871022903409/Screenshot_15.png?ex=663156ed&is=661ee1ed&hm=5ba5fc4f1f43edad650caef784d46686e3b72d02dd7862ae800e899320b312e3&)<br />
 _Affichage du graphe_
 
-Note : dans certains cas d'égalité, le graphe peut posséder plusieurs chemins critiques. Ce cas est pris en charge par l'algorithme, précise le nombre de chemins et précise lesquels, puis ouvre un affichage par chemin critique. 
+Note : dans certains cas d'égalité, le graphe peut posséder plusieurs chemins critiques. Ce cas est pris en charge par l'algorithme qui annonce le nombre de chemins et précise lesquels, puis ouvre un affichage par chemin critique trouvé. 
 
 ### 5. Changer la table de contraintes
 Pour éviter toute interruption du code, il est également possible de choisir une nouvelle table de contraintes à étudier.
