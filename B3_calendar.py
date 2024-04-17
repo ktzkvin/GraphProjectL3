@@ -11,7 +11,10 @@ omega = chr(969)
 # Demande pour calculer les calendriers ou non
 def prompt_for_calendars():
     while True:  # Boucle jusqu'à ce que l'utilisateur donne une réponse valide
-        user_input = input(Fore.LIGHTBLUE_EX + "\nSouhaitez-vous calculer les calendriers ? [" + Fore.GREEN + "y" + Fore.LIGHTBLUE_EX + "/" + Fore.RED + "n" + Fore.LIGHTBLUE_EX + "] " + Style.RESET_ALL).lower()
+        user_input = input(Fore.LIGHTBLUE_EX + "\nSouhaitez-vous calculer les calendriers ? ["
+                           + Fore.GREEN + "y" + Fore.LIGHTBLUE_EX + "/"
+                           + Fore.RED + "n" + Fore.LIGHTBLUE_EX + "] "
+                           + Style.RESET_ALL).lower()
         if user_input == 'y':
             return True
         elif user_input == 'n':
@@ -22,6 +25,7 @@ def prompt_for_calendars():
 
 # Fonction pour calculer les rangs d'un graphe
 def calculate_ranks(graph_data):
+
     # Définir 'k = 0', où 'k' représente le rang actuel à attribuer aux nœuds
     k = 0
 
@@ -35,6 +39,7 @@ def calculate_ranks(graph_data):
 
     # Traiter les sommets niveau par niveau jusqu'à ce que tous aient un rang
     while queue:
+
         # File d'attente pour le niveau suivant
         next_queue = deque()
         print(f"\n{Fore.LIGHTYELLOW_EX}Traitement du niveau {k} avec les sommets: {list(queue)}{Style.RESET_ALL}")
@@ -61,6 +66,7 @@ def calculate_ranks(graph_data):
 
 # Fonction pour calculer les calendriers au plus tôt
 def calculate_earliest_schedule(graph_data, ranks):
+
     # Initialisation
     nodes = list(graph_data.keys())
     durations = {node: graph_data[node]['duration'] for node in nodes}
@@ -81,6 +87,7 @@ def calculate_earliest_schedule(graph_data, ranks):
 
 # Fonction pour calculer les calendriers au plus tard
 def calculate_latest_schedule(graph_data, ranks, projet_fin):
+
     # Initialisation
     nodes = list(graph_data.keys())
     durations = {node: graph_data[node]['duration'] for node in nodes}
@@ -99,18 +106,7 @@ def calculate_latest_schedule(graph_data, ranks, projet_fin):
     return latest_start
 
 
-# Fonction pour calculer les marges + chemin critique
-def calculate_margins_and_critical_paths(earliest_start, latest_start):
-    marges = []
-    chemin_critique = []
-    for i in range(len(earliest_start)):
-        marge = latest_start[i] - earliest_start[i]
-        marges.append(marge)
-        if marge == 0:
-            chemin_critique.append(i)
-    return marges, chemin_critique
-
-
+# Fonction pour calculer puis afficher les calendriers, marges et chemin critique
 def print_schedule_tables(earliest_schedule, latest_schedule, ranks, graph_data, graph_number):
     print(Fore.LIGHTYELLOW_EX + "\n✦" + Style.RESET_ALL + " Calcul des "
           + Fore.BLACK + Back.YELLOW + " calendriers " + Style.RESET_ALL + ", "
@@ -127,19 +123,31 @@ def print_schedule_tables(earliest_schedule, latest_schedule, ranks, graph_data,
     table_data = []
     critical_path = []
 
+    # Tri par ordonnancement des rangs
     tasks_sorted_by_rank = sorted(earliest_schedule.keys(), key=lambda x: ranks[x])
 
+    # Calculs
     for task in tasks_sorted_by_rank:
+
+        # Dates au plus tôt
         es = earliest_schedule[task]
+
+        # Dates au plus tard
         ls = latest_schedule[task]
+
+        # Marges
         marge = ls - es
+
+        # Rangs
         rank = ranks[task]
 
         # Préciser alpha et oméga
         if task == 0:
-            task_label = f"{task} ({alpha})"
+            task_label = f"{task} ({alpha})"  # Alpha
+
         elif task == max(earliest_schedule.keys()):
-            task_label = f"{task} ({omega})"
+            task_label = f"{task} ({omega})"  # Omega
+
         else:
             task_label = str(task)
 

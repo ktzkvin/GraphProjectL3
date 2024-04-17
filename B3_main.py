@@ -20,7 +20,7 @@ def continue_prompt():
 
 
 # Menu principal
-def main_menu(number):
+def main_menu(graph_number):
     continue_running = True
     while continue_running:
         print("\n\n╠═════════════════════ " + Fore.LIGHTWHITE_EX + "Menu Principal" + Fore.RESET + " ═════════════════════╣\n")
@@ -31,10 +31,10 @@ def main_menu(number):
         print("\n  " + Back.WHITE + Fore.BLACK + Style.BRIGHT + "5." + Back.RESET + Fore.RESET + Style.RESET_ALL + "  Changer la table de contraintes")
         print("  " + Back.WHITE + Fore.BLACK + Style.BRIGHT + "0." + Back.RESET + Style.RESET_ALL + Fore.RED + "  Quitter")
 
-        if number < 10:
-            print("\n╚" + "═" * 23 + Fore.LIGHTWHITE_EX + " Table : " + str(number) + Fore.RESET + " " + "═" * 24 + "╝")
+        if graph_number < 10:
+            print("\n╚" + "═" * 23 + Fore.LIGHTWHITE_EX + " Table : " + str(graph_number) + Fore.RESET + " " + "═" * 24 + "╝")
         else:
-            print("\n╚" + "═" * 23 + Fore.LIGHTWHITE_EX + " Table : " + str(number) + Fore.RESET + " " + "═" * 23 + "╝")
+            print("\n╚" + "═" * 23 + Fore.LIGHTWHITE_EX + " Table : " + str(graph_number) + Fore.RESET + " " + "═" * 23 + "╝")
 
         try:
             print(Fore.LIGHTBLUE_EX + "\n┌─────────────────────")
@@ -51,14 +51,14 @@ def main_menu(number):
         # Choix du menu
         elif choice in [1, 2, 3, 4]:
             # Lire + enregistrer les données de la table de contraintes sous forme de matrice
-            constraints_table = matrice_table(number)
+            constraints_table = matrice_table(graph_number)
 
             # Stockage du tableau de contraintes dans la mémoire
             graph_data = store_constraints_in_memory(constraints_table)  # Stockage du graphe en mémoire
             graph_data = {key: graph_data[key] for key in sorted(graph_data)}  # Trier par ordre de nœud
 
             # Exécuter le choix de l'utilisateur
-            execute_choice(choice, graph_data, number)
+            execute_choice(choice, graph_data, graph_number)
 
             # Ajout de la demande pour continuer ou quitter le programme
             if not continue_prompt():
@@ -67,8 +67,8 @@ def main_menu(number):
 
         # Changer la table de contraintes
         elif choice == 5:
-            number = change_table()  # Récupérer le nouveau numéro de table
-            constraints_table = matrice_table(number)  # Lire la nouvelle table de contraintes
+            graph_number = change_table()  # Récupérer le nouveau numéro de table
+            constraints_table = matrice_table(graph_number)  # Lire la nouvelle table de contraintes
             graph_data = store_constraints_in_memory(constraints_table)  # Mettre à jour les données en mémoire
             graph_data = {key: graph_data[key] for key in sorted(graph_data)}  # Trier
 
