@@ -106,7 +106,7 @@ def calculate_latest_schedule(graph_data, ranks, projet_fin):
     return latest_start
 
 
-# Fonction pour calculer puis afficher les calendriers, marges et chemin critique
+# Fonction pour calculer puis afficher les calendriers, marges et chemin(s) critique(s)
 def print_schedule_tables(earliest_schedule, latest_schedule, ranks, graph_data, graph_number):
     print(Fore.LIGHTYELLOW_EX + "\n✦" + Style.RESET_ALL + " Calcul des "
           + Fore.BLACK + Back.YELLOW + " calendriers " + Style.RESET_ALL + ", "
@@ -165,5 +165,52 @@ def print_schedule_tables(earliest_schedule, latest_schedule, ranks, graph_data,
     # Affichage du chemin critique
     print(Fore.LIGHTYELLOW_EX + "\nChemin critique : " + " -> ".join(map(str, critical_path)) + Style.RESET_ALL + "\n")
 
-    # Appel de la fonction de dessin du chemin critique
+    # Durée totale du projet à l'aide des dates au plus tôt
+    end_duration = max(earliest_schedule.values())
+
+    # Initialisation : tous les chemins critiques
+    all_critical_paths = []
+
+    # Fonction récursive pour trouver tous les chemins critiques
+    find_critical_paths(graph_data, 0, end_duration, [], all_critical_paths)
+
+    # Vérification et affichage du nombre de chemins critiques trouvés.
+    if all_critical_paths:
+        print(f"Nombre de chemins critiques détectés: {len(all_critical_paths)}")
+        # Affichage de chaque chemin critique, numéroté pour une meilleure lisibilité.
+        for index, path in enumerate(all_critical_paths, start=1):
+            print(f"Chemin critique {index}: {' -> '.join(map(str, path))}")
+    else:
+        # Message informatif indiquant qu'aucun chemin critique n'a été détecté.
+        print("Aucun chemin critique détecté.")
+
+    # Dessiner le graphe avec son chemin critique
     draw_critical_path_graph(graph_data, graph_number, critical_path)
+
+
+# Fonction pour trouver le ou les chemins critiques
+def find_critical_paths(graph_data, start_node, end_duration, current_path=[], all_paths=[]):
+    current_path = current_path + [start_node]
+
+    # Fonction interne pour calculer la durée totale d'un chemin donné
+    def is_path_critical(path, end_duration):
+        return path_duration(path) <= end_duration
+
+    # Fonction interne pour vérifier si un chemin est critique
+    def path_duration(path):
+        return sum(graph_data[node]['duration'] for node in path)
+
+    # Vérification si le nœud actuel est sans successeur et si le chemin correspond à la durée totale du projet
+    if not graph_data[start_node]['successors'] and path_duration(current_path) == end_duration:
+        # Enregistrement du chemin critique
+        all_paths.append(current_path)
+        return
+
+    # Exploration des successeurs du nœud actuel si le chemin est toujours potentiellement critique
+    for successor in graph_data[start_node]['successors']:
+        if is_path_critical(current_path + [successor], end_duration):
+            find_critical_paths(graph_data, successor, end_duration, current_path, all_paths)
+
+
+
+
