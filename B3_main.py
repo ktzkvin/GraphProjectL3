@@ -170,5 +170,6 @@ if __name__ == "__main__":
                 break  # Sortir de la boucle
             else:
                 print(Fore.RED + "\n  ⚠" + Fore.RESET + " Veuillez entrer un chiffre entre 1 et 15.\n")
-        except ValueError:
-            print(Fore.RED + "\n  ⚠" + Fore.RESET + " [ERROR] Veuillez entrer un chiffre entre 1 et 15.\n")
+        except ValueError as e:
+            print(Fore.RED + "\n  ⚠" + Fore.RESET + " [ERROR] Détail de l'erreur : " + Fore.RED + str(e) + "\n" + Style.RESET_ALL)
+
