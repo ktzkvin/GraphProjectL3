@@ -2,7 +2,9 @@ from graphviz import Digraph
 from B3_essentials import *
 
 
+# Fonction pour dessiner le graphe (BONUS)
 def draw_graph(graph_data, graph_number):
+
     # Initialisation
     dot = Digraph(comment=f'Graphe {graph_number}')
 
@@ -14,6 +16,7 @@ def draw_graph(graph_data, graph_number):
 
     # Trouver l'ID max pour Oméga
     omega_id = max(graph_data.keys())
+
     # Ajouter des nœuds pour chaque état dans graph_data
     for state, data in graph_data.items():
 
@@ -35,18 +38,20 @@ def draw_graph(graph_data, graph_number):
             elif data['successors'][0] == omega_id:
                 dot.node(str(state), str(state), shape='circle', color='khaki', style='filled')
 
-            # États normaux
+            # États normaux (tous les autres états)
             else:
                 dot.node(str(state), str(state), shape='circle')
 
     # Ajouter des arcs en utilisant les données de graph_data
     for state, data in graph_data.items():
         for successor in data['successors']:
+
             if successor != omega_id:
                 label = str(data['duration'])
                 dot.edge(str(state), str(successor), label=label)
+
+            # Ajouter un arc vers Oméga pour les états sans successeur
             else:
-                # Ajouter un arc vers Oméga pour les états sans successeur
                 dot.edge(str(state), str(omega_id), label=str(data['duration']))
 
     # Sauvegarde et ouverture automatique du graphe
@@ -56,11 +61,19 @@ def draw_graph(graph_data, graph_number):
     return dot
 
 
+# Fonction pour dessiner le graphe avec son chemin critique (BONUS)
 def draw_critical_path_graph(graph_data, graph_number, critical_path):
+
+    # Initialisation
     dot = Digraph(comment=f'Graphe {graph_number} - Chemin critique')
+
+    # Définir l'orientation du graphe en horizontal
     dot.attr(rankdir='LR')
+
+    # Attributs du graphe (nom, police, etc.)
     dot.attr('graph', label=f'Graphe {graph_number} - Chemin critique', fontsize='30', fontcolor='cornflowerblue', labelloc='t')
 
+    # Trouver l'ID max pour Oméga
     omega_id = max(graph_data.keys())
 
     # Ajouter des nœuds pour chaque état dans graph_data
@@ -85,7 +98,7 @@ def draw_critical_path_graph(graph_data, graph_number, critical_path):
             elif data['successors'][0] == omega_id:
                 dot.node(str(state), str(state), shape='circle', color='khaki', style='filled')
 
-            # États normaux
+            # États normaux (tous les autres états)
             else:
                 dot.node(str(state), str(state), shape='circle')
 
@@ -101,7 +114,7 @@ def draw_critical_path_graph(graph_data, graph_number, critical_path):
                 else:
                     dot.edge(str(state), str(omega_id), label=str(data['duration']))
 
-    # Ajouter des arcs critiques avec style différent
+    # Ajouter des arcs critiques avec un style différent (flèches rouges)
     for start, end in critical_edges:
         duration = graph_data[start]['duration']
         dot.edge(str(start), str(end), label=str(duration), color='red', penwidth='3.0', constraint='true')
