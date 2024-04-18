@@ -25,7 +25,7 @@ Télécharger la version correspondante à votre système d'exploitation :
 - [Autres systèmes d'exploitation](https://gitlab.com/graphviz/graphviz/-/releases)
 
 Lors de l'installation, veuillez cocher la case "Add Graphviz to the system PATH for all users" pour que l'installation soit effective.<br />
-[Installation](https://cdn.discordapp.com/attachments/422113586597593088/1230472943675379752/Screenshot_1.png?ex=6633723a&is=6620fd3a&hm=04154fff374f549da24bf0cd64758d100cb6da0057dea212a899fb0f309e8c23&)
+![Installation](https://cdn.discordapp.com/attachments/422113586597593088/1230472943675379752/Screenshot_1.png?ex=6633723a&is=6620fd3a&hm=04154fff374f549da24bf0cd64758d100cb6da0057dea212a899fb0f309e8c23&)
 
 Toutes commandes à suivre sont à exécuter dans le terminal de votre IDE.
 
