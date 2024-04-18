@@ -15,6 +15,18 @@ Le projet doit s'exécuter sur une série de 14 tables de test. Afin d'explorer 
 
 ## 💾 Installation 
 
+### Prérequis :
+- Python 3.8 ou supérieur
+- Graphviz sur votre machine (pour l'affichage graphique)
+
+Pour installer Graphviz sur votre machine, veuillez suivre les instructions suivantes :
+Télécharger la version correspondante à votre système d'exploitation :
+- [Windows](https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/10.0.1/windows_10_cmake_Release_graphviz-install-10.0.1-win64.exe.sha256)
+- [Autres systèmes d'exploitation](https://gitlab.com/graphviz/graphviz/-/releases)
+
+Lors de l'installation, veuillez cocher la case "Add Graphviz to the system PATH for all users" pour que l'installation soit effective.<br />
+[Installation](https://cdn.discordapp.com/attachments/422113586597593088/1230472943675379752/Screenshot_1.png?ex=6633723a&is=6620fd3a&hm=04154fff374f549da24bf0cd64758d100cb6da0057dea212a899fb0f309e8c23&)
+
 Toutes commandes à suivre sont à exécuter dans le terminal de votre IDE.
 
 ### Installation :
