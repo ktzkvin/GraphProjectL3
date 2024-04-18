@@ -25,8 +25,8 @@ Pour installer Graphviz sur votre machine, veuillez suivre les instructions suiv
 - [Windows](https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/10.0.1/windows_10_cmake_Release_graphviz-install-10.0.1-win64.exe.sha256)
 - [Autres systèmes d'exploitation](https://gitlab.com/graphviz/graphviz/-/releases)
 
-Lors de l'installation, veuillez cocher la case "Add Graphviz to the system PATH for all users" pour que l'installation soit effective.<br />
-![Installation](https://cdn.discordapp.com/attachments/422113586597593088/1230472943675379752/Screenshot_1.png?ex=6633723a&is=6620fd3a&hm=04154fff374f549da24bf0cd64758d100cb6da0057dea212a899fb0f309e8c23&)
+Lors de l'installation, veuillez cocher la case "Add Graphviz to the system PATH for all users" pour que l'installation soit effective.<br /><br />
+![Installation](https://cdn.discordapp.com/attachments/422113586597593088/1230474163651739648/Screenshot_1_1.png?ex=6633735d&is=6620fe5d&hm=1de86b77a671c6c1191d12f03362da7cfc07d63520c5c1248dee86b2cb630aa5&)
 
 
 ### Installation :
