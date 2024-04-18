@@ -11,9 +11,9 @@ omega = chr(969)
 # Demande pour calculer les calendriers ou non
 def prompt_for_calendars():
     while True:  # Boucle jusqu'à ce que l'utilisateur donne une réponse valide
-        user_input = input(Fore.LIGHTBLUE_EX + "\nSouhaitez-vous calculer les calendriers ? ["
-                           + Fore.GREEN + "y" + Fore.LIGHTBLUE_EX + "/"
-                           + Fore.RED + "n" + Fore.LIGHTBLUE_EX + "] "
+        user_input = input(Fore.LIGHTGREEN_EX + "\nSouhaitez-vous calculer les calendriers ? ["
+                           + Fore.GREEN + "y" + Fore.LIGHTGREEN_EX + "/"
+                           + Fore.RED + "n" + Fore.LIGHTGREEN_EX + "] "
                            + Style.RESET_ALL).lower()
         if user_input == 'y':
             return True
