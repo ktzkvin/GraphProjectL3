@@ -29,7 +29,7 @@ Lors de l'installation, veuillez cocher la case "Add Graphviz to the system PATH
 ![Installation](https://cdn.discordapp.com/attachments/422113586597593088/1230474163651739648/Screenshot_1_1.png?ex=6633735d&is=6620fe5d&hm=1de86b77a671c6c1191d12f03362da7cfc07d63520c5c1248dee86b2cb630aa5&)
 
 
-### Installation :
+### Installation du projet :
 
 Toutes commandes à suivre sont à exécuter dans le terminal de votre IDE.
 
